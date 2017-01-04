@@ -11,12 +11,10 @@ public class Sound
 
 	public void startSound(String sound)
 	{
-
 	}
 
 	public void stopSound(String sound)
 	{
-
 	}
 
 	private void init()
