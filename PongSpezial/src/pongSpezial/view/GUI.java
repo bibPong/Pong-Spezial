@@ -28,6 +28,7 @@ public class GUI extends Application
 	private Dictionary<Integer, Color> playerColors;
 	private String name;
 	
+	
 
 	public GUI()
 	{
