@@ -8,7 +8,6 @@ import javafx.scene.control.ToggleButton;
 
 public class GUI
 {
-
 	@FXML 
 	private Button closeGamescreen;
 	
@@ -26,6 +25,16 @@ public class GUI
 	{
 		//Turn the sound on or off
 	}
-
-
+	
+	
+	private BoardState boeardstate;
+	private State state;
+	private boolean isSinglePlayer;
+	private Dictionary<Integer, Color> playerColors;
+	private String name;
+	
+	public GUI()
+	{
+		this.state = State.SPLASH;
+	}
 }
