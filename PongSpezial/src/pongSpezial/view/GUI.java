@@ -27,6 +27,7 @@ public class GUI extends Application
 	private boolean isSinglePlayer;
 	private Dictionary<Integer, Color> playerColors;
 	private String name;
+	
 
 	public GUI()
 	{
