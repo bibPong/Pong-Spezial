@@ -4,7 +4,6 @@ import java.util.List;
 
 public class BoardState
 {
-	private static BoardState boardstate =new BoardState();
 	
 	private BoardState()
 	{}
@@ -19,9 +18,9 @@ public class BoardState
 		Geometries = geometries;
 	}
 
-	public static BoardState getBoardstate() {
+	/*public static BoardState getBoardstate() {
 		return boardstate;
-	}
+	}*/
 
 }
 
