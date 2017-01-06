@@ -37,7 +37,8 @@ public class Client implements Runnable
 	
 	public void updateGUI()
 	{
-		boardState  = BoardState.getBoardstate();
+		// In BoardState geändert
+		//boardState  = BoardState.getBoardstate();
 		System.out.println(boardState.getGeometries());
 	}
 	
