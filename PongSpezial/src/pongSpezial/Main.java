@@ -23,7 +23,7 @@ public class Main extends Application {
 
 		GUI myGui = new GUI();
 		
-		myGui.showScreenType(primaryStage, "LobbyGUImp.fxml", "SplashScreen");
+		myGui.showScreenType(primaryStage, "SplashScreen.fxml", "SplashScreen");
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>()
 		{
 			@Override
