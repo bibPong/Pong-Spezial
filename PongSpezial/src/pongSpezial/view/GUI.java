@@ -123,7 +123,8 @@ public class GUI extends Application
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setTitle(title);
 		primaryStage.show();
-
+		
+		
 	}
 
 }

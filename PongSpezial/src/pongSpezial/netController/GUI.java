@@ -8,11 +8,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import pongSpezial.dataModel.BoardState;
 import pongSpezial.view.State;
 
 public class GUI
 {
+		
 	@FXML 
 	private Button closeGamescreen;
 	
