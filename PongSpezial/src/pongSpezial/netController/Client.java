@@ -1,6 +1,7 @@
 package pongSpezial.netController;
 
-import pongSpezial.dataModel.BoardState;
+import pongSpezial.dataModel.*;
+
 
 public class Client implements Runnable
 {
@@ -55,15 +56,19 @@ public class Client implements Runnable
 	{
 		// In BoardState geändert
 		//boardState  = BoardState.getBoardstate();
-		Ball ball = new Ball();
-		Edge sp1 = new Edge();
-		Edge sp2 = new Edge();
-		Edge sp3 = new Edge();
-		Edge sp4 = new Edge();
-		Bar balk1 = new Bar();
-		Bar balk2 = new Bar();
-		Bar balk3 = new Bar();
-		Bar balk4 = new Bar();
+		Ball ball = new Ball(2);
+		Edge sp1 = new Edge(new Point2D(2,3), PLAYERGOALEDGE);
+		Edge sp2 = new Edge(new Point2D(2,3), PLAYERGOALEDGE);
+		Edge sp3 = new Edge(new Point2D(2,3), PLAYERGOALEDGE);
+		Edge sp4 = new Edge(new Point2D(2,3), PLAYERGOALEDGE);
+		Edge co1 = new Edge(new Point2D(2,3), CORNEREDGE);
+		Edge co2 = new Edge(new Point2D(2,3), CORNEREDGE);
+		Edge co3 = new Edge(new Point2D(2,3), CORNEREDGE);
+		Edge co4 = new Edge(new Point2D(2,3), CORNEREDGE);
+		Bar balk1 = new Bar(3);
+		Bar balk2 = new Bar(3);
+		Bar balk3 = new Bar(3);
+		Bar balk4 = new Bar(3);
 		
 		List<Geometry> teststates = new List<Geometry>();
 		teststates.add(ball);
@@ -75,7 +80,10 @@ public class Client implements Runnable
 		teststates.add(balk2);
 		teststates.add(balk3);
 		teststates.add(balk4);
-		
+		teststates.add(co1);
+		teststates.add(co2);
+		teststates.add(co3);
+		teststates.add(co4);
 		
 		
 		boardState.setGeometries(teststates);
