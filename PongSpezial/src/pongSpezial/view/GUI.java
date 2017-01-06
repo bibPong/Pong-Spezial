@@ -33,14 +33,14 @@ public class GUI extends Application
 	public GUI(State state)
 	{
 		this.state = state;
-		System.out.println("Im Konstruktor");
+		
 		
 	}
 
 	@Override
 	public void start(Stage primaryStage)
 	{
-		System.out.println("In start methode");
+		
 		try
 		{
 
