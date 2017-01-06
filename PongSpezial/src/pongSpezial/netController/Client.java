@@ -26,6 +26,8 @@ public class Client implements Runnable
 		{
 			System.out.println(e);
 		}
+		
+		updateGUI();
 	}
 
 	public void validateInput()
@@ -35,7 +37,8 @@ public class Client implements Runnable
 	
 	public void updateGUI()
 	{
-		
+		boardState  = BoardState.getBoardstate();
+		System.out.println(boardState.getGeometries());
 	}
 	
 }
