@@ -1,10 +1,15 @@
 package pongSpezial.netController;
 
 
+import java.util.Dictionary;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.paint.Color;
+import pongSpezial.dataModel.BoardState;
+import pongSpezial.view.State;
 
 public class GUI
 {

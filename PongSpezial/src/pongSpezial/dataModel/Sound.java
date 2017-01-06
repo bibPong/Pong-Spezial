@@ -1,5 +1,10 @@
 package pongSpezial.dataModel;
 
+import java.io.File;
+import java.util.Dictionary;
+
+import javafx.scene.media.Media;
+
 public class Sound 
 {
 	private Dictionary<String, Media> sounds;

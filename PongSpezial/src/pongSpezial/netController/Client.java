@@ -4,9 +4,10 @@ import pongSpezial.dataModel.BoardState;
 
 public class Client implements Runnable
 {
-
+	
 	private BoardState boardState;
 	private NetworkAddress serverIP;
+	
 	
 	public Client(BoardState boardState, NetworkAddress serverIP)
 	{
@@ -37,5 +38,7 @@ public class Client implements Runnable
 	{
 		
 	}
+	
+	
 	
 }

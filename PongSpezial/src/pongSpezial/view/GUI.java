@@ -12,15 +12,15 @@ import pongSpezial.dataModel.BoardState;
 public class GUI extends Application
 {
 
-	private final String SPLASH_SCREEN_PATH = "";
-	private final String MEINMENU_SCREEN_PATH = "";
-	private final String NAMEENTRY_SCREEN_PATH = "";
-	private final String HOSTANDJOIN_SCREEN_PATH = "";
-	private final String SPCONFIG_SCREEN_PATH = "";
-	private final String MPCONFIG_SCREEN_PATH = "";
-	private final String MPJOIN_SCREEN_PATH = "";
-	private final String LOBBY_SCREEN_PATH = "";
-	private final String GAME_SCREEN_PATH = "";
+	private final String SPLASH_SCREEN_PATH = "SlpashScreen.fxml"; // DS
+	private final String MAINMENU_SCREEN_PATH = "MainMenu.fxml"; // DS
+	private final String NAMEENTRY_SCREEN_PATH = "Nameentry.fxml"; // DS
+	private final String HOSTANDJOIN_SCREEN_PATH = "HostandJoin.fxml"; //DS
+	private final String SPCONFIG_SCREEN_PATH = "SpConfig.fxml";
+	private final String MPCONFIG_SCREEN_PATH = "MpConfig.fxml";
+	private final String MPJOIN_SCREEN_PATH = "MpJoin.fxml"; 
+	private final String LOBBY_SCREEN_PATH = "LobbyScreen.fxml";
+	private final String GAME_SCREEN_PATH = "GameScreen.fxml";
 	
 	private BoardState boeardstate;
 	private State state;
@@ -45,13 +45,13 @@ public class GUI extends Application
 			{
 				case SPLASH :
 
-					showScreenType(primaryStage, SPLASH_SCREEN_PATH , "title");
+					showScreenType(primaryStage, SPLASH_SCREEN_PATH , "Splashscreen");
 
 					break;
 
 				case MAINMENU :
 
-					showScreenType(primaryStage, MEINMENU_SCREEN_PATH, "title");
+					showScreenType(primaryStage, MAINMENU_SCREEN_PATH, "Mainmenu");
 
 					break;
 
@@ -113,8 +113,7 @@ public class GUI extends Application
 	}
 
 	
-	public void showScreenType(Stage primaryStage, String screenPath,
-			String title) throws IOException
+	public void showScreenType(Stage primaryStage, String screenPath,String title) throws IOException
 	{
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(screenPath));
 		Parent root = loader.load();
