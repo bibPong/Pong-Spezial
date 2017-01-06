@@ -12,7 +12,7 @@ import pongSpezial.dataModel.BoardState;
 public class GUI extends Application
 {
 
-	private final String SPLASH_SCREEN_PATH = "SlpashScreen.fxml"; // DS
+	private final String SPLASH_SCREEN_PATH = "SplashScreen.fxml"; // DS
 	private final String MAINMENU_SCREEN_PATH = "MainMenu.fxml"; // DS
 	private final String NAMEENTRY_SCREEN_PATH = "Nameentry.fxml"; // DS
 	private final String HOSTANDJOIN_SCREEN_PATH = "HostandJoin.fxml"; //DS
@@ -23,21 +23,24 @@ public class GUI extends Application
 	private final String GAME_SCREEN_PATH = "GameScreen.fxml";
 	
 	private BoardState boeardstate;
-	private State state;
+	private State state ;
 	private boolean isSinglePlayer;
 	private Dictionary<Integer, Color> playerColors;
 	private String name;
 	
 	
 
-	public GUI()
+	public GUI(State state)
 	{
-		this.state = State.SPLASH;
+		this.state = state;
+		
+		
 	}
 
 	@Override
 	public void start(Stage primaryStage)
 	{
+		
 		try
 		{
 
@@ -120,7 +123,8 @@ public class GUI extends Application
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setTitle(title);
 		primaryStage.show();
-
+		
+		
 	}
 
 }

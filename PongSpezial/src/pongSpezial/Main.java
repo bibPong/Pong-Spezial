@@ -21,9 +21,13 @@ public class Main extends Application {
 		Thread thread = new Thread(client);
 		thread.start();
 
-		GUI myGui = new GUI();
+		State state = State.SPLASH;
+		GUI myGui = new GUI(state);
+		myGui.start(primaryStage);
 		
-		myGui.showScreenType(primaryStage, "SplashScreen.fxml", "SplashScreen");
+		
+		
+		
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>()
 		{
 			@Override
