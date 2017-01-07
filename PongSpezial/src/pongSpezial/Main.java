@@ -1,5 +1,5 @@
 package pongSpezial;
-	
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -19,8 +19,8 @@ public class Main extends Application {
 		thread.start();
 
 		State state = State.SPLASH;
-		GUI myGui = new GUI(state);
-		myGui.start(primaryStage);
+		pongSpezial.view.GUI startGui = new GUI(state);
+		startGui.start(primaryStage);
 		
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>()
 		{

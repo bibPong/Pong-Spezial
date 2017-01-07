@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pongSpezial.dataModel.BoardState;
+import pongSpezial.netController.*;
 
 public class GUI extends Application
 {
@@ -123,6 +124,12 @@ public class GUI extends Application
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setTitle(title);
 		primaryStage.show();
+		
+		//Controller ist GUI aus package pongSpezial.netController
+		
+		pongSpezial.netController.GUI controller = loader.getController();
+		
+		
 		
 		
 	}

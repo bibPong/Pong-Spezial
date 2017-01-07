@@ -1,21 +1,26 @@
 package pongSpezial.dataModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoardState
 {
+
+	private static List<Geometry>geometries;
 	
-	private BoardState()
-	{}
+	public BoardState()
+	{
+		geometries = new ArrayList<Geometry>();
+		
+	}
 	
-	private static List<Geometry>Geometries;
 	
 	public static List<Geometry> getGeometries() {
-		return Geometries;
+		return geometries;
 	}
 
 	public void setGeometries(List<Geometry> geometries) {
-		Geometries = geometries;
+		geometries = geometries;
 	}
 
 	/*public static BoardState getBoardstate() {

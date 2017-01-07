@@ -1,6 +1,11 @@
 package pongSpezial.netController;
 
 import pongSpezial.dataModel.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javafx.geometry.Point2D;
 import javafx.scene.input.KeyEvent;
 import pongSpezial.dataModel.BoardState;
 import pongSpezial.gameLogic.InputHandler;
@@ -24,6 +29,7 @@ public class Client implements Runnable
 	// Zum testen
 	public Client()
 	{
+		this.boardState = new BoardState();
 		this.running = true;
 		this.inputHandler = new InputHandler(1);
 	}
@@ -88,20 +94,22 @@ public class Client implements Runnable
 		// In BoardState geändert
 		//boardState  = BoardState.getBoardstate();
 		Ball ball = new Ball(2);
-		Edge sp1 = new Edge(new Point2D(2,3), PLAYERGOALEDGE);
-		Edge sp2 = new Edge(new Point2D(2,5), PLAYERGOALEDGE);
-		Edge sp3 = new Edge(new Point2D(2,4), PLAYERGOALEDGE);
-		Edge sp4 = new Edge(new Point2D(1,3), PLAYERGOALEDGE);
-		Edge co1 = new Edge(new Point2D(1,3), CORNEREDGE);
-		Edge co2 = new Edge(new Point2D(2,3), CORNEREDGE);
-		Edge co3 = new Edge(new Point2D(3,3), CORNEREDGE);
-		Edge co4 = new Edge(new Point2D(2,1), CORNEREDGE);
+		Edge sp1 = new Edge(new Point2D(2,3), EdgeType.PLAYERGOALEDGE);
+		Edge sp2 = new Edge(new Point2D(2,5), EdgeType.PLAYERGOALEDGE);
+		Edge sp3 = new Edge(new Point2D(2,4), EdgeType.PLAYERGOALEDGE);
+		Edge sp4 = new Edge(new Point2D(1,3), EdgeType.PLAYERGOALEDGE);
+		Edge co1 = new Edge(new Point2D(1,3), EdgeType.CORNEREDGE);
+		Edge co2 = new Edge(new Point2D(2,3), EdgeType.CORNEREDGE);
+		Edge co3 = new Edge(new Point2D(3,3), EdgeType.CORNEREDGE);
+		Edge co4 = new Edge(new Point2D(2,1), EdgeType.CORNEREDGE);
 		Bar balk1 = new Bar(3);
 		Bar balk2 = new Bar(3);
 		Bar balk3 = new Bar(3);
 		Bar balk4 = new Bar(3);
 		
-		List<Geometry> teststates = new List<Geometry>();
+		
+		
+		List<Geometry> teststates = new ArrayList<Geometry>();
 		teststates.add(ball);
 		teststates.add(sp1);
 		teststates.add(sp2);
@@ -115,6 +123,8 @@ public class Client implements Runnable
 		teststates.add(co2);
 		teststates.add(co3);
 		teststates.add(co4);
+		
+		
 		
 		
 		boardState.setGeometries(teststates);
