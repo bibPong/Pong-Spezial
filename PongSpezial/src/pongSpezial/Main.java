@@ -19,7 +19,7 @@ public class Main extends Application {
 		thread.start();
 
 		State state = State.SPLASH;
-		pongSpezial.view.GUI startGui = new GUI(state);
+		pongSpezial.view.GUI startGui = new GUI(state, client);
 		startGui.start(primaryStage);
 		
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>()

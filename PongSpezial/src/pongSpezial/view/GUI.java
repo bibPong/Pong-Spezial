@@ -3,9 +3,11 @@ import java.io.IOException;
 import java.util.Dictionary;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import pongSpezial.dataModel.BoardState;
 import pongSpezial.netController.*;
@@ -28,14 +30,12 @@ public class GUI extends Application
 	private boolean isSinglePlayer;
 	private Dictionary<Integer, Color> playerColors;
 	private String name;
-	
-	
+	private Client client;
 
-	public GUI(State state)
+	public GUI(State state, Client client)
 	{
 		this.state = state;
-		
-		
+		this.client = client;
 	}
 
 	@Override
@@ -126,6 +126,21 @@ public class GUI extends Application
 		primaryStage.show();
 		
 		//Controller ist GUI aus package pongSpezial.netController
+		
+		//Bind Key Events - example
+        primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                
+            }
+        });
+
+        primaryStage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                
+            }
+        });
 		
 		pongSpezial.netController.GUI controller = loader.getController();
 		
