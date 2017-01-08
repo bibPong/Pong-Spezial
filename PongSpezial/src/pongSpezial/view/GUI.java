@@ -38,6 +38,15 @@ public class GUI extends Application
 		this.state = state;
 		this.client = client;
 	}
+	
+	// Testkonstruktor
+	public GUI(State state)
+	{
+		this.state=state;
+		
+	}
+	
+	//Testkonstruktor
 
 	@Override
 	public void start(Stage primaryStage)

@@ -12,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pongSpezial.dataModel.BoardState;
+//import pongSpezial.view.GUI;
 import pongSpezial.view.State;
 
 public class GUI
@@ -21,19 +22,37 @@ public class GUI
 	@FXML
 	private Button test;
 	
+	@FXML
+	private Button test2;
 	
-	public void testFunction()
-	{
-		
-		
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("TEST");
-		alert.setHeaderText("Controller Class funktioniert");
-		alert.setContentText("Alles funktioniert");
-		
-		alert.showAndWait();
-	}
+	State testState;
+	Stage primaryStage = new Stage();
 	
+	
+	
+	// Testfunktion um zwischen GUI's zu wechseln
+		public void setTestStateOnClickTestButton()
+		{
+			testState = State.GAME;
+			guiSwitchTest();
+		}	
+		
+		public void setTestStateOnClickTest2Button()
+		{
+			testState = State.MAINMENU;	
+			guiSwitchTest();
+		}
+	
+		public void guiSwitchTest()
+		{
+			pongSpezial.view.GUI gui = new pongSpezial.view.GUI(testState);
+			gui.start(primaryStage);
+		}
+		
+		
+		
+		
+		
 	//zum testen
 	
 	

@@ -8,7 +8,8 @@
    <children>
       <Pane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <Button fx:id="test" layoutX="74.0" layoutY="88.0" mnemonicParsing="false" onAction="#testFunction" text="test" />
+            <Button fx:id="test" layoutX="74.0" layoutY="88.0" mnemonicParsing="false" onAction="#setTestStateOnClickTestButton" text="test" />
+            <Button fx:id="test2" layoutX="66.0" layoutY="121.0" mnemonicParsing="false" onAction="#setTestStateOnClickTest2Button" text="test2" />
          </children></Pane>
    </children>
 </AnchorPane>
