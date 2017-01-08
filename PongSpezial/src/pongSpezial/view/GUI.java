@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import pongSpezial.dataModel.BoardState;
@@ -131,18 +132,22 @@ public class GUI extends Application
         primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                
+            	client.validateInput(event);
             }
         });
 
         primaryStage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
+            	
+            	
+            	
+            	client.validateInput(event);
                 
             }
         });
 		
-		pongSpezial.netController.GUI controller = loader.getController();
+		//pongSpezial.netController.GUI controller = loader.getController();
 		
 		
 		

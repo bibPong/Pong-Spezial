@@ -18,7 +18,7 @@ public class Main extends Application {
 		Thread thread = new Thread(client);
 		thread.start();
 
-		State state = State.SPLASH;
+		State state = State.GAME;
 		pongSpezial.view.GUI startGui = new GUI(state, client);
 		startGui.start(primaryStage);
 		
