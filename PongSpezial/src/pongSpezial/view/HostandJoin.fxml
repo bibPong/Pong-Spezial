@@ -10,18 +10,18 @@
    <children>
       <Pane prefHeight="900.0" prefWidth="600.0">
          <children>
-            <Button layoutX="225.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Spiel eröffnen" />
-            <Label layoutX="178.0" layoutY="30.0" text="Host or Join Menü">
+            <Button layoutX="225.0" layoutY="175.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Host" />
+            <Label layoutX="178.0" layoutY="30.0" text="Host or Join Menu">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label layoutX="73.0" layoutY="85.0" text="Am Spiel teilnehmen oder ein neues Spiel erstellen?">
+            <Label layoutX="158.0" layoutY="86.0" text="Participate or start a new game?">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button layoutX="226.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Spiel beitreten" />
+            <Button layoutX="226.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Join" />
          </children>
       </Pane>
    </children>

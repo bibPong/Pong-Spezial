@@ -34,7 +34,7 @@ public class GUI
 	@FXML
 	private Button btn_nameConfirm;
 	@FXML
-	private TextField txf_NameEntry;
+	private TextField txf_nameEntry;
 	
 	//HostAndJoin
 	@FXML

@@ -6,23 +6,23 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pongSpezial.netController.GUI">
    <children>
       <Pane prefHeight="900.0" prefWidth="600.0">
          <children>
             <Button layoutX="226.0" layoutY="167.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Single Player" />
-            <Label layoutX="222.0" layoutY="30.0" text="Hauptmenü">
+            <Label layoutX="222.0" layoutY="30.0" text="Main Menu">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label layoutX="145.0" layoutY="84.0" text="Bitte eine der Optionen auswählen!">
+            <Label layoutX="194.0" layoutY="85.0" text="Please select an option!">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             <Button layoutX="226.0" layoutY="204.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Multi Player" />
-            <Button layoutX="226.0" layoutY="279.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Spiel Beenden" />
+            <Button layoutX="226.0" layoutY="279.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Quit" />
          </children>
       </Pane>
    </children>

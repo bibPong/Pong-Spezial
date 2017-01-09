@@ -17,12 +17,12 @@
                   <Font size="15.0" />
                </font></Label>
             <Button layoutX="257.0" layoutY="235.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="OK" />
-            <Label layoutX="144.0" layoutY="29.0" text="Spielernamen eingeben">
+            <Label layoutX="191.0" layoutY="28.0" text="Enter your name">
                <font>
                   <Font size="30.0" />
                </font>
             </Label>
-            <Label layoutX="21.0" layoutY="84.0" text="Bitte den Namen eintragen, der im Spiel verwendet werden soll!">
+            <Label layoutX="99.0" layoutY="84.0" text="Please enter the name appearing in the game!">
                <font>
                   <Font size="20.0" />
                </font>
