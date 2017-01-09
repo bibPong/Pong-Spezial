@@ -1,30 +1,24 @@
 package pongSpezial.view;
 
-<<<<<<< HEAD
+import java.util.List;
 
-=======
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
->>>>>>> branch 'master' of https://github.com/fortytwoish/Pong-Spezial.git
-
-<<<<<<< HEAD
-import javafx.animation.FadeTransition;
-import javafx.fxml.FXML;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import pongSpezial.dataModel.Geometry;
 
 
-public class GameScreen {
+public class GameScreen extends Application {
 	
 	@FXML
 	private Circle ball;
@@ -60,14 +54,164 @@ public class GameScreen {
 	private Rectangle co4;
 	@FXML
 	private Rectangle co41;
+	@FXML
+	private Button closeGamescreen;
+	@FXML
+	private ToggleButton soundToggle;
 	
-	public void drawScreen()
+	private boolean firstStart;
+	
+	public void drawGameScreen(List<Geometry> list)
 	{
 		
-		
-	
+		if(firstStart){
+			for (Geometry geometry : list)
+			{
+				Point2D test = geometry.getPosition();
+				
+				switch (geometry.getClass().toString())
+				{
+				case "balk1":
+					
+					if(test.getX()==0)
+					{
+						fadeOutBars(balk1);
+						
+					}
+					else
+					{
+						fadeOutBars(sp1);
+						balk1.setLayoutX(test.getX());
+						balk1.setLayoutY(test.getY());
+					}
+					break;
+					
+				case "balk2":
+					if(test.getX()==0)
+					{
+						fadeOutBars(balk2);
+						
+					}
+					else
+					{
+						fadeOutBars(sp2);
+						balk2.setLayoutX(test.getX());
+						balk2.setLayoutY(test.getY());
+					}
+					break;
+					
+				case "balk3":
+					if(test.getY()==0)
+					{
+						fadeOutBars(balk3);
+						
+					}
+					else
+					{
+						fadeOutBars(sp3);
+						balk3.setLayoutX(test.getX());
+						balk3.setLayoutY(test.getY());
+					}
+					break;
+					
+				case "balk4":
+					if(test.getY()==0)
+					{
+						fadeOutBars(balk4);
+						
+					}
+					else
+					{
+						fadeOutBars(sp4);
+						balk4.setLayoutX(test.getX());
+						balk4.setLayoutY(test.getY());
+					}
+					break;
+					
+				case "ball":
+						ball.setLayoutX(test.getX());
+						ball.setLayoutY(test.getY());
+					break;
+
+				default:
+					break;
+				}
+
+				
+			}
+				firstStart = false;
+			}
+			else
+			{
+				for (Geometry geometry : list)
+				{
+					Point2D test = geometry.getPosition();
+					
+					switch (geometry.getClass().toString())
+					{
+					case "balk1":
+						
+						if(test.getX()==0)
+						{
+							fadeOutBars(balk1);
+							fadeInBars(sp1);
+						}
+						else
+						{
+							balk1.setLayoutY(test.getY());
+						}
+						break;
+						
+					case "balk2":
+						if(test.getX()==0)
+						{
+							fadeOutBars(balk2);
+							fadeInBars(sp2);
+						}
+						else
+						{
+							balk2.setLayoutY(test.getY());
+						}
+						break;
+						
+					case "balk3":
+						if(test.getY()==0)
+						{
+							fadeOutBars(balk3);
+							fadeInBars(sp3);
+						}
+						else
+						{
+							balk3.setLayoutX(test.getX());
+						}
+						break;
+						
+					case "balk4":
+						if(test.getY()==0)
+						{
+							fadeOutBars(balk4);
+							fadeInBars(sp4);
+						}
+						else
+						{
+							balk4.setLayoutX(test.getX());
+						}
+						break;
+						
+					case "ball":
+							ball.setLayoutX(test.getX());
+							ball.setLayoutY(test.getY());
+						break;
+
+					default:
+						break;
+					}
+				}
+			}
+			
 		
 	}
+	
 	
 	public void fadeOutBars(Rectangle name)
 	{
@@ -78,33 +222,16 @@ public class GameScreen {
 
 		fade.play();
 	}
-
 	
-
-	@FXML
-	private Button closeGamescreen;
-	@FXML
-	private ToggleButton soundToggle;
-	
-	
-	@FXML
-	private void switchOnOff()
+	public void fadeInBars(Rectangle name)
 	{
-		
-		
+		FadeTransition fade = new FadeTransition(Duration.millis(1000), name);
+		fade.setFromValue(0);
+		fade.setToValue(1.0);
+		fade.setAutoReverse(true);
+
+		fade.play();
 	}
-	
-	@FXML
-	private void closeScreen()
-	{
-		
-		
-		   Stage stage = (Stage) closeGamescreen.getScene().getWindow();
-		    stage.close();
-	}
-	
-=======
-public class GameScreen extends Application{
 
 	private  int xResolution;
 	private  int yResolution;
@@ -120,11 +247,7 @@ public class GameScreen extends Application{
 	    launch(args);
 	} 
 
-	@FXML
-	private Button closeGamescreen;
-	@FXML
-	private ToggleButton soundToggle;
-	
+
 	
 	@FXML
 	private void switchOnOff()
@@ -179,5 +302,5 @@ public class GameScreen extends Application{
 			stage.show();
 		}
 	}
->>>>>>> branch 'master' of https://github.com/fortytwoish/Pong-Spezial.git
+
 }
