@@ -1,11 +1,16 @@
 package pongSpezial.view;
 
 
+
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
+import javafx.stage.Stage;
+
 
 public class GameScreen {
 	
@@ -48,17 +53,7 @@ public class GameScreen {
 	{
 		
 		
-		for (int i = 0; i < boardstate.size(); i++) {
-			
-			switch (boardstate.get(i)) {
-		case "player":
-				
-			break;
-
-		default:
-			break;
-		}
-		}
+	
 		
 	}
 	
@@ -74,4 +69,26 @@ public class GameScreen {
 
 	
 
+	@FXML
+	private Button closeGamescreen;
+	@FXML
+	private ToggleButton soundToggle;
+	
+	
+	@FXML
+	private void switchOnOff()
+	{
+		
+		
+	}
+	
+	@FXML
+	private void closeScreen()
+	{
+		
+		
+		   Stage stage = (Stage) closeGamescreen.getScene().getWindow();
+		    stage.close();
+	}
+	
 }
