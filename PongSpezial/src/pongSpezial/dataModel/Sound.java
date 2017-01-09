@@ -40,6 +40,22 @@ public class Sound
 			}
 		}
 	}
+	
+	public void startAll(String sound)
+	{
+		for (int i = 0; i < mediaPlayers.size(); i++)							// start all sounds
+		{		
+			mediaPlayers.elementAt(i).play();	
+		}
+	}
+	
+	public void stopAll(String sound)
+	{
+		for (int i = 0; i < mediaPlayers.size(); i++)							// stop all sounds
+		{		
+			mediaPlayers.elementAt(i).stop();	
+		}
+	}
 
 	private void init()
 	{
