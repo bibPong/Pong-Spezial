@@ -1,5 +1,77 @@
 package pongSpezial.view;
 
+
+import javafx.animation.FadeTransition;
+import javafx.fxml.FXML;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
+
 public class GameScreen {
+	
+	@FXML
+	private Circle ball;
+	@FXML
+	private Rectangle sp1;
+	@FXML
+	private Rectangle sp2;
+	@FXML
+	private Rectangle sp3;
+	@FXML
+	private Rectangle sp4;
+	@FXML
+	private Rectangle balk1;
+	@FXML
+	private Rectangle balk2;
+	@FXML
+	private Rectangle balk3;
+	@FXML
+	private Rectangle balk4;
+	@FXML
+	private Rectangle co1;
+	@FXML
+	private Rectangle co11;
+	@FXML
+	private Rectangle co2;
+	@FXML
+	private Rectangle co21;
+	@FXML
+	private Rectangle co3;
+	@FXML
+	private Rectangle co31;
+	@FXML
+	private Rectangle co4;
+	@FXML
+	private Rectangle co41;
+	
+	public void drawScreen()
+	{
+		
+		
+		for (int i = 0; i < boardstate.size(); i++) {
+			
+			switch (boardstate.get(i)) {
+		case "player":
+				
+			break;
+
+		default:
+			break;
+		}
+		}
+		
+	}
+	
+	public void fadeOutBars(Rectangle name)
+	{
+		FadeTransition fade = new FadeTransition(Duration.millis(1000), name);
+		fade.setFromValue(1.0);
+		fade.setToValue(0);
+		fade.setAutoReverse(true);
+
+		fade.play();
+	}
+
+	
 
 }
