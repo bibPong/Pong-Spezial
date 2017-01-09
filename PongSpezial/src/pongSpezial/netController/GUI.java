@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Color;
@@ -17,10 +18,30 @@ import pongSpezial.view.State;
 
 public class GUI
 {
-	//MainMenu
-	//zum testsen
+	//SplashScreen
 	@FXML
-	private Button test;
+	private Button btn_firstStart;
+	
+	//MainMenu
+	@FXML
+	private Button btn_sp;
+	@FXML
+	private Button btn_mp;
+	@FXML
+	private Button btn_close;
+	
+	//NameEntry
+	@FXML
+	private Button btn_nameConfirm;
+	@FXML
+	private TextField txf_NameEntry;
+	
+	//HostAndJoin
+	@FXML
+	private Button btn_selectHost;
+	@FXML
+	private Button btn_selectJoin;
+	
 	
 	@FXML
 	private Button test2;
