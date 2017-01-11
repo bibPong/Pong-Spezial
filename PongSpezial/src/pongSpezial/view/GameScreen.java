@@ -20,6 +20,9 @@ import pongSpezial.dataModel.Geometry;
 
 public class GameScreen extends Application {
 	
+	private int xResolution;
+	private  int yResolution;
+	
 	@FXML
 	private Circle ball;
 	@FXML
@@ -233,8 +236,7 @@ public class GameScreen extends Application {
 		fade.play();
 	}
 
-	private  int xResolution;
-	private  int yResolution;
+	
 	
 	public void start(Stage stage)
 	{
@@ -264,43 +266,14 @@ public class GameScreen extends Application {
 		   Stage stage = (Stage) closeGamescreen.getScene().getWindow();
 		    stage.close();
 	}
-
+	
+	
+	
 	public void scale()
 	{
-		GridPane grid = new GridPane();
-
-		int screenWidth = (int) Screen.getPrimary().getBounds().getMaxX();
-		int screenHeight =(int) Screen.getPrimary().getBounds().getMaxY();
+		this.xResolution = (int) Screen.getPrimary().getBounds().getMaxX();
+		this.yResolution = (int) (Screen.getPrimary().getBounds().getMaxY() * 0.8);
 		
-//		System.out.println(screenWidth);
-//		System.out.println(screenHeight);
-		xResolution = (int)(screenWidth * 0.35);
-		yResolution = (int)(screenHeight * 0.55);
-			
-		if(xResolution > yResolution)
-		{
-			Scene scene = new Scene(grid, xResolution, yResolution);
-			grid.setRotate(0.0);
-//			System.out.println(xResolution + " x " + xResolution);	
-			Stage stage = new Stage();
-			stage.setTitle("Pong-Spezial");
-			stage.setResizable(false);
-			
-			stage.setScene(scene);
-			stage.show();
-		}
-		else
-		{
-			Scene scene = new Scene(grid, xResolution, xResolution);
-			grid.setRotate(0.0);
-//			System.out.println(xResolution + " x " + xResolution);	
-			Stage stage = new Stage();
-			stage.setTitle("Pong-Spezial");
-			stage.setResizable(false);
-			
-			stage.setScene(scene);
-			stage.show();
-		}
+		this.xResolution = this.yResolution;
 	}
-
 }
