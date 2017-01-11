@@ -20,7 +20,8 @@ import pongSpezial.dataModel.BoardState;
 //import pongSpezial.view.GUI;
 import pongSpezial.view.State;
 
-public class GUI extends Application {
+public class GUI  
+{
 
 	private final String SPLASH_SCREEN_PATH = "/pongSpezial/view/SplashScreen.fxml"; // DS
 	private final String MAINMENU_SCREEN_PATH = "/pongSpezial/view/MainMenu.fxml"; // DS
@@ -71,6 +72,7 @@ public class GUI extends Application {
 	private Dictionary<Integer, Color> playerColors;
 	private String name;
 	private Client client;
+	private Stage primaryStage;
 
 	public GUI(State state) {
 		this.state = state;
@@ -90,28 +92,26 @@ public class GUI extends Application {
 	public void switchOnOff(ActionEvent event) {
 		// Turn the sound on or off
 	}
+	
+	public void click()
+	{
+		btn_firstStart.setOnAction(new EventHandler<ActionEvent>() {
+			
+			
+			@Override
+			public void handle(ActionEvent event) {
 
-	// Testfunktion um zwischen GUI's zu wechseln
-	// public void setTestStateOnClickTestButton()
-	// {
-	// testState = State.GAME;
-	// guiSwitchTest();
-	// }
-	//
-	// public void setTestStateOnClickTest2Button()
-	// {
-	// testState = State.MAINMENU;
-	// guiSwitchTest();
-	// }
-	//
-	// public void guiSwitchTest()
-	// {
-	// pongSpezial.view.GUI gui = new pongSpezial.view.GUI(testState);
-	// gui.start(primaryStage);
-	// }
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+				while(true)
+					System.out.println("asdfasdfasdfasdfasdfasdfasdf");
+				
+			}
+		});
+		
+	}
+
+	public void switchScreen(Stage primaryStage) 
+	{
 		try {
 
 			switch (state) {

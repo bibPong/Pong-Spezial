@@ -11,7 +11,7 @@
    <children>
       <Pane prefHeight="900.0" prefWidth="600.0">
          <children>
-            <Button layoutX="226.0" layoutY="492.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Start" />
+            <Button fx:id="btn_firstStart" layoutX="226.0" layoutY="492.0" mnemonicParsing="false"  prefHeight="25.0" prefWidth="149.0" text="Start" />
             <Label layoutX="131.0" layoutY="29.0" text="Welcome to Pong Spezial">
                <font>
                   <Font size="30.0" />
