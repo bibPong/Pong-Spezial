@@ -19,9 +19,11 @@ import pongSpezial.view.State;
 public class Main extends Application {
 	
 	FXMLLoader loader;
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{	
+		
 		
 		
 		Client client = new Client();
@@ -40,7 +42,7 @@ public class Main extends Application {
 		System.out.println(loader.getController().toString());
 		
 		
-		//startGui.click();
+		
 		
 		
 		
@@ -56,6 +58,7 @@ public class Main extends Application {
 	
 	public static void main(String[] args) 
 	{
+		
 		launch(args);
 	}
 	
@@ -68,6 +71,7 @@ public class Main extends Application {
 		primaryStage.show();
 		
 		
-		
 	}
+	
+	
 }

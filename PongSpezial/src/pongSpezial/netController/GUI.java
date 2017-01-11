@@ -1,5 +1,6 @@
 package pongSpezial.netController;
 
+import java.beans.Visibility;
 import java.io.IOException;
 import java.util.Dictionary;
 
@@ -14,14 +15,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import pongSpezial.Main;
 import pongSpezial.dataModel.BoardState;
 //import pongSpezial.view.GUI;
 import pongSpezial.view.State;
 
-public class GUI  
-{
+public class GUI {
 
 	private final String SPLASH_SCREEN_PATH = "/pongSpezial/view/SplashScreen.fxml"; // DS
 	private final String MAINMENU_SCREEN_PATH = "/pongSpezial/view/MainMenu.fxml"; // DS
@@ -36,6 +38,8 @@ public class GUI
 	// SplashScreen
 	@FXML
 	private Button btn_firstStart;
+	@FXML
+	private AnchorPane pan_mainPane;
 
 	// MainMenu
 	@FXML
@@ -75,16 +79,17 @@ public class GUI
 	private Stage primaryStage;
 	private FXMLLoader loader;
 
-	public GUI()
-	{}
+	public GUI() {
 
+	}
 
-
-	public GUI(State state, Client client,FXMLLoader loader,Stage primaryStage) {
+	public GUI(State state, Client client, FXMLLoader loader, Stage primaryStage) {
 		this.state = state;
 		this.client = client;
-		this.loader= loader;
-		this.primaryStage =primaryStage;
+		this.loader = loader;
+		this.primaryStage = primaryStage;
+		System.out.println(primaryStage.toString());
+
 	}
 
 	@FXML
@@ -96,19 +101,23 @@ public class GUI
 	public void switchOnOff(ActionEvent event) {
 		// Turn the sound on or off
 	}
+
 	@FXML
-	public void click() throws IOException
-	{
-		 loader.getClass().getResource(MAINMENU_SCREEN_PATH);
-			Parent root = loader.load();
-			primaryStage.setScene(new Scene(root));
-			primaryStage.setTitle("PongSpezial");
-			primaryStage.show();
-				
+	public void click() throws IOException {
+		
+		this.primaryStage = new Stage();
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(MAINMENU_SCREEN_PATH));
+		Parent root = loader.load();
+		
+		
+		primaryStage.setScene(new Scene(root));
+		primaryStage.setTitle("PongSpezial Stage2");
+		primaryStage.show();
+
 	}
 
-	public void switchScreen(Stage primaryStage) 
-	{
+	public void switchScreen(Stage primaryStage) {
 		try {
 
 			switch (state) {
@@ -176,8 +185,8 @@ public class GUI
 	}
 
 	public void showScreenType(Stage primaryStage, String screenPath, String title) throws IOException {
-		 
-		//loader = new FXMLLoader(getClass().getResource(screenPath));
+
+		// loader = new FXMLLoader(getClass().getResource(screenPath));
 		loader.getClass().getResource(screenPath);
 		Parent root = loader.load();
 		primaryStage.setScene(new Scene(root));
