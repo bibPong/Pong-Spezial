@@ -73,14 +73,18 @@ public class GUI
 	private String name;
 	private Client client;
 	private Stage primaryStage;
+	private FXMLLoader loader;
 
-	public GUI(State state) {
-		this.state = state;
-	}
+	public GUI()
+	{}
 
-	public GUI(State state, Client client) {
+
+
+	public GUI(State state, Client client,FXMLLoader loader,Stage primaryStage) {
 		this.state = state;
 		this.client = client;
+		this.loader= loader;
+		this.primaryStage =primaryStage;
 	}
 
 	@FXML
@@ -92,22 +96,15 @@ public class GUI
 	public void switchOnOff(ActionEvent event) {
 		// Turn the sound on or off
 	}
-	
-	public void click()
+	@FXML
+	public void click() throws IOException
 	{
-		btn_firstStart.setOnAction(new EventHandler<ActionEvent>() {
-			
-			
-			@Override
-			public void handle(ActionEvent event) {
-
-
-				while(true)
-					System.out.println("asdfasdfasdfasdfasdfasdfasdf");
+		 loader.getClass().getResource(MAINMENU_SCREEN_PATH);
+			Parent root = loader.load();
+			primaryStage.setScene(new Scene(root));
+			primaryStage.setTitle("PongSpezial");
+			primaryStage.show();
 				
-			}
-		});
-		
 	}
 
 	public void switchScreen(Stage primaryStage) 
@@ -179,7 +176,9 @@ public class GUI
 	}
 
 	public void showScreenType(Stage primaryStage, String screenPath, String title) throws IOException {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(screenPath));
+		 
+		//loader = new FXMLLoader(getClass().getResource(screenPath));
+		loader.getClass().getResource(screenPath);
 		Parent root = loader.load();
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setTitle(title);

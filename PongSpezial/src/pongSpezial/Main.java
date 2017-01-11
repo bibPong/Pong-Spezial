@@ -2,6 +2,8 @@ package pongSpezial;
 
 import java.io.IOException;
 
+import javax.sound.midi.ControllerEventListener;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -19,19 +21,21 @@ public class Main extends Application {
 	FXMLLoader loader;
 	@Override
 	public void start(Stage primaryStage) throws Exception
-	{
+	{	
+		
+		
 		Client client = new Client();
 		Thread thread = new Thread(client);
 		thread.start();
-
+		
 		State state = State.SPLASH;
 	
 		createFXMLLoader(primaryStage);
 		
-		GUI startGui = new GUI(state, client);
+		GUI startGui = new GUI(state, client,loader,primaryStage);
 		
 		
-		loader.setController(startGui);
+		
 		
 		System.out.println(loader.getController().toString());
 		
@@ -57,7 +61,7 @@ public class Main extends Application {
 	
 	public void createFXMLLoader(Stage primaryStage) throws IOException
 	{
-		 loader = new FXMLLoader(getClass().getResource("/pongSpezial/view/SplashScreen.fxml"));
+		 loader = new FXMLLoader(getClass().getResource("/pongSpezial/view/Splashscreen.fxml"));
 		Parent root = loader.load();
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setTitle("PongSpezial");
