@@ -65,16 +65,16 @@ public class Client implements Runnable
 			switch (event.getCode())
 			{
 			case LEFT:
-				inputHandler.setDirection(-1);
+				inputHandler.setDirection("LEFT");
 				break;
 			case RIGHT:
-				inputHandler.setDirection(1);
+				inputHandler.setDirection("RIGHT");
 				break;
 			case UP:
-				inputHandler.setDirection(1);
+				inputHandler.setDirection("UP");
 				break;
 			case DOWN:
-				inputHandler.setDirection(-1);
+				inputHandler.setDirection("DOWN");
 				break;
 			default:
 				break;
@@ -82,7 +82,7 @@ public class Client implements Runnable
 			break;
 
 		case "KEY_RELEASED":
-			inputHandler.setDirection(0);
+			inputHandler.setDirection("KEY_RELEASED");
 			break;
 		default:
 			break;
