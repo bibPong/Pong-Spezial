@@ -26,5 +26,13 @@ public abstract class Geometry
 	public void setCollisionSize(Point2D collisionSize) 
 	{
 		this.collisionSize = collisionSize;
-	}		
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Geometry: position=" + position + ", collisionSize=" + collisionSize;
+	}
+	
+	
 }
