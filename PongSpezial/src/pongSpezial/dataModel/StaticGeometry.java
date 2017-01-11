@@ -4,11 +4,9 @@ import javafx.geometry.Point2D;
 
 public abstract class StaticGeometry extends Geometry
 {
-	public Point2D POSITION;
-
+	public StaticGeometry(Point2D position, Point2D collisionSize) {
+		super(position, collisionSize);
+		// TODO Auto-generated constructor stub
+	}
 	
-	public Point2D getPOSITION() 
-	{
-		return POSITION;
-	}	
 }

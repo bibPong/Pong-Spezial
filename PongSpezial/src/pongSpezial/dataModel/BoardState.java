@@ -20,7 +20,7 @@ public class BoardState
 	}
 
 	public void setGeometries(List<Geometry> geometries) {
-		this.geometries = geometries;
+		geometries = geometries;
 	}
 
 	/*public static BoardState getBoardstate() {
