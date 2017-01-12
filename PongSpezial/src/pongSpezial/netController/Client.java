@@ -43,7 +43,7 @@ public class Client implements Runnable
 			{
 				System.out.println("Player " + inputHandler.getPlayerID() + ": " + inputHandler.getDirection());
 				updateGUI();
-				Thread.sleep(10);
+				Thread.sleep(1000);
 			}
 		} catch (Exception e)
 		{

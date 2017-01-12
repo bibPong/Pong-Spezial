@@ -39,7 +39,7 @@ public class Main extends Application {
 	
 		createFXMLLoader(primaryStage);
 		
-		GUI startGui = new GUI(state, client,loader,primaryStage);
+		GUI startGui = new GUI(state, client,loader);
 		
 		
 		
@@ -56,8 +56,9 @@ public class Main extends Application {
 			@Override
 			public void handle(WindowEvent arg0)
 			{
-				client.shutdown();
-				gm.shutdown();
+//				client.shutdown();
+//				gm.shutdown();
+				System.exit(0);
 			}
 		});
 	}
