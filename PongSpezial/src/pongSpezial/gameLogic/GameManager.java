@@ -28,7 +28,7 @@ public class GameManager implements Runnable
 	private BoardState boardState = new BoardState();
 	private InputState inputState;
 	private StopWatch stopWatch;
-	public Server server = new Server();
+	public Server server;
 	
 	public GameManager()
 	{
