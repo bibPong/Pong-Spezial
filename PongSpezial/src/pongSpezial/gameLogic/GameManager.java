@@ -1,9 +1,13 @@
 package pongSpezial.gameLogic;
 
+import pongSpezial.dataModel.Player;
+
 public class GameManager implements Runnable
 {
 	
 	private boolean running;
+	private Player[] players;
+	private KI[] kis;
 	
 	public GameManager()
 	{
@@ -38,5 +42,15 @@ public class GameManager implements Runnable
 		System.out.println("GameManager has been shutdown");
 		
 	}
+	
+	public void updateBoardState()
+	{
+		for (int i = 0; i < kis.length; i++) 
+		{
+			//kis[i].moveAIBar();
+		}
+	}
+	
+	
 
 }
