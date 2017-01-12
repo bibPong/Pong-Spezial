@@ -7,12 +7,15 @@ public class PowerUp extends StaticGeometry
 	private PowerUpType type;
 	private boolean powerUpVisible;
 	
-	
-	public PowerUp(Point2D POSITION, PowerUpType type)
-	{
-		this.POSITION = POSITION;
+	public PowerUp(Point2D position, Point2D collisionSize,PowerUpType type) {
+		super(position, collisionSize);
 		this.type = type;
+		// TODO Auto-generated constructor stub
 	}
+	
+
+	
+
 
 
 	public PowerUpType getType() 

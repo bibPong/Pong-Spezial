@@ -6,7 +6,12 @@ public abstract class Geometry
 {
 	private Point2D position;
 	private Point2D collisionSize;
-	
+
+	public Geometry(Point2D position, Point2D collisionSize)
+	{
+		this.position=position;
+		this.collisionSize=collisionSize;
+	}
 	
 	public Point2D getPosition() 
 	{

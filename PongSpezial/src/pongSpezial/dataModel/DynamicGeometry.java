@@ -6,9 +6,16 @@ public abstract class DynamicGeometry extends Geometry
 {
 	private Point2D direction;
 	private double velocity;
-	private Player ControllingPlayer;
+	private Player controllingPlayer;
 	private boolean collideCurrently;
 	
+	public DynamicGeometry(Point2D position, Point2D collisionSize,Point2D direction, double velocity, Player controllingPlayer,boolean collideCurrently) {
+		super(position, collisionSize);
+		this.direction = direction;
+		this.velocity = velocity;
+		this.controllingPlayer = controllingPlayer;
+		this.collideCurrently = collideCurrently;
+	}
 	
 	public Point2D getDirection() 
 	{
@@ -32,12 +39,12 @@ public abstract class DynamicGeometry extends Geometry
 	
 	public Player getControllingPlayer() 
 	{
-		return ControllingPlayer;
+		return controllingPlayer;
 	}
 	
 	public void setControllingPlayer(Player controllingPlayer) 
 	{
-		ControllingPlayer = controllingPlayer;
+		controllingPlayer = controllingPlayer;
 	}
 	
 	public boolean isCollideCurrently() 
