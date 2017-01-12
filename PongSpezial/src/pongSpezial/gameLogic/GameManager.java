@@ -20,7 +20,7 @@ public class GameManager implements Runnable
 			while(running)
 			{
 				
-				System.out.println("Hallo");
+				//System.out.println("Hallo");
 				Thread.sleep(200);
 			}
 		}
