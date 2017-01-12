@@ -29,7 +29,7 @@ public class Client implements Runnable
 	// Zum testen
 	public Client()
 	{
-		this.boardState = new BoardState();
+		this.boardState = BoardState.instance;
 		this.running = true;
 		this.inputHandler = new InputHandler(1);
 	}
@@ -41,7 +41,7 @@ public class Client implements Runnable
 		{
 			while (running)
 			{
-				System.out.println("Player " + inputHandler.getPlayerID() + ": " + inputHandler.getDirection());
+				//System.out.println("Player " + inputHandler.getPlayerID() + ": " + inputHandler.getDirection());
 				updateGUI();
 				Thread.sleep(10);
 			}

@@ -7,8 +7,9 @@ public class BoardState
 {
 
 	private static List<Geometry>geometries;
+	public static BoardState instance = new BoardState();
 	
-	public BoardState()
+	private BoardState()
 	{
 		geometries = new ArrayList<Geometry>();
 		
@@ -20,7 +21,14 @@ public class BoardState
 	}
 
 	public void setGeometries(List<Geometry> geometries) {
-		geometries = geometries;
+		this.geometries = geometries;
+	}
+
+
+	@Override
+	public String toString()
+	{
+		return "BoardState:"+geometries;
 	}
 
 	/*public static BoardState getBoardstate() {
