@@ -162,12 +162,12 @@ public class GUI
 		
 		if(c.getId().toString().equals("btn_startGameMP"))
 		{
-			state= State.SPLASH; // SPLASH durch GameScreen ersetzen
+			state= State.GAME; // SPLASH durch GameScreen ersetzen
 		}
 		
 		if(c.getId().toString().equals("btn_startGameSP"))
 		{
-			state= State.SPLASH; // SPLASH durch GameScreen ersetzen
+			state= State.GAME; // SPLASH durch GameScreen ersetzen
 						
 		}
 		
