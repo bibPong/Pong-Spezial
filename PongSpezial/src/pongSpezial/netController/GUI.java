@@ -33,7 +33,7 @@ public class GUI
 	private final String HOSTANDJOIN_SCREEN_PATH = "/pongSpezial/view/HostandJoin.fxml";
 	private final String SPCONFIG_SCREEN_PATH = "/pongSpezial/view/LobbyGUIsp.fxml";//SpConfig.fxml
 	private final String MPCONFIG_SCREEN_PATH = "/pongSpezial/view/LobbyGUImp.fxml";//MpConfig.fxml
-	private final String MPJOIN_SCREEN_PATH = "/pongSpezial/view/MpJoin.fxml";
+	private final String MPJOIN_SCREEN_PATH = "/pongSpezial/view/LobbyGUImpJoin.fxml";//MpJoin.fxml
 	private final String LOBBY_SCREEN_PATH = "/pongSpezial/view/LobbyScreen.fxml";
 	private final String GAME_SCREEN_PATH = "/pongSpezial/view/GameScreen.fxml";
 

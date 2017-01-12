@@ -6,11 +6,24 @@ public class Edge extends StaticGeometry
 {
 	private EdgeType type;
 	private boolean edgeVisible;
+	private EdgeOrientation orientation;
 	
-	public Edge(Point2D position, Point2D collisionSize, EdgeType type, boolean edgeVisible) {
+	public EdgeOrientation getOrientation() 
+	{
+		return orientation;
+	}
+
+	public void setOrientation(EdgeOrientation orientation) 
+	{
+		this.orientation = orientation;
+	}
+
+	public Edge(Point2D position, Point2D collisionSize, EdgeType type, boolean edgeVisible, EdgeOrientation orientation) 
+	{
 		super(position, collisionSize);
 		this.type = type;
 		this.edgeVisible=edgeVisible;
+		this.orientation=orientation; 
 		// TODO Auto-generated constructor stub
 	}
 

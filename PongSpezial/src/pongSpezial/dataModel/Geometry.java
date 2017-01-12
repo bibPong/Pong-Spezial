@@ -4,8 +4,8 @@ import javafx.geometry.Point2D;
 
 public abstract class Geometry 
 {
-	private Point2D position;
-	private Point2D collisionSize;
+	protected Point2D position;
+	protected Point2D collisionSize;
 
 	public Geometry(Point2D position, Point2D collisionSize)
 	{
