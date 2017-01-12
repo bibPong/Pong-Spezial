@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import pongSpezial.gameLogic.GameManager;
 import pongSpezial.netController.Client;
 import pongSpezial.netController.GUI;
 import pongSpezial.view.State;
@@ -29,6 +30,10 @@ public class Main extends Application {
 		Client client = new Client();
 		Thread thread = new Thread(client);
 		thread.start();
+		
+		GameManager gm = new GameManager();
+		Thread thread2 = new Thread(gm);
+		thread2.start();
 		
 		State state = State.SPLASH;
 	
@@ -52,6 +57,7 @@ public class Main extends Application {
 			public void handle(WindowEvent arg0)
 			{
 				client.shutdown();
+				gm.shutdown();
 			}
 		});
 	}
