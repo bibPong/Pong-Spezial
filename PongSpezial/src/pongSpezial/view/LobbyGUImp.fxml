@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pongSpezial.netController.GUI">
    <top>
       <Label text="Multiplayer Game Lobby" BorderPane.alignment="CENTER">
          <font>
@@ -123,7 +123,7 @@
       </VBox>
    </center>
    <bottom>
-      <Button mnemonicParsing="false" text="Start Game" BorderPane.alignment="CENTER">
+      <Button fx:id="btn_startGameMP" mnemonicParsing="false" onAction="#click" text="Start Game" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="20.0" top="20.0" />
          </BorderPane.margin>

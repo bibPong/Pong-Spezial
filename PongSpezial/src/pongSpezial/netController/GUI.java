@@ -27,12 +27,12 @@ import pongSpezial.view.State;
 public class GUI
 {
 
-	private final String SPLASH_SCREEN_PATH = "/pongSpezial/view/SplashScreen.fxml"; // DS
-	private final String MAINMENU_SCREEN_PATH = "/pongSpezial/view/MainMenu.fxml"; // DS
-	private final String NAMEENTRY_SCREEN_PATH = "/pongSpezial/view/Nameentry.fxml"; // DS
-	private final String HOSTANDJOIN_SCREEN_PATH = "/pongSpezial/view/HostandJoin.fxml"; // DS
-	private final String SPCONFIG_SCREEN_PATH = "/pongSpezial/view/SpConfig.fxml";
-	private final String MPCONFIG_SCREEN_PATH = "/pongSpezial/view/MpConfig.fxml";
+	private final String SPLASH_SCREEN_PATH = "/pongSpezial/view/SplashScreen.fxml";
+	private final String MAINMENU_SCREEN_PATH = "/pongSpezial/view/MainMenu.fxml"; 
+	private final String NAMEENTRY_SCREEN_PATH = "/pongSpezial/view/Nameentry.fxml"; 
+	private final String HOSTANDJOIN_SCREEN_PATH = "/pongSpezial/view/HostandJoin.fxml";
+	private final String SPCONFIG_SCREEN_PATH = "/pongSpezial/view/LobbyGUIsp.fxml";//SpConfig.fxml
+	private final String MPCONFIG_SCREEN_PATH = "/pongSpezial/view/LobbyGUImp.fxml";//MpConfig.fxml
 	private final String MPJOIN_SCREEN_PATH = "/pongSpezial/view/MpJoin.fxml";
 	private final String LOBBY_SCREEN_PATH = "/pongSpezial/view/LobbyScreen.fxml";
 	private final String GAME_SCREEN_PATH = "/pongSpezial/view/GameScreen.fxml";
@@ -49,7 +49,7 @@ public class GUI
 	@FXML
 	private Button btn_mp;
 	@FXML
-	private Button btn_close;
+	private Button btn_quit;
 
 	// NameEntry
 	@FXML
@@ -62,7 +62,14 @@ public class GUI
 	private Button btn_selectHost;
 	@FXML
 	private Button btn_selectJoin;
-
+	
+	//LobbyGUIsp
+	@FXML
+	private Button btn_startGameSP;
+	
+	//LobbyGUImp
+	private Button btn_startGameMP;
+	
 	@FXML
 	private Button test2;
 
@@ -105,17 +112,63 @@ public class GUI
 		// Turn the sound on or off
 	}
 
+	
+	
+	@FXML
+	public void quit()
+	{
+		System.exit(0);
+		
+	}
+	
 	@FXML
 	public void click(ActionEvent e) throws IOException
 	{
-		
 		Control c = (Button) e.getSource();
 		Stage primaryStage = (Stage) c.getScene().getWindow();
 		
 		prevState=state;
 		
-		state= State.MAINMENU;
+		if(c.getId().toString().equals("btn_firstStart"))
+		{
+			state= State.NAMEENTRY;
+						
+		}
 		
+		if(c.getId().toString().equals("btn_nameConfirm"))
+		{
+			state= State.MAINMENU;
+		}
+		
+		if(c.getId().toString().equals("btn_sp"))
+		{
+			state= State.SPCONFIG;
+		}
+		
+		if(c.getId().toString().equals("btn_mp"))
+		{
+			state= State.HOSTANDJOIN;
+		}
+		
+		if(c.getId().toString().equals("btn_selectHost"))
+		{
+			state= State.MPCONFIG;
+		}
+		
+		if(c.getId().toString().equals("btn_startGameMP"))
+		{
+			state= State.SPLASH; // SPLASH durch GameScreen ersetzen
+		}
+		
+		if(c.getId().toString().equals("btn_startGameSP"))
+		{
+			state= State.SPLASH; // SPLASH durch GameScreen ersetzen
+						
+		}
+		
+		
+		
+						
 		switchScreen(primaryStage);
 
 	}
@@ -157,13 +210,13 @@ public class GUI
 
 				case SPCONFIG :
 
-					showScreenType(primaryStage, SPCONFIG_SCREEN_PATH, "title");
+					showScreenType(primaryStage, SPCONFIG_SCREEN_PATH, "Singleplayer");
 
 					break;
 
 				case MPCONFIG :
 
-					showScreenType(primaryStage, MPCONFIG_SCREEN_PATH, "title");
+					showScreenType(primaryStage, MPCONFIG_SCREEN_PATH, "Multiplayer");
 
 					break;
 

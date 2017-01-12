@@ -3,7 +3,7 @@ package pongSpezial.gameLogic;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Vector;
 import javafx.geometry.Point2D;
 import pongSpezial.dataModel.Ball;
 import pongSpezial.dataModel.Bar;
@@ -15,16 +15,19 @@ import pongSpezial.dataModel.InputState;
 import pongSpezial.dataModel.Player;
 import pongSpezial.dataModel.StopWatch;
 import pongSpezial.netController.Server;
+import pongSpezial.dataModel.Player;
 
 public class GameManager implements Runnable
 {
 	
 	private boolean running;
+	private Player[] players;
+	private KI[] kis;
+	static BoardState boardstate;
 	
 	private BoardState boardState = new BoardState();
 	private InputState inputState;
 	private StopWatch stopWatch;
-	public Player[] allPlayers;
 	public Server server = new Server();
 	
 	public GameManager()
@@ -192,5 +195,31 @@ public class GameManager implements Runnable
 		System.out.println("GameManager has been shutdown");
 		
 	}
+	
+	public void updateBoardState()
+	{
+		for (int i = 0; i < kis.length; i++) 
+		{
+			//kis[i].moveAIBar();
+		}
+	}
+	
+	public static Bar getBarForPlayer(Player player)
+	{
+		for(int i = 0; i < boardstate.getGeometries().size();i++)
+		{
+			if(boardstate.getGeometries().get(i).equals(Bar.class))
+			{
+				Bar tmp = (Bar)boardstate.getGeometries().get(i);
+				if(tmp.controllingPlayer.equals(player))
+				{
+					return tmp;
+				}
+			}
+		}
+		return null;
+	}
+	
+	
 
 }

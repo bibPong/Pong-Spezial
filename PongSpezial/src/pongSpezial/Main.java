@@ -25,8 +25,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception
 	{	
 		
-		
-		
+				
 		Client client = new Client();
 		Thread thread = new Thread(client);
 		thread.start();
@@ -35,22 +34,10 @@ public class Main extends Application {
 		Thread thread2 = new Thread(gm);
 		thread2.start();
 		
-		State state = State.SPLASH;
-	
-		createFXMLLoader(primaryStage);
 		
-		GUI startGui = new GUI(state, client,loader);
-		
-		
-		
-		
-		System.out.println(loader.getController().toString());
-		
-		
-		
-		
-		
-		
+		GUI startGui = new GUI(State.SPLASH, client,loader);
+		startGui.switchScreen(primaryStage);
+				
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>()
 		{
 			@Override
@@ -68,17 +55,5 @@ public class Main extends Application {
 		
 		launch(args);
 	}
-	
-	public void createFXMLLoader(Stage primaryStage) throws IOException
-	{
-		 loader = new FXMLLoader(getClass().getResource("/pongSpezial/view/Splashscreen.fxml"));
-		Parent root = loader.load();
-		primaryStage.setScene(new Scene(root));
-		primaryStage.setTitle("PongSpezial");
-		primaryStage.show();
-		
-		
-	}
-	
 	
 }
