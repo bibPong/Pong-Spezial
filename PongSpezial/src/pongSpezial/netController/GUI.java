@@ -131,6 +131,12 @@ public class GUI
 		
 		if(c.getId().toString().equals("btn_firstStart"))
 		{
+			state= State.NAMEENTRY;
+						
+		}
+		
+		if(c.getId().toString().equals("btn_nameConfirm"))
+		{
 			state= State.MAINMENU;
 		}
 		
@@ -144,7 +150,6 @@ public class GUI
 			state= State.HOSTANDJOIN;
 		}
 		
-
 		if(c.getId().toString().equals("btn_selectHost"))
 		{
 			state= State.MPCONFIG;
@@ -152,8 +157,17 @@ public class GUI
 		
 		if(c.getId().toString().equals("btn_startGameMP"))
 		{
-			state= State.SPLASH;
+			state= State.SPLASH; // SPLASH durch GameScreen ersetzen
 		}
+		
+		if(c.getId().toString().equals("btn_startGameSP"))
+		{
+			state= State.SPLASH; // SPLASH durch GameScreen ersetzen
+						
+		}
+		
+		
+		
 						
 		switchScreen(primaryStage);
 
