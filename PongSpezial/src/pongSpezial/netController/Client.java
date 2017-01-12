@@ -17,6 +17,7 @@ public class Client implements Runnable
 	private BoardState boardState;
 	private NetworkAddress serverIP;
 	private InputHandler inputHandler;
+	private Server server;
 
 	public Client(BoardState boardState, NetworkAddress serverIP, int playerID)
 	{
@@ -87,6 +88,11 @@ public class Client implements Runnable
 		default:
 			break;
 		}
+	}
+	
+	public void startServer()
+	{
+		server = new Server();
 	}
 	
 	public void updateGUI()

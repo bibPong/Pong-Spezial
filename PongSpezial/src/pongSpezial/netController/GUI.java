@@ -176,7 +176,14 @@ public class GUI
 				case LOBBY :
 
 					showScreenType(primaryStage, LOBBY_SCREEN_PATH, "title");
-
+					
+					if(prevState != state.MPJOIN)
+					{
+						// Man ist entweder MPHost oder SinglePlayer
+						// Server muss gestartet werden
+						client.startServer();
+					}
+					
 					break;
 
 				case GAME :
