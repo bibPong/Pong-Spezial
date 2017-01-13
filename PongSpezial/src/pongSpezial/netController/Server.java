@@ -26,9 +26,10 @@ public class Server implements Runnable
 	private NetworkAddress networkAddress;
 	private ClientServer[] clientServerList;
 
-	public Server(NetworkAddress networkAddress) throws IOException
+	public Server(BoardState boardState, NetworkAddress networkAddress) throws IOException
 	{
 		this.running = true;
+		this.boardState = boardState;
 		this.networkAddress = networkAddress;
 		init();
 	}
@@ -63,7 +64,6 @@ public class Server implements Runnable
 	public void shutdown()
 	{
 		running = false;
-		System.exit(0);
 		System.out.println("Server has been shutdown.");
 	}
 
@@ -77,11 +77,8 @@ public class Server implements Runnable
 	            try
 				{
 	            	Socket socket = clientServer.getSocket();
-	    			Date date = new Date();
-	    			
 	    			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-	    	        out.writeObject(date);
-	    	        
+	    	        out.writeObject(boardState);
 				} catch (Exception e)
 				{
 					System.out.println("Server.class: " + e);

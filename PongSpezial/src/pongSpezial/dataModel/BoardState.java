@@ -1,9 +1,10 @@
 package pongSpezial.dataModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardState
+public class BoardState implements Serializable
 {
 
 	private static List<Geometry>geometries;

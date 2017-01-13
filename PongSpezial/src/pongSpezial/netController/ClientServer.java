@@ -1,5 +1,6 @@
 package pongSpezial.netController;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -20,6 +21,17 @@ public class ClientServer extends Thread
 		if (socket == null)
 			throw new ConnectException("Client ist noch nicht verbunden");
 		return socket;
+	}
+	
+	public void interrupt()
+	{
+		try
+		{
+			serverSocket.close();
+		} catch (IOException e)
+		{
+			System.out.println("ClientServer.class: Connection closed");
+		}
 	}
 	
 	@Override

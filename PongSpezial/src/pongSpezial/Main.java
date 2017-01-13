@@ -28,8 +28,8 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception
 	{	
 		NetworkAddress address = new NetworkAddress(new byte[] {(byte)127, (byte)0, (byte)0, (byte)1}, 9898);
-		Client client = new Client(BoardState.instance, address, 1);
-		Server server = new Server(address);
+		Client client = new Client(address, 1);
+		Server server = new Server(BoardState.instance, address);
 //		Thread clientThread = new Thread(client);
 //		Thread serverThread = new Thread(server);
 //		clientThread.start();
