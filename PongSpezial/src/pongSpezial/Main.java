@@ -27,13 +27,32 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{	
+		/*
+		 *  Server -> Client test
+		 */
 		NetworkAddress address = new NetworkAddress(new byte[] {(byte)127, (byte)0, (byte)0, (byte)1}, 9898);
-		Client client = new Client(address, 1);
-		Server server = new Server(BoardState.instance, address);
-//		Thread clientThread = new Thread(client);
+		
+//		Server server = new Server(BoardState.instance, address);
+//		server.setUpConnection();
 //		Thread serverThread = new Thread(server);
-//		clientThread.start();
 //		serverThread.start();
+//		
+		Client client = new Client(address, 1);
+		Thread clientThread = new Thread(client);
+		clientThread.start();
+//		
+//		Client client2 = new Client(address, 1);
+//		Thread clientThread2 = new Thread(client2);
+//		clientThread2.start();
+//		
+//		Client client3 = new Client(address, 1);
+//		Thread clientThread3 = new Thread(client3);
+//		clientThread3.start();
+//		
+//		Client client4 = new Client(address, 1);
+//		Thread clientThread4 = new Thread(client4);
+//		clientThread4.start();
+		
 		
 		GameManager gm = new GameManager();
 		Thread thread2 = new Thread(gm);

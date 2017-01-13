@@ -22,13 +22,13 @@ public class Server implements Runnable
 	private int hostID;
 	private InputHandler[] inputHandleArray;
 	private GameConfig gameConfig;
-	private boolean running;
+	private boolean isRunning;
 	private NetworkAddress networkAddress;
-	private ClientServer[] clientServerList;
+	private ConnectionHandler connectionHandler;
 
 	public Server(BoardState boardState, NetworkAddress networkAddress) throws IOException
 	{
-		this.running = true;
+		this.isRunning = true;
 		this.boardState = boardState;
 		this.networkAddress = networkAddress;
 		init();
@@ -36,24 +36,23 @@ public class Server implements Runnable
 
 	public void init()
 	{
-		clientServerList = new ClientServer[4];
-
-		for (int i = 0; i < clientServerList.length; i++)
+		try
 		{
-			clientServerList[i] = new ClientServer(networkAddress);
-			clientServerList[i].start();
+			connectionHandler = new ConnectionHandler(networkAddress);
+		} catch (IOException e)
+		{
+			System.out.println("Server.class " + e);
 		}
 	}
 
 	public void setUpConnection()
 	{
-
+		connectionHandler.start();
 	}
 
 	public BoardState synchronizeBoardState()
 	{
 		return boardState;
-
 	}
 
 	public void sendInputToGameManager()
@@ -61,33 +60,26 @@ public class Server implements Runnable
 
 	}
 
-	public void shutdown()
+	public void close()
 	{
-		running = false;
+		connectionHandler.close();
+		isRunning = false;
 		System.out.println("Server has been shutdown.");
 	}
 
 	@Override
 	public void run()
 	{
-		while (running) 
+		while (isRunning)
 		{
-			for (ClientServer clientServer : clientServerList)
+			for (Connection connection : connectionHandler.getConnections())
 			{	
-	            try
-				{
-	            	Socket socket = clientServer.getSocket();
-	    			ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-	    	        out.writeObject(boardState);
-				} catch (Exception e)
-				{
-					System.out.println("Server.class: " + e);
-				}
+				connection.setBoardState(boardState);
 			}
 			
 			try
 			{
-				Thread.sleep(1000);
+				Thread.sleep(1);
 			} catch (Exception e)
 			{
 				System.out.println("Server.class: " + e);

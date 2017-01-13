@@ -4,6 +4,7 @@ import pongSpezial.dataModel.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,14 +52,18 @@ public class Client implements Runnable
 			try
 			{
 				updateGUI();
+
+				// Client out
+				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
+    	        out.writeObject(inputHandler);
 				
+    	        // Server in
 				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 				Object obj = in.readObject();
 				if (obj instanceof BoardState)
 					System.out.println("Client " + inputHandler.getPlayerID() + ": " + obj);
-				
-				
-				Thread.sleep(10);
+				else
+					System.out.println("Client " + inputHandler.getPlayerID() + ": Server -> in : error");
 			} catch (Exception e)          
 			{
 				System.out.println("Client.class: " + e);
