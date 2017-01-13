@@ -23,9 +23,8 @@ public class GameManager implements Runnable
 	private boolean running;
 	private Player[] players;
 	private KI[] kis;
-	static BoardState boardstate;
-	
-	private BoardState boardState = new BoardState();
+	//static BoardState boardstate;
+	private static BoardState boardstate=BoardState.instance;
 	private InputState inputState;
 	private StopWatch stopWatch;
 	public Server server;
@@ -165,20 +164,47 @@ public class GameManager implements Runnable
 		teststates.add(co31);
 		teststates.add(co41);
 		
-		boardState.setGeometries(teststates);
+		boardstate.setGeometries(teststates);
 	}
 	
 	@Override
 	public void run()
 	{
 		
+		
 		try
 		{
 			while(running)
 			{
+				Player player = new Player(0, "Testplayer");
 				
-				//System.out.println("Hallo");
+				inputState.getCurrentInputs().put(player, 1);
+				
+				for(Player  p : inputState.getCurrentInputs().keySet())
+				{
+					int direction=inputState.getCurrentInputs().get(p);
+					int index = BoardState.instance.getGeometries().indexOf(p);
+					if(p.getPlayerID()==0||p.getPlayerID()==2)
+					{
+						Bar playerbar = ((Bar)BoardState.instance.getGeometries().get(index));
+						double velocityxdirection=playerbar.getVelocity()*inputState.getCurrentInputs().get(p);
+						Point2D newPosition=playerbar.getPosition().add(velocityxdirection,0);
+						BoardState.instance.getGeometries().get(index).setPosition(newPosition);
+					}
+					else
+					{
+						Bar playerbar = ((Bar)BoardState.instance.getGeometries().get(index));
+						double velocityxdirection=playerbar.getVelocity()*inputState.getCurrentInputs().get(p);
+						Point2D newPosition=playerbar.getPosition().add(0,velocityxdirection);
+						BoardState.instance.getGeometries().get(index).setPosition(newPosition);
+					}
+					
+				}	
 				Thread.sleep(200);
+				
+				
+				//System.out.println(BoardState.instance.getGeometries().get(5));
+				
 			}
 		}
 		catch(Exception e)
@@ -188,11 +214,13 @@ public class GameManager implements Runnable
 		}
 	}
 
+
 	public void shutdown()
 	{
 		this.running=false;
-		System.exit(0);
 		System.out.println("GameManager has been shutdown");
+		System.exit(0);
+		
 		
 	}
 	
@@ -220,6 +248,6 @@ public class GameManager implements Runnable
 		return null;
 	}
 	
-	
 
 }
+

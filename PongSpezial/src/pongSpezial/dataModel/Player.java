@@ -6,6 +6,14 @@ public class Player
 	private String name;
 	private int lifes;
 	
+	
+	
+	public void setPlayerID(int playerID)
+	{
+		this.playerID = playerID;
+	}
+
+
 	public Player(int playerID,String name)
 	{
 		this.playerID = playerID;
@@ -24,5 +32,5 @@ public class Player
 	public void setLifes(int lifes) {
 		this.lifes = lifes;
 	}
-	
+
 }
