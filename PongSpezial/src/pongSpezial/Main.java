@@ -11,9 +11,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import pongSpezial.dataModel.BoardState;
 import pongSpezial.gameLogic.GameManager;
 import pongSpezial.netController.Client;
 import pongSpezial.netController.GUI;
+import pongSpezial.netController.NetworkAddress;
+import pongSpezial.netController.Server;
 import pongSpezial.view.State;
 
 
@@ -24,11 +27,13 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{	
-		
-				
-		Client client = new Client();
-		Thread thread = new Thread(client);
-		thread.start();
+		NetworkAddress address = new NetworkAddress(new byte[] {(byte)127, (byte)0, (byte)0, (byte)1}, 9898);
+		Client client = new Client(BoardState.instance, address, 1);
+		Server server = new Server(address);
+//		Thread clientThread = new Thread(client);
+//		Thread serverThread = new Thread(server);
+//		clientThread.start();
+//		serverThread.start();
 		
 		GameManager gm = new GameManager();
 		Thread thread2 = new Thread(gm);

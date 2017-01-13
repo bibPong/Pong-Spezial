@@ -4,6 +4,12 @@ import javafx.geometry.Point2D;
 
 public abstract class Geometry 
 {
+	@Override
+	public String toString()
+	{
+		return "Geometry [position=" + position + ", collisionSize=" + collisionSize + "]";
+	}
+
 	protected Point2D position;
 	protected Point2D collisionSize;
 

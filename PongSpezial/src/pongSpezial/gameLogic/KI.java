@@ -9,7 +9,9 @@ import pongSpezial.dataModel.Player;
 
 public class KI{
 	
-	private int difficulty;
+	private int difficulty; //Schwierigkeit einstellen
+	private int reactionTime; // Zeit,wie lange die KI zum Reagieren braucht
+	private final int DIFFICULTY_TIME = 100; // FInal variable mit dem Wert 100 
 	private Player controllingPlayer;
 	private Bar bar;
 	
@@ -18,38 +20,77 @@ public class KI{
 		this.difficulty=difficulty;
 		this.controllingPlayer=controllingPlayer;
 		this.bar = GameManager.getBarForPlayer(controllingPlayer);
+		reactionTime = DIFFICULTY_TIME / difficulty;		//Reaktionzeit ausrechnen
+		
+		
 	}	
 	
 	public String moveAIBar(Ball ball)
 	{
-		if(controllingPlayer.getPlayerID() == 1 || controllingPlayer.getPlayerID() == 3)
+		if(controllingPlayer.getPlayerID() == 1 || controllingPlayer.getPlayerID() == 3) // Wenn Player oben oder unten am Bildschrim sind
 		{
-			if(bar.getPosition().getX() > ball.getPosition().getX())
+			if(bar.getPosition().getX() > ball.getPosition().getX())		//Wenn die x-Koordinate der KI Bar größer als die des Balls ist
 			{
-				return "LEFT";
+				try {
+					Thread.sleep((long)reactionTime);						// Reaktionszeit
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return "LEFT";												// Links bewegen
 			}
-			else if(bar.getPosition().getX() < ball.getPosition().getX())
+			else if(bar.getPosition().getX() < ball.getPosition().getX()) //Wenn die x-Koordinate der KI Bar kleiner als die des Balls ist
 			{
-				return "RIGHT";
+				try {
+					Thread.sleep((long)reactionTime);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return "RIGHT";												//Rechts bewegen
 			}
 			else
 			{
-				return "KEY_RELEASED";
+				try {
+					Thread.sleep((long)reactionTime);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return "KEY_RELEASED";										// Wenn gleich dann bliebt die Bar stehen
 			}
 		}
 		else
-		{
-			if(bar.getPosition().getY() > ball.getPosition().getY())
+		{ 
+			if(bar.getPosition().getY() > ball.getPosition().getY()) 		//Wenn die y-Koordinate der KI Bar größer als die des Balls ist
 			{
-				return "DOWN";
+				try {
+					Thread.sleep((long)reactionTime);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return "DOWN";												//Runter bewegen
 			}
-			else if(bar.getPosition().getY() < ball.getPosition().getY())
+			else if(bar.getPosition().getY() < ball.getPosition().getY())	//Wenn die y-Koordinate der KI Bar kleiner als die des Balls ist
 			{
-				return "UP";
+				try {
+					Thread.sleep((long)reactionTime);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return "UP";												//Hoch bewegen
 			}
 			else
 			{
-				return "KEY_RELEASED";
+				try {
+					Thread.sleep((long)reactionTime);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return "KEY_RELEASED";										// Wenn gleich dann bliebt die Bar stehen
 			}
 		}
 		
