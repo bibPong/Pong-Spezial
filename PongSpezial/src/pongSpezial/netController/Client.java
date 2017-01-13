@@ -24,10 +24,9 @@ public class Client implements Runnable
 	private Socket socket;
 	private Server server;
 
-	public Client(BoardState boardState, NetworkAddress networkAddress, int playerID) throws IOException
+	public Client(NetworkAddress networkAddress, int playerID) throws IOException
 	{
 		this.running = true;
-		this.boardState = boardState;
 		this.networkAddress = networkAddress;
 		this.inputHandler = new InputHandler(playerID);
 	}
@@ -54,14 +53,12 @@ public class Client implements Runnable
 				updateGUI();
 				
 				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-				
 				Object obj = in.readObject();
-				if (obj instanceof Date)
-				{
-					System.out.println("Client " + inputHandler.getPlayerID() + ": " + (Date)obj);
-				}
+				if (obj instanceof BoardState)
+					System.out.println("Client " + inputHandler.getPlayerID() + ": " + obj);
 				
-				Thread.sleep(1000);
+				
+				Thread.sleep(10);
 			} catch (Exception e)          
 			{
 				System.out.println("Client.class: " + e);
@@ -107,11 +104,12 @@ public class Client implements Runnable
 		}
 	}
 	
+	// Was macht das hier? Steht nicht im klassen Diagramm
 	public void startServer()
 	{
 		try
 		{
-			server = new Server(new NetworkAddress(9898));
+			server = new Server(boardState, new NetworkAddress(9898));
 		} catch (IOException e)
 		{
 			System.out.println(e);
