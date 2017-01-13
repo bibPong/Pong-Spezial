@@ -61,7 +61,7 @@ public class KI{
 			}
 		}
 		else
-		{
+		{ 
 			if(bar.getPosition().getY() > ball.getPosition().getY()) 		//Wenn die y-Koordinate der KI Bar größer als die des Balls ist
 			{
 				try {
