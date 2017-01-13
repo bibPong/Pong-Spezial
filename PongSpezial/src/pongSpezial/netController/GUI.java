@@ -1,10 +1,8 @@
 package pongSpezial.netController;
 
-import java.beans.Visibility;
 import java.io.IOException;
 import java.util.Dictionary;
 
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,33 +15,28 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import pongSpezial.Main;
 import pongSpezial.dataModel.BoardState;
 //import pongSpezial.view.GUI;
 import pongSpezial.view.State;
 
-public class GUI
-{
+public class GUI {
 
 	private final String SPLASH_SCREEN_PATH = "/pongSpezial/view/SplashScreen.fxml";
-	private final String MAINMENU_SCREEN_PATH = "/pongSpezial/view/MainMenu.fxml"; 
-	private final String NAMEENTRY_SCREEN_PATH = "/pongSpezial/view/Nameentry.fxml"; 
+	private final String MAINMENU_SCREEN_PATH = "/pongSpezial/view/MainMenu.fxml";
+	private final String NAMEENTRY_SCREEN_PATH = "/pongSpezial/view/Nameentry.fxml";
 	private final String HOSTANDJOIN_SCREEN_PATH = "/pongSpezial/view/HostandJoin.fxml";
-	private final String SPCONFIG_SCREEN_PATH = "/pongSpezial/view/LobbyGUIsp.fxml";//SpConfig.fxml
-	private final String MPCONFIG_SCREEN_PATH = "/pongSpezial/view/LobbyGUImp.fxml";//MpConfig.fxml
-	private final String MPJOIN_SCREEN_PATH = "/pongSpezial/view/LobbyGUImpJoin.fxml";//MpJoin.fxml
+	private final String SPCONFIG_SCREEN_PATH = "/pongSpezial/view/LobbyGUIsp.fxml";// SpConfig.fxml
+	private final String MPCONFIG_SCREEN_PATH = "/pongSpezial/view/LobbyGUImp.fxml";// MpConfig.fxml
+	private final String MPJOIN_SCREEN_PATH = "/pongSpezial/view/LobbyGUImpJoin.fxml";// MpJoin.fxml
 	private final String LOBBY_SCREEN_PATH = "/pongSpezial/view/LobbyScreen.fxml";
 	private final String GAME_SCREEN_PATH = "/pongSpezial/view/GameScreen.fxml";
 
 	// SplashScreen
 	@FXML
 	private Button btn_firstStart;
-	@FXML
-	private AnchorPane pan_mainPane;
-
+	
 	// MainMenu
 	@FXML
 	private Button btn_sp;
@@ -67,17 +60,17 @@ public class GUI
 	private PasswordField pwf_password;
 	@FXML
 	private TextField txf_ip;
-	
-	//LobbyGUIsp
+
+	// LobbyGUIsp
 	@FXML
 	private Button btn_startGameSP;
-	
-	//LobbyGUImp
-	private Button btn_startGameMP;
-	
-	@FXML
-	private Button test2;
 
+	// LobbyGUImp
+	private Button btn_startGameMP;
+
+	
+
+	// GameScreen
 	@FXML
 	private Button closeGamescreen;
 
@@ -94,11 +87,10 @@ public class GUI
 
 	private FXMLLoader loader;
 
-	public GUI()
-	{}
+	public GUI() {
+	}
 
-	public GUI(State state, Client client, FXMLLoader loader)
-	{
+	public GUI(State state, Client client, FXMLLoader loader) {
 		this.state = state;
 		this.client = client;
 		this.loader = loader;
@@ -106,191 +98,175 @@ public class GUI
 	}
 
 	@FXML
-	public void closeScreen(ActionEvent event)
-	{
+	public void closeScreen(ActionEvent event) {
 		// Close the game and switch to another Screen
 	}
 
 	@FXML
-	public void switchOnOff(ActionEvent event)
-	{
+	public void switchOnOff(ActionEvent event) {
 		// Turn the sound on or off
 	}
 
-	
-	
 	@FXML
-	public void quit()
-	{
+	public void quit() {
 		System.exit(0);
-		
+
 	}
-	
+
 	@FXML
-	public void click(ActionEvent e) throws IOException
-	{
+	public void click(ActionEvent e) throws IOException {
 		Control c = (Button) e.getSource();
 		Stage primaryStage = (Stage) c.getScene().getWindow();
-		
-		prevState=state;
-		
-		if(c.getId().toString().equals("btn_firstStart"))
-		{
-			state= State.NAMEENTRY;
-						
+
+		prevState = state;
+
+		if (c.getId().toString().equals("btn_firstStart")) {
+			state = State.NAMEENTRY;
+
 		}
-		
-		if(c.getId().toString().equals("btn_nameConfirm"))
-		{
-			state= State.MAINMENU;
+
+		if (c.getId().toString().equals("btn_nameConfirm")) {
+			state = State.MAINMENU;
 		}
-		
-		if(c.getId().toString().equals("btn_sp"))
-		{
-			state= State.SPCONFIG;
+
+		if (c.getId().toString().equals("btn_sp")) {
+			state = State.SPCONFIG;
 		}
-		
-		if(c.getId().toString().equals("btn_mp"))
-		{
-			state= State.HOSTANDJOIN;
+
+		if (c.getId().toString().equals("btn_mp")) {
+			state = State.HOSTANDJOIN;
 		}
-		
-		if(c.getId().toString().equals("btn_selectHost"))
-		{
-			state= State.MPCONFIG;
+
+		if (c.getId().toString().equals("btn_selectHost")) {
+			state = State.MPCONFIG;
 		}
-		
-		if(c.getId().toString().equals("btn_startGameMP"))
-		{
-			state= State.GAME; // SPLASH durch GameScreen ersetzen
+
+		if (c.getId().toString().equals("btn_startGameMP")) {
+
+			state = State.GAME;
+
 		}
-		
-		if(c.getId().toString().equals("btn_startGameSP"))
-		{
-			state= State.GAME; // SPLASH durch GameScreen ersetzen
-						
+
+		if (c.getId().toString().equals("btn_startGameSP")) {
+			state = State.GAME;
+
 		}
-		
-		
-		
-						
+
 		switchScreen(primaryStage);
 
 	}
 
-	public void switchScreen(Stage primaryStage)
-	{
-		try
-		{
+	public void switchScreen(Stage primaryStage) {
+		try {
 
-			switch (state)
-			{
-				case SPLASH :
+			switch (state) {
+			case SPLASH:
 
-					showScreenType(primaryStage, SPLASH_SCREEN_PATH,
-							"Splashscreen");
+				showScreenType(primaryStage, SPLASH_SCREEN_PATH, "Splashscreen");
 
-					break;
+				break;
 
-				case MAINMENU :
+			case MAINMENU:
 
-					showScreenType(primaryStage, MAINMENU_SCREEN_PATH,
-							"Mainmenu");
+				showScreenType(primaryStage, MAINMENU_SCREEN_PATH, "Mainmenu");
 
-					break;
+				break;
 
-				case NAMEENTRY :
+			case NAMEENTRY:
 
-					showScreenType(primaryStage, NAMEENTRY_SCREEN_PATH,
-							"title");
+				showScreenType(primaryStage, NAMEENTRY_SCREEN_PATH, "title");
 
-					break;
+				break;
 
-				case HOSTANDJOIN :
+			case HOSTANDJOIN:
 
-					showScreenType(primaryStage, HOSTANDJOIN_SCREEN_PATH,
-							"title");
+				showScreenType(primaryStage, HOSTANDJOIN_SCREEN_PATH, "title");
 
-					break;
+				break;
 
-				case SPCONFIG :
+			case SPCONFIG:
 
-					showScreenType(primaryStage, SPCONFIG_SCREEN_PATH, "Singleplayer");
+				showScreenType(primaryStage, SPCONFIG_SCREEN_PATH, "Singleplayer");
 
-					break;
+				break;
 
-				case MPCONFIG :
+			case MPCONFIG:
 
-					showScreenType(primaryStage, MPCONFIG_SCREEN_PATH, "Multiplayer");
+				showScreenType(primaryStage, MPCONFIG_SCREEN_PATH, "Multiplayer");
 
-					break;
+				break;
 
-				case MPJOIN :
+			case MPJOIN:
 
-					showScreenType(primaryStage, MPJOIN_SCREEN_PATH, "title");
+				showScreenType(primaryStage, MPJOIN_SCREEN_PATH, "title");
 
-					break;
+				break;
 
-				case LOBBY :
+			case LOBBY:
 
-					showScreenType(primaryStage, LOBBY_SCREEN_PATH, "title");
-					
-					if(prevState != state.MPJOIN)
-					{
-						// Man ist entweder MPHost oder SinglePlayer
-						// Server muss gestartet werden
-						client.startServer();
-					}
-					
-					break;
+				showScreenType(primaryStage, LOBBY_SCREEN_PATH, "title");
 
-				case GAME :
+				if (prevState != state.MPJOIN) {
+					// Man ist entweder MPHost oder SinglePlayer
+					// Server muss gestartet werden
+					client.startServer();
+				}
 
-					showScreenType(primaryStage, GAME_SCREEN_PATH, "title");
+				break;
 
-					break;
+			case GAME:
 
-				default :
-					break;
+				showScreenType(primaryStage, GAME_SCREEN_PATH, "title");
+
+				break;
+
+			default:
+				break;
 			}
 
-		} catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void showScreenType(Stage primaryStage, String screenPath,String title) throws IOException
-	{
-		
+	public void showScreenType(Stage primaryStage, String screenPath, String title) throws IOException {
+
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(screenPath));
 		Parent root = loader.load();
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setTitle(title);
 		primaryStage.show();
-		
-		
+
 		// Bind Key Events - example
-		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>()
-		{
+
+		if (state == State.GAME)
+			keyInput(primaryStage);
+
+	}
+
+	public void keyInput(Stage primaryStage) {
+		System.out.println("In methode");
+
+		// Stage primaryStage = (Stage) closeGamescreen.getScene().getWindow();
+
+		System.out.println(primaryStage.toString());
+
+		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(KeyEvent event)
-			{
-				client.validateInput(event);
+			public void handle(KeyEvent event) {
+				System.out.println("press");
+				client.validateInput(event);// hier werden Nullppinter geworfen
 			}
 		});
 
-		primaryStage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>()
-		{
+		primaryStage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(KeyEvent event)
-			{
-
-				client.validateInput(event);
+			public void handle(KeyEvent event) {
+				System.out.println("release");
+				client.validateInput(event);// hier werden Nullppinter geworfen
 
 			}
 		});
-		
 
 	}
 
