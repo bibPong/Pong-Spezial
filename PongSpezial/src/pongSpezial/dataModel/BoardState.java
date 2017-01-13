@@ -8,8 +8,9 @@ public class BoardState implements Serializable
 {
 
 	private static List<Geometry>geometries;
+	public static BoardState instance = new BoardState();
 	
-	public BoardState()
+	private BoardState()
 	{
 		geometries = new ArrayList<Geometry>();
 		
@@ -21,7 +22,14 @@ public class BoardState implements Serializable
 	}
 
 	public void setGeometries(List<Geometry> geometries) {
-		geometries = geometries;
+		this.geometries = geometries;
+	}
+
+
+	@Override
+	public String toString()
+	{
+		return "BoardState:"+geometries;
 	}
 
 	/*public static BoardState getBoardstate() {

@@ -17,5 +17,13 @@ public class Bar extends DynamicGeometry
 	public void setWidth(double width) 
 	{
 		this.width = width;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Bar position" + super.getPosition();
 	}	
+	
+	
 }
