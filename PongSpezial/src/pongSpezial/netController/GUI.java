@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
@@ -62,6 +63,10 @@ public class GUI
 	private Button btn_selectHost;
 	@FXML
 	private Button btn_selectJoin;
+	@FXML
+	private PasswordField pwf_password;
+	@FXML
+	private TextField txf_ip;
 	
 	//LobbyGUIsp
 	@FXML
@@ -157,12 +162,12 @@ public class GUI
 		
 		if(c.getId().toString().equals("btn_startGameMP"))
 		{
-			state= State.SPLASH; // SPLASH durch GameScreen ersetzen
+			state= State.GAME; // SPLASH durch GameScreen ersetzen
 		}
 		
 		if(c.getId().toString().equals("btn_startGameSP"))
 		{
-			state= State.SPLASH; // SPLASH durch GameScreen ersetzen
+			state= State.GAME; // SPLASH durch GameScreen ersetzen
 						
 		}
 		

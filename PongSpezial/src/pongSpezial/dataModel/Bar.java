@@ -8,7 +8,7 @@ public class Bar extends DynamicGeometry
 	public Player controllingPlayer;
 	
 	public Bar(Point2D position, Point2D collisionSize, Point2D direction, double velocity, Player controllingPlayer,
-			boolean collideCurrently, double width) {
+			boolean collideCurrently) {
 		super(position, collisionSize, direction, velocity, controllingPlayer, collideCurrently);
 		this.width = width;
 	

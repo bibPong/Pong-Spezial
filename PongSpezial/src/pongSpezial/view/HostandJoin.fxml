@@ -14,7 +14,7 @@
    <children>
       <Pane prefHeight="900.0" prefWidth="600.0">
          <children>
-            <Button fx:id="btn_selectHost" layoutX="225.0" layoutY="175.0" mnemonicParsing="false" onAction="#click" prefHeight="25.0" prefWidth="149.0" text="Host" />
+            <Button fx:id="btn_selectHost" layoutX="77.0" layoutY="172.0" mnemonicParsing="false" onAction="#click" prefHeight="25.0" prefWidth="149.0" text="Host" />
             <Label layoutX="178.0" layoutY="30.0" text="Host or Join Menu">
                <font>
                   <Font size="30.0" />
@@ -25,7 +25,11 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button layoutX="226.0" layoutY="214.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Join" />
+            <Button layoutX="347.0" layoutY="172.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Join" />
+            <TextField fx:id="txf_ip" layoutX="347.0" layoutY="234.0" />
+            <Label layoutX="347.0" layoutY="217.0" prefHeight="17.0" prefWidth="149.0" text="Server IP" />
+            <PasswordField fx:id="pwf_password" layoutX="347.0" layoutY="297.0" />
+            <Label layoutX="347.0" layoutY="280.0" prefHeight="17.0" prefWidth="149.0" text="Server Password" />
          </children>
       </Pane>
    </children>
