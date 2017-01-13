@@ -16,7 +16,7 @@ public class BoardState
 	}
 	
 	
-	public static List<Geometry> getGeometries() {
+	public List<Geometry> getGeometries() {
 		return geometries;
 	}
 

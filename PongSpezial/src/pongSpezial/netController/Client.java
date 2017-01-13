@@ -2,7 +2,11 @@ package pongSpezial.netController;
 
 import pongSpezial.dataModel.*;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javafx.geometry.Point2D;
@@ -15,39 +19,53 @@ public class Client implements Runnable
 
 	private boolean running;
 	private BoardState boardState;
-	private NetworkAddress serverIP;
+	private NetworkAddress networkAddress;
 	private InputHandler inputHandler;
+	private Socket socket;
+	private Server server;
 
-	public Client(BoardState boardState, NetworkAddress serverIP, int playerID)
+	public Client(BoardState boardState, NetworkAddress networkAddress, int playerID) throws IOException
 	{
 		this.running = true;
 		this.boardState = boardState;
-		this.serverIP = serverIP;
+		this.networkAddress = networkAddress;
 		this.inputHandler = new InputHandler(playerID);
-	}
-
-	// Zum testen
-	public Client()
-	{
-		this.boardState = BoardState.instance;
-		this.running = true;
-		this.inputHandler = new InputHandler(1);
 	}
 
 	@Override
 	public void run()
 	{
-		try
+		while (running && this.socket == null)
 		{
-			while (running)
+			try
 			{
-				//System.out.println("Player " + inputHandler.getPlayerID() + ": " + inputHandler.getDirection());
-				updateGUI();
-				Thread.sleep(10);
+				this.socket = new Socket(this.networkAddress.getIpAddress(), this.networkAddress.getPort());
+				Thread.sleep(1000);
+			} catch (Exception e) 
+			{
+				System.out.println("Client.class: " + e);
 			}
-		} catch (Exception e)
+		}
+
+		while (running)
 		{
-			System.out.println(e);
+			try
+			{
+				updateGUI();
+				
+				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
+				
+				Object obj = in.readObject();
+				if (obj instanceof Date)
+				{
+					System.out.println("Client " + inputHandler.getPlayerID() + ": " + (Date)obj);
+				}
+				
+				Thread.sleep(1000);
+			} catch (Exception e)          
+			{
+				System.out.println("Client.class: " + e);
+			}
 		}
 	}
 
@@ -86,6 +104,17 @@ public class Client implements Runnable
 			break;
 		default:
 			break;
+		}
+	}
+	
+	public void startServer()
+	{
+		try
+		{
+			server = new Server(new NetworkAddress(9898));
+		} catch (IOException e)
+		{
+			System.out.println(e);
 		}
 	}
 	
@@ -134,3 +163,4 @@ public class Client implements Runnable
 	
 	
 }
+

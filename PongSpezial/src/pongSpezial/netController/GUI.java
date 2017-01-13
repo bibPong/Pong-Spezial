@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Control;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
@@ -23,14 +25,15 @@ import pongSpezial.dataModel.BoardState;
 //import pongSpezial.view.GUI;
 import pongSpezial.view.State;
 
-public class GUI {
+public class GUI
+{
 
-	private final String SPLASH_SCREEN_PATH = "/pongSpezial/view/SplashScreen.fxml"; // DS
-	private final String MAINMENU_SCREEN_PATH = "/pongSpezial/view/MainMenu.fxml"; // DS
-	private final String NAMEENTRY_SCREEN_PATH = "/pongSpezial/view/Nameentry.fxml"; // DS
-	private final String HOSTANDJOIN_SCREEN_PATH = "/pongSpezial/view/HostandJoin.fxml"; // DS
-	private final String SPCONFIG_SCREEN_PATH = "/pongSpezial/view/SpConfig.fxml";
-	private final String MPCONFIG_SCREEN_PATH = "/pongSpezial/view/MpConfig.fxml";
+	private final String SPLASH_SCREEN_PATH = "/pongSpezial/view/SplashScreen.fxml";
+	private final String MAINMENU_SCREEN_PATH = "/pongSpezial/view/MainMenu.fxml"; 
+	private final String NAMEENTRY_SCREEN_PATH = "/pongSpezial/view/Nameentry.fxml"; 
+	private final String HOSTANDJOIN_SCREEN_PATH = "/pongSpezial/view/HostandJoin.fxml";
+	private final String SPCONFIG_SCREEN_PATH = "/pongSpezial/view/LobbyGUIsp.fxml";//SpConfig.fxml
+	private final String MPCONFIG_SCREEN_PATH = "/pongSpezial/view/LobbyGUImp.fxml";//MpConfig.fxml
 	private final String MPJOIN_SCREEN_PATH = "/pongSpezial/view/MpJoin.fxml";
 	private final String LOBBY_SCREEN_PATH = "/pongSpezial/view/LobbyScreen.fxml";
 	private final String GAME_SCREEN_PATH = "/pongSpezial/view/GameScreen.fxml";
@@ -47,7 +50,7 @@ public class GUI {
 	@FXML
 	private Button btn_mp;
 	@FXML
-	private Button btn_close;
+	private Button btn_quit;
 
 	// NameEntry
 	@FXML
@@ -60,7 +63,18 @@ public class GUI {
 	private Button btn_selectHost;
 	@FXML
 	private Button btn_selectJoin;
-
+	@FXML
+	private PasswordField pwf_password;
+	@FXML
+	private TextField txf_ip;
+	
+	//LobbyGUIsp
+	@FXML
+	private Button btn_startGameSP;
+	
+	//LobbyGUImp
+	private Button btn_startGameMP;
+	
 	@FXML
 	private Button test2;
 
@@ -71,148 +85,212 @@ public class GUI {
 	private ToggleButton soundToggle;
 
 	private BoardState boeardstate;
+	private State prevState;
 	private State state;
 	private boolean isSinglePlayer;
 	private Dictionary<Integer, Color> playerColors;
 	private String name;
 	private Client client;
-	private Stage primaryStage;
+
 	private FXMLLoader loader;
 
-	public GUI() {
+	public GUI()
+	{}
 
-	}
-
-	public GUI(State state, Client client, FXMLLoader loader, Stage primaryStage) {
+	public GUI(State state, Client client, FXMLLoader loader)
+	{
 		this.state = state;
 		this.client = client;
 		this.loader = loader;
-		this.primaryStage = primaryStage;
-		System.out.println(primaryStage.toString());
 
 	}
 
 	@FXML
-	public void closeScreen(ActionEvent event) {
+	public void closeScreen(ActionEvent event)
+	{
 		// Close the game and switch to another Screen
 	}
 
 	@FXML
-	public void switchOnOff(ActionEvent event) {
+	public void switchOnOff(ActionEvent event)
+	{
 		// Turn the sound on or off
 	}
 
+	
+	
 	@FXML
-	public void click() throws IOException {
+	public void quit()
+	{
+		System.exit(0);
 		
-		this.primaryStage = new Stage();
+	}
+	
+	@FXML
+	public void click(ActionEvent e) throws IOException
+	{
+		Control c = (Button) e.getSource();
+		Stage primaryStage = (Stage) c.getScene().getWindow();
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(MAINMENU_SCREEN_PATH));
-		Parent root = loader.load();
+		prevState=state;
+		
+		if(c.getId().toString().equals("btn_firstStart"))
+		{
+			state= State.NAMEENTRY;
+						
+		}
+		
+		if(c.getId().toString().equals("btn_nameConfirm"))
+		{
+			state= State.MAINMENU;
+		}
+		
+		if(c.getId().toString().equals("btn_sp"))
+		{
+			state= State.SPCONFIG;
+		}
+		
+		if(c.getId().toString().equals("btn_mp"))
+		{
+			state= State.HOSTANDJOIN;
+		}
+		
+		if(c.getId().toString().equals("btn_selectHost"))
+		{
+			state= State.MPCONFIG;
+		}
+		
+		if(c.getId().toString().equals("btn_startGameMP"))
+		{
+			state= State.GAME; // SPLASH durch GameScreen ersetzen
+		}
+		
+		if(c.getId().toString().equals("btn_startGameSP"))
+		{
+			state= State.GAME; // SPLASH durch GameScreen ersetzen
+						
+		}
 		
 		
-		primaryStage.setScene(new Scene(root));
-		primaryStage.setTitle("PongSpezial Stage2");
-		primaryStage.show();
+		
+						
+		switchScreen(primaryStage);
 
 	}
 
-	public void switchScreen(Stage primaryStage) {
-		try {
+	public void switchScreen(Stage primaryStage)
+	{
+		try
+		{
 
-			switch (state) {
-			case SPLASH:
+			switch (state)
+			{
+				case SPLASH :
 
-				showScreenType(primaryStage, SPLASH_SCREEN_PATH, "Splashscreen");
+					showScreenType(primaryStage, SPLASH_SCREEN_PATH,
+							"Splashscreen");
 
-				break;
+					break;
 
-			case MAINMENU:
+				case MAINMENU :
 
-				showScreenType(primaryStage, MAINMENU_SCREEN_PATH, "Mainmenu");
+					showScreenType(primaryStage, MAINMENU_SCREEN_PATH,
+							"Mainmenu");
 
-				break;
+					break;
 
-			case NAMEENTRY:
+				case NAMEENTRY :
 
-				showScreenType(primaryStage, NAMEENTRY_SCREEN_PATH, "title");
+					showScreenType(primaryStage, NAMEENTRY_SCREEN_PATH,
+							"title");
 
-				break;
+					break;
 
-			case HOSTANDJOIN:
+				case HOSTANDJOIN :
 
-				showScreenType(primaryStage, HOSTANDJOIN_SCREEN_PATH, "title");
+					showScreenType(primaryStage, HOSTANDJOIN_SCREEN_PATH,
+							"title");
 
-				break;
+					break;
 
-			case SPCONFIG:
+				case SPCONFIG :
 
-				showScreenType(primaryStage, SPCONFIG_SCREEN_PATH, "title");
+					showScreenType(primaryStage, SPCONFIG_SCREEN_PATH, "Singleplayer");
 
-				break;
+					break;
 
-			case MPCONFIG:
+				case MPCONFIG :
 
-				showScreenType(primaryStage, MPCONFIG_SCREEN_PATH, "title");
+					showScreenType(primaryStage, MPCONFIG_SCREEN_PATH, "Multiplayer");
 
-				break;
+					break;
 
-			case MPJOIN:
+				case MPJOIN :
 
-				showScreenType(primaryStage, MPJOIN_SCREEN_PATH, "title");
+					showScreenType(primaryStage, MPJOIN_SCREEN_PATH, "title");
 
-				break;
+					break;
 
-			case LOBBY:
+				case LOBBY :
 
-				showScreenType(primaryStage, LOBBY_SCREEN_PATH, "title");
+					showScreenType(primaryStage, LOBBY_SCREEN_PATH, "title");
+					
+					if(prevState != state.MPJOIN)
+					{
+						// Man ist entweder MPHost oder SinglePlayer
+						// Server muss gestartet werden
+						client.startServer();
+					}
+					
+					break;
 
-				break;
+				case GAME :
 
-			case GAME:
+					showScreenType(primaryStage, GAME_SCREEN_PATH, "title");
 
-				showScreenType(primaryStage, GAME_SCREEN_PATH, "title");
+					break;
 
-				break;
-
-			default:
-				break;
+				default :
+					break;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public void showScreenType(Stage primaryStage, String screenPath, String title) throws IOException {
-
-		// loader = new FXMLLoader(getClass().getResource(screenPath));
-		loader.getClass().getResource(screenPath);
+	public void showScreenType(Stage primaryStage, String screenPath,String title) throws IOException
+	{
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(screenPath));
 		Parent root = loader.load();
 		primaryStage.setScene(new Scene(root));
 		primaryStage.setTitle(title);
 		primaryStage.show();
-
-		// Controller ist GUI aus package pongSpezial.netController
-
+		
+		
 		// Bind Key Events - example
-		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+		primaryStage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>()
+		{
 			@Override
-			public void handle(KeyEvent event) {
+			public void handle(KeyEvent event)
+			{
 				client.validateInput(event);
 			}
 		});
 
-		primaryStage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
+		primaryStage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>()
+		{
 			@Override
-			public void handle(KeyEvent event) {
+			public void handle(KeyEvent event)
+			{
 
 				client.validateInput(event);
 
 			}
 		});
-
-		// pongSpezial.netController.GUI controller = loader.getController();
+		
 
 	}
 

@@ -7,7 +7,7 @@ public class Edge extends StaticGeometry
 	private EdgeType type;
 	private boolean edgeVisible;
 	
-	public Edge(Point2D position, Point2D collisionSize, String designation, EdgeType type, boolean edgeVisible) {
+	public Edge(Point2D position, Point2D collisionSize, EdgeType type, boolean edgeVisible) {
 		super(position, collisionSize);
 		this.type = type;
 		this.edgeVisible=edgeVisible;
