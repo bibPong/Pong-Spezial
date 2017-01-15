@@ -32,11 +32,10 @@ public class Main extends Application {
 		 */
 		NetworkAddress address = new NetworkAddress(new byte[] {(byte)127, (byte)0, (byte)0, (byte)1}, 9898);
 		
-//		Server server = new Server(BoardState.instance, address);
-//		server.setUpConnection();
-//		Thread serverThread = new Thread(server);
-//		serverThread.start();
-//		
+		Server server = new Server(BoardState.instance, address);
+		server.setUpConnection();
+		server.start();
+		
 		Client client = new Client(address, 1);
 		Thread clientThread = new Thread(client);
 		clientThread.start();

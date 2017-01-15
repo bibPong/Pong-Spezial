@@ -2,6 +2,8 @@ package pongSpezial.netController;
 
 import pongSpezial.dataModel.*;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -23,13 +25,15 @@ public class Client implements Runnable
 	private NetworkAddress networkAddress;
 	private InputHandler inputHandler;
 	private Socket socket;
+	private int password;
 	private Server server;
 
-	public Client(NetworkAddress networkAddress, int playerID) throws IOException
+	public Client(NetworkAddress networkAddress, int password) throws IOException
 	{
 		this.running = true;
 		this.networkAddress = networkAddress;
-		this.inputHandler = new InputHandler(playerID);
+		this.password = password;
+		this.inputHandler = new InputHandler();
 	}
 
 	@Override
@@ -47,6 +51,19 @@ public class Client implements Runnable
 			}
 		}
 
+		try
+		{
+			DataInputStream in = new DataInputStream(socket.getInputStream());
+			int playerID = in.readInt();
+			inputHandler.setPlayerID(playerID);
+			
+			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+			out.writeInt(password);
+		} catch (IOException e)
+		{
+			System.out.println("Client.class: " + e);
+		}
+		
 		while (running)
 		{
 			try
@@ -60,10 +77,10 @@ public class Client implements Runnable
     	        // Server in
 				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
 				Object obj = in.readObject();
-				if (obj instanceof BoardState)
-					System.out.println("Client " + inputHandler.getPlayerID() + ": " + obj);
-				else
-					System.out.println("Client " + inputHandler.getPlayerID() + ": Server -> in : error");
+//				if (obj instanceof BoardState)
+//					System.out.println("Client " + inputHandler.getPlayerID() + ": " + obj);
+//				else
+//					System.out.println("Client " + inputHandler.getPlayerID() + ": Server -> in : error");
 			} catch (Exception e)          
 			{
 				System.out.println("Client.class: " + e);

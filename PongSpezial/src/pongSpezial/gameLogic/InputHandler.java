@@ -1,15 +1,17 @@
 package pongSpezial.gameLogic;
 
-public class InputHandler
+import java.io.Serializable;
+
+public class InputHandler implements Serializable
 {
 
 	private int direction;
 	private int playerID;
 
-	public InputHandler(int playerID)
+	public InputHandler()
 	{
 		this.direction = 0;
-		this.playerID = playerID;
+		this.playerID = 0;
 	}
 
 	public int getDirection()
@@ -74,6 +76,11 @@ public class InputHandler
 	public int getPlayerID()
 	{
 		return playerID;
+	}
+	
+	public void setPlayerID(int playerID)
+	{
+		this.playerID = playerID;
 	}
 
 }

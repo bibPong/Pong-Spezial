@@ -18,6 +18,7 @@ public class ConnectionHandler extends Thread
 		this.serverSocket = new ServerSocket(networkAddress.getPort());
 		this.connections = new Connection[4];
 		this.isRunning = true;
+		super.setName("ConnectionHandler");
 	}
 	
 	public void close()
@@ -32,14 +33,14 @@ public class ConnectionHandler extends Thread
 		
 		while (isRunning)
 		{
-			for (Connection connection : connections)
+			for (int i = 0; i < connections.length; i++)
 			{
 				try
 				{
-					if (connection == null || !connection.isConnected())
+					if (connections[i] == null || !connections[i].isConnected())
 					{
-						connection = new Connection(serverSocket.accept());
-						connection.start();
+						connections[i] = new Connection(i + 1, serverSocket.accept());
+						connections[i].start();
 					}
 				} catch (IOException e)
 				{
@@ -52,14 +53,7 @@ public class ConnectionHandler extends Thread
 		// Close all connections
 		for (Connection connection : connections)
 			if (connection != null)
-				try
-				{
-					connection.close();
-				} catch (IOException e)
-				{
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				connection.close();
 	}
 	
 	public Connection[] getConnections()

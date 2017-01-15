@@ -11,7 +11,8 @@ import pongSpezial.dataModel.GameConfig;
 import pongSpezial.dataModel.Player;
 import pongSpezial.gameLogic.InputHandler;
 
-public class Server implements Runnable
+
+public class Server extends Thread
 {
 
 	private Dictionary<Player, NetworkAddress> clientConnection;
@@ -31,6 +32,7 @@ public class Server implements Runnable
 		this.isRunning = true;
 		this.boardState = boardState;
 		this.networkAddress = networkAddress;
+		super.setName("Server");
 		init();
 	}
 
@@ -57,7 +59,7 @@ public class Server implements Runnable
 
 	public void sendInputToGameManager()
 	{
-
+		// Inputhandler an gamemanager
 	}
 
 	public void close()
@@ -77,9 +79,11 @@ public class Server implements Runnable
 				connection.setBoardState(boardState);
 			}
 			
+			System.out.println("Client's connected: " + connectionHandler.getConnections().length);
+			
 			try
 			{
-				Thread.sleep(1);
+				sleep(1000);
 			} catch (Exception e)
 			{
 				System.out.println("Server.class: " + e);
