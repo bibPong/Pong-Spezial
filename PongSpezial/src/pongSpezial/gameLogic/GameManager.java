@@ -14,6 +14,7 @@ import pongSpezial.dataModel.EdgeType;
 import pongSpezial.dataModel.Geometry;
 import pongSpezial.dataModel.InputState;
 import pongSpezial.dataModel.Player;
+import pongSpezial.dataModel.PowerUp;
 import pongSpezial.dataModel.StopWatch;
 import pongSpezial.netController.Server;
 import pongSpezial.dataModel.Player;
@@ -28,12 +29,14 @@ public class GameManager implements Runnable
 	private static BoardState boardstate=BoardState.instance;
 	private InputState inputState;
 	private StopWatch stopWatch;
+	private PowerUpManager powerUpManager;
 	public Server server;
 	
 	public GameManager()
 	{
 		inputState = new InputState();
 		stopWatch = new StopWatch();
+		
 	}
 	
 	public void init(Player[] player, double boardsize)
@@ -166,7 +169,9 @@ public class GameManager implements Runnable
 		teststates.add(co41);
 		
 		boardstate.setGeometries(teststates);
+		powerUpManager = new PowerUpManager(players);
 	}
+	
 	
 	@Override
 	public void run()
@@ -307,6 +312,24 @@ public class GameManager implements Runnable
 		}
 	}
 	
+	private void ballPowerUpCollision(Ball ball, PowerUp powerUp)
+	{
+		powerUpManager.startPowerUpEvent(powerUp, ball.getControllingPlayer());
+	}
+	
+	private void initBall(double boardsize)
+	{
+		Ball ball = new Ball(new Point2D(boardsize/2,boardsize/2),new Point2D(2,2),new Point2D(0,0),0.0,null,false,11);
+		
+		if(stopWatch.startTimer(5000))
+		{	
+			//Platzhalter noch richtige Werte und dann mit Zufallsmethode arbeiten
+			double x = 0;
+			double y = 0;
+			ball.setDirection(new Point2D(x,y));
+			ball.setVelocity(2);
+		}
+	}
 }
 
 
