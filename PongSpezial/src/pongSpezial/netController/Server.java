@@ -76,7 +76,20 @@ public class Server extends Thread
 		{
 			for (Connection connection : connectionHandler.getConnections())
 			{	
-				connection.setBoardState(boardState);
+				switch (connection.getConnectionState())
+				{
+					case INIT:
+						if (!connection.isTransmitting())
+							if (connection.getPassword() == password)
+								connection.setConnectionState(ConnectionState.IDLE);
+							else
+								connection.close();
+						break;
+
+					default:
+						connection.setBoardState(boardState);
+						break;
+				}
 			}
 			
 			System.out.println("Client's connected: " + connectionHandler.getConnections().length);
