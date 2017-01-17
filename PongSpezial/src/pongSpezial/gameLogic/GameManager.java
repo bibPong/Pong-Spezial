@@ -341,6 +341,20 @@ public class GameManager implements Runnable
 			ball.setVelocity(2);
 		}
 	}
+	
+	private void playerBarBallCollision(Ball ball, Bar bar)
+	{
+		
+		double x = ball.getDirection().getX()*(-1);
+		double y = ball.getDirection().getY()*(-1);	
+		ball.setDirection(new Point2D(y,x));
+			
+		
+	}
+	
+	
+	
+	
 }
 
 
