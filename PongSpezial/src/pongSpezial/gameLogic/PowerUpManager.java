@@ -1,7 +1,9 @@
 package pongSpezial.gameLogic;
 
+import pongSpezial.dataModel.BoardState;
 import pongSpezial.dataModel.Player;
 import pongSpezial.dataModel.PowerUp;
+import pongSpezial.dataModel.PowerUpType;
 import pongSpezial.dataModel.StopWatch;
 
 public class PowerUpManager 
@@ -22,9 +24,13 @@ public class PowerUpManager
 	
 	
 	//Die Parameter sind als im Klassendiagramm, da es so sinnvoller erschien
-	public void startPowerUpEvent(PowerUp powerUp, Player player)
+	public void startPowerUpEvent(BoardState boardstate)
 	{
 		isPowerUpActive = true;
+		
+		//ist so als wäre PowerUp in boardstate an dieser Position.
+		PowerUp powerUp = (PowerUp)boardstate.getGeometries().get(8);
+		
 		
 		switch(powerUp.getType())
 		{
@@ -32,7 +38,7 @@ public class PowerUpManager
 				// Führe PowerUp-Funktion vom Typ 1 für "player" aus.
 				if(timer.startTimer(5000))
 				{
-					// Beende die Funktion des PowerUps.
+					// Hier wird dann BoardState geändert und zurückgegeben
 				}
 			break;
 			
@@ -40,10 +46,11 @@ public class PowerUpManager
 				// Führe PowerUp-Funktion vom Typ 2 für "player" aus.
 				if(timer.startTimer(3000))
 				{
-					// Beende die Funktion des PowerUps.
+					// Hier wird dann BoardState geändert und zurückgegeben
 				}
 			break;
 		}
+		
 		
 		isPowerUpActive = false;
 	}
@@ -55,7 +62,11 @@ public class PowerUpManager
 	
 	public PowerUp spawnPowerUp()
 	{
-		return PowerUps[1];
+		return PowerUps[zufall(0,1)];
 	}
+	private int zufall(int min, int max)
+	{
+		return (int) (Math.random()*(max-min+1)+min);
+	}	
 	
 }

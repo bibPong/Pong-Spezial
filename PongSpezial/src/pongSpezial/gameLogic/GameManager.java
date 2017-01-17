@@ -323,10 +323,11 @@ public class GameManager implements Runnable
 		}
 	}
 	
-	private void ballPowerUpCollision(Ball ball, PowerUp powerUp)
+	private void ballPowerUpCollision()
 	{
-		powerUpManager.startPowerUpEvent(powerUp, ball.getControllingPlayer());
+		powerUpManager.startPowerUpEvent(boardstate);
 	}
+	
 	
 	private void initBall(double boardsize)
 	{
@@ -334,9 +335,9 @@ public class GameManager implements Runnable
 		
 		if(stopWatch.startTimer(5000))
 		{	
-			//Platzhalter noch richtige Werte und dann mit Zufallsmethode arbeiten
-			double x = 0;
-			double y = 0;
+			//Platzhalter noch nicht richtige Zufallswerte
+			double x = zufall(0,3);
+			double y = zufall(0,3);
 			ball.setDirection(new Point2D(x,y));
 			ball.setVelocity(2);
 		}
@@ -352,6 +353,53 @@ public class GameManager implements Runnable
 		
 	}
 	
+	private void ballPlayerEdgeCollision(Ball ball, Edge playerEdge, Player player, double boardsize)
+	{
+		
+		initBall(boardsize);		
+		
+		player.setLifes(player.getLifes()-1);
+		
+		if(player.getLifes() == 0)
+		{
+			if(playerEdge.getOrientation().equals("HORIZONTAL")) //wie weit verschieben
+			{
+				if(playerEdge.getPosition().getY() > 0)
+				{
+					Edge edge = (Edge)boardstate.getGeometries().get(0);
+					edge.setEdgeVisible(true);
+				}
+				else
+				{
+					Edge edge = (Edge)boardstate.getGeometries().get(4);
+					edge.setEdgeVisible(true);
+				}
+			}
+			
+			if(playerEdge.getOrientation().equals("VERTICAL"))
+					{
+						if(playerEdge.getPosition().getX() > 0)
+						{
+							Edge edge = (Edge)boardstate.getGeometries().get(2);
+							edge.setEdgeVisible(true);
+						}
+						else
+						{
+							Edge edge = (Edge)boardstate.getGeometries().get(6);
+							edge.setEdgeVisible(true);
+						}
+					}
+			
+		}
+	
+	}
+		
+	
+	
+	private int zufall(int min, int max)
+	{
+		return (int) (Math.random()*(max-min+1)+min);
+	}	
 	
 	
 	
