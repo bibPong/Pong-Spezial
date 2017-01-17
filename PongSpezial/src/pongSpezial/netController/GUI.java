@@ -83,17 +83,19 @@ public class GUI {
 	private boolean isSinglePlayer;
 	private Dictionary<Integer, Color> playerColors;
 	private String name;
-	private Client client;
+	private final Client client;
 
 	private FXMLLoader loader;
 
 	public GUI() {
+		this.client=null;
 	}
 
 	public GUI(State state, Client client, FXMLLoader loader) {
 		this.state = state;
 		this.client = client;
 		this.loader = loader;
+		System.out.println(client.toString());
 
 	}
 
@@ -255,7 +257,7 @@ public class GUI {
 			@Override
 			public void handle(KeyEvent event) {
 				System.out.println("press");
-				client.validateInput(event);// hier werden Nullppinter geworfen
+				Client.instance.validateInput(event);// hier werden Nullppinter geworfen
 			}
 		});
 
@@ -263,7 +265,7 @@ public class GUI {
 			@Override
 			public void handle(KeyEvent event) {
 				System.out.println("release");
-				client.validateInput(event);// hier werden Nullppinter geworfen
+				Client.instance.validateInput(event);// hier werden Nullppinter geworfen
 
 			}
 		});

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import pongSpezial.dataModel.BoardState;
 import pongSpezial.gameLogic.GameManager;
+import pongSpezial.gameLogic.InputHandler;
 import pongSpezial.netController.Client;
 import pongSpezial.netController.GUI;
 import pongSpezial.netController.NetworkAddress;
@@ -36,8 +37,15 @@ public class Main extends Application {
 		server.setUpConnection();
 		server.start();
 		
-		Client client = new Client(address, 1);
-		Thread clientThread = new Thread(client);
+		//Client client = new Client(address, 1);
+		
+		Client.instance.init(address, 1);
+		
+		
+		
+		
+		
+		Thread clientThread = new Thread(Client.instance);
 		clientThread.start();
 //		
 //		Client client2 = new Client(address, 1);
@@ -58,7 +66,7 @@ public class Main extends Application {
 		thread2.start();
 		
 		
-		GUI startGui = new GUI(State.SPLASH, client,loader);
+		GUI startGui = new GUI(State.SPLASH, Client.instance,loader);
 		startGui.switchScreen(primaryStage);
 				
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>()

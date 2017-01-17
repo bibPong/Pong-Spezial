@@ -28,13 +28,17 @@ public class Client implements Runnable
 	private int password;
 	private Server server;
 
-	public Client(NetworkAddress networkAddress, int password) throws IOException
+	public void init(NetworkAddress networkAddress, int password) throws IOException
 	{
 		this.running = true;
 		this.networkAddress = networkAddress;
 		this.password = password;
 		this.inputHandler = new InputHandler();
 	}
+	
+	public static Client instance = new Client();
+	
+	
 
 	@Override
 	public void run()
