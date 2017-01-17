@@ -21,26 +21,27 @@ public class InputHandler implements Serializable
 
 	public void setDirection(String direction)
 	{
+		// es wird immer davon augegangen, dass die jeweilige Bar sich unten befindet
 			switch (direction) 
 			{			
 				case "LEFT":
-					if(playerID == 1)
-					{
-						this.direction=-1;
-					}					
-					else if (playerID == 3)
+					if(playerID == 3)
 					{
 						this.direction=1;
+					}					
+					else if (playerID == 4)
+					{
+						this.direction=-1;
 					}
 					break;
 				case "RIGHT":
-					if(playerID == 1)
-					{
-						this.direction=1;
-					}					
-					else if (playerID == 3)
+					if(playerID == 3)
 					{
 						this.direction=-1;
+					}					
+					else if (playerID == 4)
+					{
+						this.direction=1;
 					}
 					break;
 				case "UP":
@@ -48,7 +49,7 @@ public class InputHandler implements Serializable
 					{
 						this.direction=1;
 					}					
-					else if (playerID == 4)
+					else if (playerID == 1)
 					{
 						this.direction=-1;
 					}
@@ -59,7 +60,7 @@ public class InputHandler implements Serializable
 					{
 						this.direction=-1;
 					}					
-					else if (playerID == 4)
+					else if (playerID == 1)
 					{
 						this.direction=1;
 					}
