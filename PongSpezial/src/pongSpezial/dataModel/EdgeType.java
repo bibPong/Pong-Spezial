@@ -2,5 +2,5 @@ package pongSpezial.dataModel;
 
 public enum EdgeType 
 {
-	CORNEREDGE, PLAYERGOALEDGE
+	CORNEREDGE, PLAYERGOALEDGE, PLAYERFILL
 }
