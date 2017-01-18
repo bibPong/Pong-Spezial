@@ -18,6 +18,10 @@ public class Bar extends DynamicGeometry
 	{
 		this.width = width;
 	}
+	
+	public double getWidth() {
+		return width;
+	}
 
 	@Override
 	public String toString()

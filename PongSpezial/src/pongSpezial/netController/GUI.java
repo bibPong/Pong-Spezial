@@ -24,7 +24,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import pongSpezial.dataModel.Ball;
+import pongSpezial.dataModel.Bar;
 import pongSpezial.dataModel.BoardState;
+import pongSpezial.dataModel.Edge;
 import pongSpezial.dataModel.Geometry;
 //import pongSpezial.view.GUI;
 import pongSpezial.view.State;
@@ -87,19 +90,27 @@ public class GUI {
 	@FXML
 	private Rectangle sp1;
 	@FXML
+	private Rectangle sp1b;
+	@FXML
 	private Rectangle sp2;
+	@FXML
+	private Rectangle sp2b;
 	@FXML
 	private Rectangle sp3;
 	@FXML
+	private Rectangle sp3b;
+	@FXML
 	private Rectangle sp4;
 	@FXML
-	private Rectangle balk1;
+	private Rectangle sp4b;
 	@FXML
-	private Rectangle balk2;
+	private Rectangle bar1;
 	@FXML
-	private Rectangle balk3;
+	private Rectangle bar2;
 	@FXML
-	private Rectangle balk4;
+	private Rectangle bar3;
+	@FXML
+	private Rectangle bar4;
 	@FXML
 	private Rectangle co1;
 	@FXML
@@ -330,157 +341,142 @@ public class GUI {
 
 	}
 	
-	public void drawGameScreen(List<Geometry> list)
+	public void updateGUI(List<Geometry> list)
 	{
-		
-		if(firstStart){
+		Rectangle[] rectangle={sp1,sp1b,sp2,sp2b,sp3,sp3b,sp4,sp4b,co1,co2,co3,co4,co11,co21,co31,co41};
+		if(firstStart)
+		{
 			for (Geometry geometry : list)
 			{
 				Point2D test = geometry.getPosition();
-				
-				switch (geometry.getClass().toString())
+				if(geometry instanceof Bar)
 				{
-				case "balk1":
-					
-					if(test.getX()==0)
+					int id = ((Bar) geometry).getControllingPlayer().getPlayerID();
+					switch (id)
 					{
-						fadeOutBars(balk1);
-						
-					}
-					else
-					{
-						fadeOutBars(sp1);
-						balk1.setLayoutX(test.getX());
-						balk1.setLayoutY(test.getY());
-					}
+					case 1:
+						bar1.setLayoutX(test.getX());
+						bar1.setLayoutY(test.getY());
+						bar1.setHeight(((Bar) geometry).getCollisionSize().getX());
+						bar1.setWidth(((Bar) geometry).getCollisionSize().getY());
 					break;
 					
-				case "balk2":
-					if(test.getX()==0)
-					{
-						fadeOutBars(balk2);
-						
-					}
-					else
-					{
-						fadeOutBars(sp2);
-						balk2.setLayoutX(test.getX());
-						balk2.setLayoutY(test.getY());
-					}
+					case 2:
+						bar2.setLayoutX(test.getX());
+						bar2.setLayoutY(test.getY());
+						bar2.setHeight(((Bar) geometry).getCollisionSize().getX());
+						bar2.setWidth(((Bar) geometry).getCollisionSize().getY());
 					break;
 					
-				case "balk3":
-					if(test.getY()==0)
-					{
-						fadeOutBars(balk3);
-						
-					}
-					else
-					{
-						fadeOutBars(sp3);
-						balk3.setLayoutX(test.getX());
-						balk3.setLayoutY(test.getY());
-					}
+					case 3:
+						bar3.setLayoutX(test.getX());
+						bar3.setLayoutY(test.getY());
+						bar3.setHeight(((Bar) geometry).getCollisionSize().getX());
+						bar3.setWidth(((Bar) geometry).getCollisionSize().getY());
 					break;
-					
-				case "balk4":
-					if(test.getY()==0)
-					{
-						fadeOutBars(balk4);
-						
-					}
-					else
-					{
-						fadeOutBars(sp4);
-						balk4.setLayoutX(test.getX());
-						balk4.setLayoutY(test.getY());
-					}
+					case 4:
+						bar4.setLayoutX(test.getX());
+						bar4.setLayoutY(test.getY());
+						bar4.setHeight(((Bar) geometry).getCollisionSize().getX());
+						bar4.setWidth(((Bar) geometry).getCollisionSize().getY());
 					break;
-					
-				case "ball":
-						ball.setLayoutX(test.getX());
-						ball.setLayoutY(test.getY());
-					break;
-
-				default:
-					break;
-				}
-
-				
-			}
-				firstStart = false;
-			}
-			else
-			{
-				for (Geometry geometry : list)
-				{
-					Point2D test = geometry.getPosition();
-					
-					switch (geometry.getClass().toString())
-					{
-					case "balk1":
-						
-						if(test.getX()==0)
-						{
-							fadeOutBars(balk1);
-							fadeInBars(sp1);
-						}
-						else
-						{
-							balk1.setLayoutY(test.getY());
-						}
-						break;
-						
-					case "balk2":
-						if(test.getX()==0)
-						{
-							fadeOutBars(balk2);
-							fadeInBars(sp2);
-						}
-						else
-						{
-							balk2.setLayoutY(test.getY());
-						}
-						break;
-						
-					case "balk3":
-						if(test.getY()==0)
-						{
-							fadeOutBars(balk3);
-							fadeInBars(sp3);
-						}
-						else
-						{
-							balk3.setLayoutX(test.getX());
-						}
-						break;
-						
-					case "balk4":
-						if(test.getY()==0)
-						{
-							fadeOutBars(balk4);
-							fadeInBars(sp4);
-						}
-						else
-						{
-							balk4.setLayoutX(test.getX());
-						}
-						break;
-						
-					case "ball":
-							ball.setLayoutX(test.getX());
-							ball.setLayoutY(test.getY());
-						break;
-
 					default:
 						break;
 					}
 				}
+				if(geometry instanceof Ball)
+				{
+					ball.setLayoutX(test.getX());
+					ball.setLayoutY(test.getY());
+					ball.setRadius(((Ball) geometry).getRadius());
+				}
+				if(geometry instanceof Edge)
+				{
+					for(int i=0; i<=rectangle.length;i++)
+					{
+						rectangle[i].setLayoutX(((Edge) geometry).getPosition().getX());
+						rectangle[i].setLayoutY(((Edge) geometry).getPosition().getY());
+						rectangle[i].setHeight(((Edge) geometry).getCollisionSize().getX());
+						rectangle[i].setWidth(((Edge) geometry).getCollisionSize().getX());
+						if(((Edge) geometry).isEdgeVisible() == false)
+						{
+							fadeOutBars(rectangle[i]);
+							
+						}
+					i++;
+					}
+				}
+				
 			}
-			
-		
+			firstStart=false;
+		}
+		else
+		{
+			for (Geometry geometry : list)
+			{
+				Point2D test = geometry.getPosition();
+				if(geometry instanceof Bar)
+				{
+					int id = ((Bar) geometry).getControllingPlayer().getPlayerID();
+					switch (id)
+					{
+					case 1:
+						bar1.setLayoutX(test.getX());
+						bar1.setLayoutY(test.getY());
+						bar1.setHeight(((Bar) geometry).getWidth());
+						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
+						{
+							fadeOutBars(bar1);
+							fadeInBars(sp1);
+						}
+					break;
+					
+					case 2:
+						bar2.setLayoutX(test.getX());
+						bar2.setLayoutY(test.getY());
+						bar2.setHeight(((Bar) geometry).getWidth());
+						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
+						{
+							fadeOutBars(bar2);
+							fadeInBars(sp2);
+						}
+					break;
+					
+					case 3:
+						bar3.setLayoutX(test.getX());
+						bar3.setLayoutY(test.getY());
+						bar3.setWidth(((Bar) geometry).getWidth());
+						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
+						{
+							fadeOutBars(bar3);
+							fadeInBars(sp3);
+						}
+					break;
+					case 4:
+						bar4.setLayoutX(test.getX());
+						bar4.setLayoutY(test.getY());
+						bar4.setWidth(((Bar) geometry).getWidth());
+						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
+						{
+							fadeOutBars(bar4);
+							fadeInBars(sp4);
+						}
+					break;
+					default:
+						break;
+					}
+				}
+				if(geometry instanceof Ball)
+				{
+					ball.setLayoutX(test.getX());
+					ball.setLayoutY(test.getY());
+					ball.setRadius(((Ball) geometry).getRadius());
+				}
+			}
+		}
 	}
-	
+					
+							
 	public void fadeOutBars(Rectangle name)
 	{
 		FadeTransition fade = new FadeTransition(Duration.millis(1000), name);

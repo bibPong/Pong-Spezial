@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -21,7 +22,7 @@
     </AnchorPane>
     <AnchorPane fx:id="gamePane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
          <children>
-            <Circle fx:id="ball" fill="RED" layoutX="310.0" layoutY="282.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="ball" layoutX="310.0" layoutY="282.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
             <Rectangle fx:id="co3" arcHeight="5.0" arcWidth="5.0" height="20.0" layoutX="14.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
             <Rectangle fx:id="co31" arcHeight="5.0" arcWidth="5.0" height="20.0" layoutX="486.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
             <Rectangle fx:id="co4" arcHeight="5.0" arcWidth="5.0" height="20.0" layoutX="14.0" layoutY="539.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />
@@ -30,14 +31,18 @@
             <Rectangle fx:id="co2" arcHeight="5.0" arcWidth="5.0" height="80.0" layoutX="566.0" layoutY="26.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
             <Rectangle fx:id="co21" arcHeight="5.0" arcWidth="5.0" height="80.0" layoutX="566.0" layoutY="459.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
             <Rectangle fx:id="co11" arcHeight="5.0" arcWidth="5.0" height="80.0" layoutX="14.0" layoutY="459.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
-            <Rectangle fx:id="sp1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="120.0" layoutX="14.0" layoutY="222.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
-            <Rectangle fx:id="sp2" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="120.0" layoutX="566.0" layoutY="222.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
-            <Rectangle fx:id="sp3" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="20.0" layoutX="250.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-            <Rectangle fx:id="sp4" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="20.0" layoutX="250.0" layoutY="539.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
-            <Rectangle fx:id="balk3" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" layoutX="114.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="373.0" />
-            <Rectangle fx:id="balk4" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" layoutX="113.0" layoutY="539.0" stroke="BLACK" strokeType="INSIDE" width="373.0" />
-            <Rectangle fx:id="balk2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="353.0" layoutX="566.0" layoutY="106.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
-            <Rectangle fx:id="balk1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="353.0" layoutX="14.0" layoutY="106.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+            <Rectangle fx:id="bar1" arcHeight="5.0" arcWidth="5.0" fill="GREEN" height="120.0" layoutX="14.0" layoutY="222.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+            <Rectangle fx:id="bar2" arcHeight="5.0" arcWidth="5.0" fill="BLUE" height="120.0" layoutX="566.0" layoutY="222.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+            <Rectangle fx:id="bar3" arcHeight="5.0" arcWidth="5.0" fill="RED" height="20.0" layoutX="250.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+            <Rectangle fx:id="bar4" arcHeight="5.0" arcWidth="5.0" fill="YELLOW" height="20.0" layoutX="250.0" layoutY="539.0" stroke="BLACK" strokeType="INSIDE" width="120.0" />
+            <Rectangle fx:id="sp4" arcHeight="5.0" arcWidth="5.0" height="20.0" layoutX="113.0" layoutY="539.0" stroke="BLACK" strokeType="INSIDE" width="373.0" />
+            <Rectangle fx:id="sp2" arcHeight="5.0" arcWidth="5.0" height="353.0" layoutX="566.0" layoutY="106.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+            <Rectangle fx:id="sp1" arcHeight="5.0" arcWidth="5.0" height="353.0" layoutX="14.0" layoutY="106.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+            <Rectangle fx:id="sp1b" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="353.0" layoutY="105.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+            <Rectangle fx:id="sp3" arcHeight="5.0" arcWidth="5.0" height="20.0" layoutX="113.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="373.0" />
+            <Rectangle fx:id="sp3b" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" layoutX="113.0" layoutY="-10.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="373.0" />
+            <Rectangle fx:id="sp2b" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="353.0" layoutX="576.0" layoutY="105.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+            <Rectangle fx:id="sp4b" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="20.0" layoutX="113.0" layoutY="549.0" opacity="0.0" stroke="BLACK" strokeType="INSIDE" width="373.0" />
          </children>
     </AnchorPane>
   </items>
