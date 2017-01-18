@@ -345,12 +345,18 @@ public class GameManager implements Runnable
 	
 	private void playerBarBallCollision(Ball ball, Bar bar)
 	{
-		
-		double x = ball.getDirection().getX()*(-1);
+		if(bar.getControllingPlayer().getPlayerID()==1 || bar.getControllingPlayer().getPlayerID()==2 )
+		{
+		double x = ball.getDirection().getX();
 		double y = ball.getDirection().getY()*(-1);	
 		ball.setDirection(new Point2D(y,x));
-			
-		
+		}
+		else
+		{
+		double x = ball.getDirection().getX()*(-1);
+		double y = ball.getDirection().getY();	
+		ball.setDirection(new Point2D(y,x));
+		}
 	}
 	
 	private void ballPlayerEdgeCollision(Ball ball, Edge playerEdge, Player player, double boardsize)
