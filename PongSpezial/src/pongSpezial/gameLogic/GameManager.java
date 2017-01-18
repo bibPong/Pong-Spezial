@@ -345,7 +345,7 @@ public class GameManager implements Runnable
 	
 	private void playerBarBallCollision(Ball ball, Bar bar)
 	{
-		if(bar.getControllingPlayer().getPlayerID()==1 || bar.getControllingPlayer().getPlayerID()==2 )
+		if(bar.getControllingPlayer().getPlayerID() == 1 || bar.getControllingPlayer().getPlayerID() == 2 )
 		{
 		double x = ball.getDirection().getX();
 		double y = ball.getDirection().getY()*(-1);	
