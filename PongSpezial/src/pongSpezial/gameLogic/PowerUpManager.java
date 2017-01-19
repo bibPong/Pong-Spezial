@@ -31,14 +31,13 @@ public class PowerUpManager
 		PowerUps[1] = new PowerUp(new Point2D(0,0), new Point2D(2,2),PowerUpType.TYP2);
 	}
 	
-	
-	//Die Parameter sind als im Klassendiagramm, da es so sinnvoller erschien
+
 	public void startPowerUpEvent(BoardState boardstate)
 	{
 		
 		isPowerUpActive = true;
 		
-		//ist so als wäre PowerUp in boardstate an dieser Position.
+	
 		PowerUp powerUp = (PowerUp)boardstate.getGeometries().get(boardstate.getGeometries().size()-1);
 		List<Geometry>alle = boardstate.getGeometries();
 		
@@ -47,7 +46,7 @@ public class PowerUpManager
 			
 			
 			case TYP1:				
-				// Führe PowerUp-Funktion vom Typ 1 für "player" aus.
+				
 				if(timer.startTimer(5000))
 				{	
 					
@@ -55,8 +54,7 @@ public class PowerUpManager
 						for (Geometry g : alle) 
 						{
 							
-							//wenn ball dann:
-							//ball.controlling player, damit der ausgeschlossen wird
+							
 							if(g instanceof Ball)
 							{	
 								
@@ -69,7 +67,8 @@ public class PowerUpManager
 										Bar btmp = (Bar)geo;
 										if(!(btmp.getControllingPlayer() == player))
 										{
-											
+											btmp.setCollisionSize(new Point2D(btmp.getCollisionSize().getX()/2, btmp.getCollisionSize().getY()/2));
+											btmp.setWidth(btmp.getWidth()/2);
 										}
 									}
 								
@@ -86,7 +85,7 @@ public class PowerUpManager
 			break;
 			
 			case TYP2:
-				// Führe PowerUp-Funktion vom Typ 2 für "player" aus.
+				// beide powerUps machen im Moment dasselbe. das zweite ist also sozusagen ein Platzhalter
 				if(timer.startTimer(3000))
 				{
 					for (Geometry g : alle) 
@@ -125,15 +124,21 @@ public class PowerUpManager
 	
 	public void showPowerUp(BoardState boardstate)
 	{
-		PowerUp zufallPowerUp = PowerUps[zufall(0,1)];
-		zufallPowerUp.setPosition(new Point2D(zufall(1,5),zufall(1,5)));
-		zufallPowerUp.setPowerUpVisible(true);
-		boardstate.getGeometries().add(PowerUps[zufall(0,1)]);
+		PowerUp tmp =spawnPowerUp();
+		boardstate.getGeometries().add(tmp);
 	}
 	
 	public PowerUp spawnPowerUp()
-	{
-		return PowerUps[zufall(0,1)];
+	{	
+		PowerUp zufallPowerUp = PowerUps[zufall(0,1)];
+		//zufallPowerUp.setPosition(new Point2D(zufall(1,5),zufall(1,5)));
+		if(timer.startTimer(5000))
+		{
+			
+			zufallPowerUp.setPosition(new Point2D(zufall(1,5),zufall(1,5)));
+		}
+		zufallPowerUp.setPowerUpVisible(true);
+		return zufallPowerUp;
 	}
 	
 	private int zufall(int min, int max)

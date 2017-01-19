@@ -372,12 +372,12 @@ public class GameManager implements Runnable
 			{
 				if(playerEdge.getPosition().getY() > 0)
 				{
-					Edge edge = (Edge)boardstate.getGeometries().get(0);
+					Edge edge = (Edge)boardstate.getGeometries().get(2);
 					edge.setEdgeVisible(true);
 				}
 				else
 				{
-					Edge edge = (Edge)boardstate.getGeometries().get(4);
+					Edge edge = (Edge)boardstate.getGeometries().get(6);
 					edge.setEdgeVisible(true);
 				}
 			}
@@ -386,12 +386,12 @@ public class GameManager implements Runnable
 					{
 						if(playerEdge.getPosition().getX() > 0)
 						{
-							Edge edge = (Edge)boardstate.getGeometries().get(2);
+							Edge edge = (Edge)boardstate.getGeometries().get(0);
 							edge.setEdgeVisible(true);
 						}
 						else
 						{
-							Edge edge = (Edge)boardstate.getGeometries().get(6);
+							Edge edge = (Edge)boardstate.getGeometries().get(4);
 							edge.setEdgeVisible(true);
 						}
 					}
