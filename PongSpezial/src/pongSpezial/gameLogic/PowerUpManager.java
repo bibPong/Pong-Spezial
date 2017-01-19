@@ -57,20 +57,19 @@ public class PowerUpManager
 							
 							//wenn ball dann:
 							//ball.controlling player, damit der ausgeschlossen wird
-							if(g.getClass() == Ball.class)
+							if(g instanceof Ball)
 							{	
 								
 								Ball tmp = (Ball)g;
 								Player player = tmp.getControllingPlayer();
 								for(Geometry geo : alle)
 								{
-									if(geo.getClass() == Bar.class)
+									if(geo instanceof Bar)
 									{
 										Bar btmp = (Bar)geo;
 										if(!(btmp.getControllingPlayer() == player))
 										{
-											btmp.setCollisionSize(new Point2D(btmp.getCollisionSize().getX()/2, btmp.getCollisionSize().getY()/2));
-											btmp.setWidth(btmp.getWidth()/2);
+											
 										}
 									}
 								
@@ -92,11 +91,28 @@ public class PowerUpManager
 				{
 					for (Geometry g : alle) 
 					{
-						//wenn ball dann:
-						//ball.controlling player, damit der ausgeschlossen wird
+						if(g instanceof Ball)
+						{	
+							
+							Ball tmp = (Ball)g;
+							Player player = tmp.getControllingPlayer();
+							for(Geometry geo : alle)
+							{
+								if(geo instanceof Bar)
+								{
+									Bar btmp = (Bar)geo;
+									if(!(btmp.getControllingPlayer() == player))
+									{
+										btmp.setCollisionSize(new Point2D(btmp.getCollisionSize().getX()/2, btmp.getCollisionSize().getY()/2));
+										btmp.setWidth(btmp.getWidth()/2);
+									}
+								}
+							
+						}
 						
 					}
 				}
+				}	
 			break;
 			
 			
