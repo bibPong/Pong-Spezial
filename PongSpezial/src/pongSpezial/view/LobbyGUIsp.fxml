@@ -29,7 +29,10 @@
                   <Insets top="30.0" />
                </VBox.margin>
             </Label>
-            <RadioButton mnemonicParsing="false" text="1 AI-Player">
+            <RadioButton fx:id="pl1" mnemonicParsing="false" selected="true" text="1 AI-Player">
+            <toggleGroup>
+						<ToggleGroup fx:id="players" />
+			</toggleGroup>
                <font>
                   <Font size="15.0" />
                </font>
@@ -37,7 +40,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="2 AI-Player">
+            <RadioButton fx:id="pl2" mnemonicParsing="false" text="2 AI-Player" toggleGroup="$players">
                <font>
                   <Font size="15.0" />
                </font>
@@ -45,7 +48,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="3 AI-Player">
+            <RadioButton fx:id="pl3" mnemonicParsing="false" text="3 AI-Player" toggleGroup="$players">
                <font>
                   <Font size="15.0" />
                </font>
@@ -61,7 +64,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <HBox alignment="CENTER" prefHeight="20.0" prefWidth="200.0">
+            <HBox fx:id="roomsize" alignment="CENTER" prefHeight="20.0" prefWidth="200.0">
                <children>
                   <Label text="-">
                      <font>
@@ -74,10 +77,14 @@
                         <Insets right="10.0" />
                      </padding>
                   </Label>
+<<<<<<< HEAD
                   <Slider fx:id="slBoardSizeSP" min="1000" max="20000"/>
                   <!-- 
                   <Label text="${slBoardSizeSP.value}"/>
                    -->
+=======
+                  <Slider fx:id="slroomsize" />
+>>>>>>> branch 'master' of https://github.com/bibPong/Pong-Spezial.git
                   <Label text="+">
                      <font>
                         <Font size="40.0" />

@@ -18,6 +18,9 @@ public class PowerUpManager
 	private PowerUp[] PowerUps;
 	private boolean isPowerUpActive;
 	private Player[] players;
+	private final int MINTIME = 5000;
+	private final int MAXTIME = 10000;
+	
 	
 	
 	
@@ -26,6 +29,7 @@ public class PowerUpManager
 		timer = new StopWatch();
 		this.players = players;
 		isPowerUpActive = false;
+		
 		
 		PowerUps[0] = new PowerUp(new Point2D(0,0), new Point2D(2,2),PowerUpType.TYP1);
 		PowerUps[1] = new PowerUp(new Point2D(0,0), new Point2D(2,2),PowerUpType.TYP2);
@@ -36,10 +40,13 @@ public class PowerUpManager
 	{
 		
 		isPowerUpActive = true;
+		Point2D barColl = new Point2D(0,0);
+		double barWidth = 0;
 		
 	
 		PowerUp powerUp = (PowerUp)boardstate.getGeometries().get(boardstate.getGeometries().size()-1);
-		List<Geometry>alle = boardstate.getGeometries();
+		List<Geometry>all = boardstate.getGeometries();
+		
 		
 		switch(powerUp.getType())
 		{
@@ -47,11 +54,11 @@ public class PowerUpManager
 			
 			case TYP1:				
 				
-				if(timer.startTimer(5000))
+				if(timer.startTimer(zufall(MINTIME,MAXTIME)))
 				{	
 					
 					
-						for (Geometry g : alle) 
+						for (Geometry g : all) 
 						{
 							
 							
@@ -60,11 +67,14 @@ public class PowerUpManager
 								
 								Ball tmp = (Ball)g;
 								Player player = tmp.getControllingPlayer();
-								for(Geometry geo : alle)
+								for(Geometry geo : all)
 								{
 									if(geo instanceof Bar)
 									{
 										Bar btmp = (Bar)geo;
+										barColl = btmp.getCollisionSize();
+										barWidth = btmp.getWidth();
+										
 										if(!(btmp.getControllingPlayer() == player))
 										{
 											btmp.setCollisionSize(new Point2D(btmp.getCollisionSize().getX()/2, btmp.getCollisionSize().getY()/2));
@@ -72,10 +82,10 @@ public class PowerUpManager
 										}
 									}
 								
-							}
+								}
 							
+							}
 						}
-					}
 					
 					
 					
@@ -86,20 +96,22 @@ public class PowerUpManager
 			
 			case TYP2:
 				// beide powerUps machen im Moment dasselbe. das zweite ist also sozusagen ein Platzhalter
-				if(timer.startTimer(3000))
+				if(timer.startTimer(zufall(MINTIME,MAXTIME)))
 				{
-					for (Geometry g : alle) 
+					for (Geometry g : all) 
 					{
 						if(g instanceof Ball)
 						{	
 							
 							Ball tmp = (Ball)g;
 							Player player = tmp.getControllingPlayer();
-							for(Geometry geo : alle)
+							for(Geometry geo : all)
 							{
 								if(geo instanceof Bar)
 								{
 									Bar btmp = (Bar)geo;
+									barColl = btmp.getCollisionSize();
+									barWidth = btmp.getWidth();
 									if(!(btmp.getControllingPlayer() == player))
 									{
 										btmp.setCollisionSize(new Point2D(btmp.getCollisionSize().getX()/2, btmp.getCollisionSize().getY()/2));
@@ -116,9 +128,21 @@ public class PowerUpManager
 			
 			
 		}
+		for(Geometry geo : all)
+		{
+			if(geo instanceof Bar)
+			{
+				Bar btmp = (Bar)geo;
+				
+				btmp.setCollisionSize(barColl);
+				btmp.setWidth(barWidth);
+				
+			}
 		
+		}
 		
 		boardstate.getGeometries().remove(boardstate.getGeometries().size()-1);
+		spawnPowerUp();
 		isPowerUpActive = false;
 	}
 	
@@ -131,8 +155,8 @@ public class PowerUpManager
 	public PowerUp spawnPowerUp()
 	{	
 		PowerUp zufallPowerUp = PowerUps[zufall(0,1)];
-		//zufallPowerUp.setPosition(new Point2D(zufall(1,5),zufall(1,5)));
-		if(timer.startTimer(5000))
+		
+		if(timer.startTimer(zufall(MINTIME,MAXTIME)))
 		{
 			
 			zufallPowerUp.setPosition(new Point2D(zufall(1,5),zufall(1,5)));

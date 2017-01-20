@@ -19,6 +19,8 @@ import javafx.scene.control.Control;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.Slider;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
@@ -83,6 +85,12 @@ public class GUI {
 	// LobbyGUIsp
 	@FXML
 	private Button btn_startGameSP;
+	@FXML
+	private RadioButton pl1;
+	@FXML
+	private RadioButton pl2;
+	@FXML
+	private RadioButton pl3;
 	@FXML
 	private Slider slBoardSizeSP;
 

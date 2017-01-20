@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import pongSpezial.dataModel.Ball;
 import pongSpezial.dataModel.Bar;
 import pongSpezial.dataModel.BoardState;
@@ -180,8 +181,12 @@ public class GameManager implements Runnable
 		teststates.add(co31);
 		teststates.add(co41);
 		
-		boardstate.setGeometries(teststates);
+		
 		powerUpManager = new PowerUpManager(players);
+		PowerUp powerUp = powerUpManager.spawnPowerUp();
+		
+		teststates.add(powerUp);
+		boardstate.setGeometries(teststates);
 	}
 	
 	public static BoardState testBoardState(Player[] player, double boardsize)
@@ -401,61 +406,19 @@ public class GameManager implements Runnable
 					if(p.getPlayerID()==0||p.getPlayerID()==2)
 					{
 						Bar playerbar = ((Bar)BoardState.instance.getGeometries().get(index));
-						double velocityxdirection=playerbar.getVelocity()*inputState.getCurrentInputs().get(p);
+						double velocityxdirection=playerbar.getVelocity()*direction;
 						Point2D newPosition=playerbar.getPosition().add(velocityxdirection,0);
 						BoardState.instance.getGeometries().get(index).setPosition(newPosition);
 					}
 					else
 					{
 						Bar playerbar = ((Bar)BoardState.instance.getGeometries().get(index));
-						double velocityxdirection=playerbar.getVelocity()*inputState.getCurrentInputs().get(p);
+						double velocityxdirection=playerbar.getVelocity()*direction;
 						Point2D newPosition=playerbar.getPosition().add(0,velocityxdirection);
 						BoardState.instance.getGeometries().get(index).setPosition(newPosition);
 					}
 					
 				}	
-				
-				
-// Kollisionsbehandlung
-				
-				// Hier muss die Methode aufgerufen werden, die erkennt ob und welche Objekte kollidieren.
-				// Sie sollte eine Liste oder ein Array zurückgeben, die diese beiden Objekte enthält.
-				// Als Platzhalter soll erstmall eine Liste mit einem Ball und eine Bar dienen:
-				List<Geometry> collisionMembers = new ArrayList<Geometry>();
-				collisionMembers.add(new Ball(null, null, null, 0, player, running, 0));
-				collisionMembers.add(new Bar(null, null, null, 0, player, running));
-				
-				// Hier die eigentliche Kollisionsbehandlung
-				if(collisionMembers.get(0) instanceof Ball)
-				{
-					switch(collisionMembers.get(1).getClass().toString())
-					{
-					case "class Bar":
-							playerBarBallCollision((Ball) collisionMembers.get(0), (Bar) collisionMembers.get(1));
-						break;
-					case "class PowerUp":
-							ballPowerUpCollision();
-						break;
-					case "class Edge":
-							if(((Edge) collisionMembers.get(1)).getType() == EdgeType.CORNEREDGE)
-							{
-								cornerEdgeBallCollision((Ball) collisionMembers.get(0), (Edge) collisionMembers.get(1));
-							}
-							if(((Edge) collisionMembers.get(1)).getType() == EdgeType.PLAYERGOALEDGE)
-							{
-								//ballPlayerEdgeCollision((Ball) collisionMembers.get(0), (Edge) collisionMembers.get(1), (Edge) collisionMembers.get(1).getControllingPlayer(), boardsizeSafe);
-							}
-						break;
-					}
-				}
-				else
-				{
-					cornerEdgeBarCollision((Bar) collisionMembers.get(0), (Edge) collisionMembers.get(1));
-				}
-				
-				
-				
-				
 				
 				
 				// Bewegung/Update des Balls 
@@ -465,12 +428,19 @@ public class GameManager implements Runnable
 					{
 						// Das eigentliche bewegen
 						Ball ball = (Ball) g;
-						ball.setPosition(ball.getPosition().add(ball.getDirection().multiply(ball.getVelocity())));
+										
+						Point2D unit = unitVector(ball.getDirection());
+						
+						ball.setPosition(ball.getPosition().add(unit.multiply(ball.getVelocity())));
 					}
 				}
 				
 				
 				Thread.sleep(200);
+				
+				
+				//Warten aus vollständige Implementation des Servers
+				sendBoardStateToServer();
 				
 				
 				//System.out.println(BoardState.instance.getGeometries().get(5));
@@ -493,7 +463,11 @@ public class GameManager implements Runnable
 		
 		
 	}
-	
+	public void sendBoardStateToServer()
+	{
+		
+		
+	}
 	public void updateBoardState()
 	{
 		for (int i = 0; i < kis.length; i++) 
@@ -583,16 +557,17 @@ public class GameManager implements Runnable
 	
 	
 	private void initBall(double boardsize)
-	{
-		Ball ball = new Ball(new Point2D(boardsize/2,boardsize/2),new Point2D(2,2),new Point2D(0,0),0.0,null,false,11);
+	{	
+		// Zahlen übernommen als festwerte für radius und collisionsize wie sie in Boardstate sind
+		Ball ball = new Ball(new Point2D(boardsize/2,boardsize/2),new Point2D(22,22),new Point2D(0,0),0.0,null,false,11);
 		
 		if(stopWatch.startTimer(5000))
 		{	
 			//Platzhalter noch nicht richtige Zufallswerte
-			double x = zufall(0,3);
-			double y = zufall(0,3);
+			double x = zufall(-1,1);
+			double y = zufall(-1,1);
 			ball.setDirection(new Point2D(x,y));
-			ball.setVelocity(2);
+			ball.setVelocity(1);
 		}
 	}
 	
@@ -612,10 +587,45 @@ public class GameManager implements Runnable
 		}
 	}
 	
-	private void ballPlayerEdgeCollision(Ball ball, Edge playerEdge, Player player, double boardsize)
+	private void ballPlayerEdgeCollision(Ball ball, Edge playerEdge, double boardsize)
 	{
 		
-		initBall(boardsize);		
+		initBall(boardsize);	
+		
+		Player player = new Player(0, null);
+		
+		for(Geometry geo : boardstate.getGeometries())
+		{
+			if(geo instanceof Edge)
+			{
+				if(((Edge) geo).getType() == EdgeType.PLAYERGOALEDGE)
+				{
+					if(((Edge) geo).getOrientation() == EdgeOrientation.HORIZONTAL)
+					{
+						if(geo.getPosition().getX() < 10)
+						{
+							player = players[0];
+						}
+						else
+						{
+							player = players[1];
+						}
+					}
+					else
+					{
+						if(geo.getPosition().getY() < 10)
+						{
+							player = players[2];
+						}
+						else 
+						{
+							player = players[3];
+						}
+					}
+		
+				}
+			}
+		}
 		
 		player.setLifes(player.getLifes()-1);
 		
@@ -623,28 +633,28 @@ public class GameManager implements Runnable
 		{
 			if(playerEdge.getOrientation().equals("HORIZONTAL")) //wie weit verschieben
 			{
-				if(playerEdge.getPosition().getY() > 0)
+				if(playerEdge.getPosition().getX() > 10)
 				{
-					Edge edge = (Edge)boardstate.getGeometries().get(2);
+					Edge edge = (Edge)boardstate.getGeometries().get(0);
 					edge.setEdgeVisible(true);
 				}
 				else
 				{
-					Edge edge = (Edge)boardstate.getGeometries().get(6);
+					Edge edge = (Edge)boardstate.getGeometries().get(2);
 					edge.setEdgeVisible(true);
 				}
 			}
 			
 			if(playerEdge.getOrientation().equals("VERTICAL"))
 					{
-						if(playerEdge.getPosition().getX() > 0)
+						if(playerEdge.getPosition().getY() > 10)
 						{
-							Edge edge = (Edge)boardstate.getGeometries().get(0);
+							Edge edge = (Edge)boardstate.getGeometries().get(4);
 							edge.setEdgeVisible(true);
 						}
 						else
 						{
-							Edge edge = (Edge)boardstate.getGeometries().get(4);
+							Edge edge = (Edge)boardstate.getGeometries().get(6);
 							edge.setEdgeVisible(true);
 						}
 					}
@@ -653,15 +663,100 @@ public class GameManager implements Runnable
 	
 	}
 		
-	
+	public void isCollided()
+	{
+		List<Bar> playerBars = new ArrayList<Bar>();
+		Ball ball=null;
+		for(int i = 0; i < boardstate.getGeometries().size();i++)
+		{
+			if(boardstate.getGeometries().get(i).equals(Ball.class))
+			{
+				ball = (Ball)boardstate.getGeometries().get(i); // get the Ball
+			}
+			else if(boardstate.getGeometries().get(i).equals(Bar.class))
+			{
+				playerBars.add((Bar)boardstate.getGeometries().get(i)); //get the player Bars
+			}
+		}
+		
+		Rectangle2D rectBall = new Rectangle2D(ball.getPosition().getX(), ball.getPosition().getY(), ball.getCollisionSize().getX(), ball.getCollisionSize().getY());
+		for(Geometry g : boardstate.getGeometries())
+		{
+			if(g instanceof Bar) //if the object is a Bar
+			{
+				Bar bar = (Bar) g;
+				Rectangle2D rectBar = new Rectangle2D(bar.getPosition().getX(), bar.getPosition().getY(), bar.getCollisionSize().getX(), bar.getCollisionSize().getY());	
+				
+				if(rectBall.intersects(rectBar)) // if ball and bar collide
+				{
+					playerBarBallCollision(ball, bar);
+				}			
+			}
+			else if(g instanceof Edge) //if the object is a Edge
+			{
+				Edge edge = (Edge) g;
+				Rectangle2D rectEdge = new Rectangle2D(edge.getPosition().getX(), edge.getPosition().getY(), edge.getCollisionSize().getX(), edge.getCollisionSize().getY());
+				if(edge.getType() == EdgeType.CORNEREDGE) // if the edge is a Corneredge
+				{
+					if(rectBall.intersects(rectEdge)) //if ball and edge
+					{
+						cornerEdgeBallCollision(ball, edge);
+					}
+					for (int i = 0; i < playerBars.size(); i++)// going through the playerBars List
+					{
+						Rectangle2D rectBar = new Rectangle2D(playerBars.get(i).getPosition().getX(), playerBars.get(i).getPosition().getY(), playerBars.get(i).getCollisionSize().getX(), playerBars.get(i).getCollisionSize().getY());
+						if(rectBar.intersects(rectBar)) // if edge and bar collide
+						{
+							cornerEdgeBarCollision(playerBars.get(i), edge);
+						}
+					}
+				}
+				else if(edge.getType() == EdgeType.PLAYERFILL) // id the edge is a Playerfill edge
+				{
+					if(edge.isEdgeVisible()) // if edge is visible
+					{
+						cornerEdgeBallCollision(ball, edge); 
+					}
+				}
+				
+				else if(edge.getType() == EdgeType.PLAYERGOALEDGE)
+				{
+					ballPlayerEdgeCollision(ball, edge,bordsizeSafe); 
+				}
+				
+			}
+			else if(g instanceof PowerUp) //if object is a PowerUp
+			{
+				PowerUp powerUp= (PowerUp) g;
+				Rectangle2D rectPowerUp = new Rectangle2D(powerUp.getPosition().getX(), powerUp.getPosition().getY(), powerUp.getCollisionSize().getX(), powerUp.getCollisionSize().getY());
+				
+				if(powerUp.isPowerUpVisible()) //if PowerUp is visible
+				{
+					if(rectBall.intersects(rectPowerUp)) //if ball and PowerUp collide
+					{
+						ballPowerUpCollision();
+					}
+				}
+					
+			}
+			
+		}
+
+	}
 	
 	private int zufall(int min, int max)
 	{
 		return (int) (Math.random()*(max-min+1)+min);
 	}	
 	
-	
-	
+	private Point2D unitVector(Point2D direction)
+	{
+		// Berechnung des Einheitsvektors
+		double vectorLength = Math.sqrt( (direction.getX()*direction.getX()) + (direction.getY()*direction.getY()) );
+		double x = direction.getX() * (1/vectorLength);
+		double y = direction.getY() * (1/vectorLength); 
+		return new Point2D(x,y);
+	}
 }
 
 
