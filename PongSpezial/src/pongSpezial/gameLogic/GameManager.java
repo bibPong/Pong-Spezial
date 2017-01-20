@@ -225,48 +225,6 @@ public class GameManager implements Runnable
 				}	
 				
 				
-// Kollisionsbehandlung
-				
-				// Hier muss die Methode aufgerufen werden, die erkennt ob und welche Objekte kollidieren.
-				// Sie sollte eine Liste oder ein Array zurückgeben, die diese beiden Objekte enthält.
-				// Als Platzhalter soll erstmall eine Liste mit einem Ball und eine Bar dienen:
-				List<Geometry> collisionMembers = new ArrayList<Geometry>();
-				collisionMembers.add(new Ball(null, null, null, 0, player, running, 0));
-				collisionMembers.add(new Bar(null, null, null, 0, player, running));
-				
-				// Hier die eigentliche Kollisionsbehandlung
-				if(collisionMembers.get(0) instanceof Ball)
-				{
-					switch(collisionMembers.get(1).getClass().toString())
-					{
-					case "class Bar":
-							playerBarBallCollision((Ball) collisionMembers.get(0), (Bar) collisionMembers.get(1));
-						break;
-					case "class PowerUp":
-							ballPowerUpCollision();
-						break;
-					case "class Edge":
-							if(((Edge) collisionMembers.get(1)).getType() == EdgeType.CORNEREDGE)
-							{
-								cornerEdgeBallCollision((Ball) collisionMembers.get(0), (Edge) collisionMembers.get(1));
-							}
-							if(((Edge) collisionMembers.get(1)).getType() == EdgeType.PLAYERGOALEDGE)
-							{
-								//ballPlayerEdgeCollision((Ball) collisionMembers.get(0), (Edge) collisionMembers.get(1), (Edge) collisionMembers.get(1).getControllingPlayer(), boardsizeSafe);
-							}
-						break;
-					}
-				}
-				else
-				{
-					cornerEdgeBarCollision((Bar) collisionMembers.get(0), (Edge) collisionMembers.get(1));
-				}
-				
-				
-				
-				
-				
-				
 				// Bewegung/Update des Balls 
 				for(Geometry g : boardstate.getGeometries()) // Ball wird aus dem Boardstate gesucht
 				{
@@ -274,7 +232,10 @@ public class GameManager implements Runnable
 					{
 						// Das eigentliche bewegen
 						Ball ball = (Ball) g;
-						ball.setPosition(ball.getPosition().add(ball.getDirection().multiply(ball.getVelocity())));
+										
+						Point2D unit = unitVector(ball.getDirection());
+						
+						ball.setPosition(ball.getPosition().add(unit.multiply(ball.getVelocity())));
 					}
 				}
 				
@@ -429,10 +390,45 @@ public class GameManager implements Runnable
 		}
 	}
 	
-	private void ballPlayerEdgeCollision(Ball ball, Edge playerEdge, Player player, double boardsize)
+	private void ballPlayerEdgeCollision(Ball ball, Edge playerEdge, double boardsize)
 	{
 		
-		initBall(boardsize);		
+		initBall(boardsize);	
+		
+		Player player = new Player(0, null);
+		
+		for(Geometry geo : boardstate.getGeometries())
+		{
+			if(geo instanceof Edge)
+			{
+				if(((Edge) geo).getType() == EdgeType.PLAYERGOALEDGE)
+				{
+					if(((Edge) geo).getOrientation() == EdgeOrientation.HORIZONTAL)
+					{
+						if(geo.getPosition().getX() < 10)
+						{
+							player = players[0];
+						}
+						else
+						{
+							player = players[1];
+						}
+					}
+					else
+					{
+						if(geo.getPosition().getY() < 10)
+						{
+							player = players[2];
+						}
+						else 
+						{
+							player = players[3];
+						}
+					}
+		
+				}
+			}
+		}
 		
 		player.setLifes(player.getLifes()-1);
 		
@@ -556,8 +552,14 @@ public class GameManager implements Runnable
 		return (int) (Math.random()*(max-min+1)+min);
 	}	
 	
-	
-	
+	private Point2D unitVector(Point2D direction)
+	{
+		// Berechnung des Einheitsvektors
+		double vectorLength = Math.sqrt( (direction.getX()*direction.getX()) + (direction.getY()*direction.getY()) );
+		double x = direction.getX() * (1/vectorLength);
+		double y = direction.getY() * (1/vectorLength); 
+		return new Point2D(x,y);
+	}
 }
 
 
