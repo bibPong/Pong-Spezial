@@ -122,10 +122,13 @@ public class PowerUpManager
 		isPowerUpActive = false;
 	}
 	
-	public void showPowerUp(BoardState boardstate)
+	public void showPowerUp(PowerUp power)
 	{
-		PowerUp tmp =spawnPowerUp();
-		boardstate.getGeometries().add(tmp);
+		//entfernt weil nicht passend
+//		PowerUp tmp =spawnPowerUp();
+//		boardstate.getGeometries().add(tmp);
+		
+		power.setPowerUpVisible(true);
 	}
 	
 	public PowerUp spawnPowerUp()
@@ -137,7 +140,7 @@ public class PowerUpManager
 			
 			zufallPowerUp.setPosition(new Point2D(zufall(1,5),zufall(1,5)));
 		}
-		zufallPowerUp.setPowerUpVisible(true);
+		zufallPowerUp.setPowerUpVisible(false);
 		return zufallPowerUp;
 	}
 	
