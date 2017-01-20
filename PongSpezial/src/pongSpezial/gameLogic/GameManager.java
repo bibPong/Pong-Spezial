@@ -469,7 +469,86 @@ public class GameManager implements Runnable
 	
 	}
 		
-	
+	public void isCollided()
+	{
+		List<Bar> playerBars = new ArrayList<Bar>();
+		Ball ball=null;
+		for(int i = 0; i < boardstate.getGeometries().size();i++)
+		{
+			if(boardstate.getGeometries().get(i).equals(Ball.class))
+			{
+				ball = (Ball)boardstate.getGeometries().get(i); // get the Ball
+			}
+			else if(boardstate.getGeometries().get(i).equals(Bar.class))
+			{
+				playerBars.add((Bar)boardstate.getGeometries().get(i)); //get the player Bars
+			}
+		}
+		
+		Rectangle2D rectBall = new Rectangle2D(ball.getPosition().getX(), ball.getPosition().getY(), ball.getCollisionSize().getX(), ball.getCollisionSize().getY());
+		for(Geometry g : boardstate.getGeometries())
+		{
+			if(g instanceof Bar) //if the object is a Bar
+			{
+				Bar bar = (Bar) g;
+				Rectangle2D rectBar = new Rectangle2D(bar.getPosition().getX(), bar.getPosition().getY(), bar.getCollisionSize().getX(), bar.getCollisionSize().getY());	
+				
+				if(rectBall.intersects(rectBar)) // if ball and bar collide
+				{
+					playerBarBallCollision(ball, bar);
+				}			
+			}
+			else if(g instanceof Edge) //if the object is a Edge
+			{
+				Edge edge = (Edge) g;
+				Rectangle2D rectEdge = new Rectangle2D(edge.getPosition().getX(), edge.getPosition().getY(), edge.getCollisionSize().getX(), edge.getCollisionSize().getY());
+				if(edge.getType() == EdgeType.CORNEREDGE) // if the edge is a Corneredge
+				{
+					if(rectBall.intersects(rectEdge)) //if ball and edge
+					{
+						cornerEdgeBallCollision(ball, edge);
+					}
+					for (int i = 0; i < playerBars.size(); i++)// going through the playerBars List
+					{
+						Rectangle2D rectBar = new Rectangle2D(playerBars.get(i).getPosition().getX(), playerBars.get(i).getPosition().getY(), playerBars.get(i).getCollisionSize().getX(), playerBars.get(i).getCollisionSize().getY());
+						if(rectBar.intersects(rectBar)) // if edge and bar collide
+						{
+							cornerEdgeBarCollision(playerBars.get(i), edge);
+						}
+					}
+				}
+				else if(edge.getType() == EdgeType.PLAYERFILL) // id the edge is a Playerfill edge
+				{
+					if(edge.isEdgeVisible()) // if edge is visible
+					{
+						cornerEdgeBallCollision(ball, edge); 
+					}
+				}
+				
+				else if(edge.getType() == EdgeType.PLAYERGOALEDGE)
+				{
+					ballPlayerEdgeCollision(ball, edge); 
+				}
+				
+			}
+			else if(g instanceof PowerUp) //if object is a PowerUp
+			{
+				PowerUp powerUp= (PowerUp) g;
+				Rectangle2D rectPowerUp = new Rectangle2D(powerUp.getPosition().getX(), powerUp.getPosition().getY(), powerUp.getCollisionSize().getX(), powerUp.getCollisionSize().getY());
+				
+				if(powerUp.isPowerUpVisible()) //if PowerUp is visible
+				{
+					if(rectBall.intersects(rectPowerUp)) //if ball and PowerUp collide
+					{
+						ballPowerUpCollision();
+					}
+				}
+					
+			}
+			
+		}
+
+	}
 	
 	private int zufall(int min, int max)
 	{
