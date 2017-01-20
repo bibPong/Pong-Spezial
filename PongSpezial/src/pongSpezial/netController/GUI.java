@@ -190,38 +190,43 @@ public class GUI {
 		Stage primaryStage = (Stage) c.getScene().getWindow();
 
 		prevState = state;
+		
+		switch (c.getId().toString())
+		{
+			case "btn_firstStart" :
+				state = State.NAMEENTRY;
+				break;
+			
+			case "btn_nameConfirm" :
+				
+				if(txf_nameEntry.getText().equals(""))
+					state= State.NAMEENTRY;
+				else
+					state = State.MAINMENU;
+				break;
+				
+			case "btn_sp" :
+				state = State.SPCONFIG;
+				break;
+				
+			case "btn_mp" :
+				state = State.HOSTANDJOIN;
+				break;
+				
+			case "btn_selectHost" :
+				state = State.MPCONFIG;
+				break;
+				
+			case "btn_startGameMP" :
+				state = State.GAME;
+				break;
 
-		if (c.getId().toString().equals("btn_firstStart")) {
-			state = State.NAMEENTRY;
 
+			default :
+				break;
 		}
 
-		if (c.getId().toString().equals("btn_nameConfirm")) {
-			state = State.MAINMENU;
-		}
 
-		if (c.getId().toString().equals("btn_sp")) {
-			state = State.SPCONFIG;
-		}
-
-		if (c.getId().toString().equals("btn_mp")) {
-			state = State.HOSTANDJOIN;
-		}
-
-		if (c.getId().toString().equals("btn_selectHost")) {
-			state = State.MPCONFIG;
-		}
-
-		if (c.getId().toString().equals("btn_startGameMP")) {
-
-			state = State.GAME;
-
-		}
-
-		if (c.getId().toString().equals("btn_startGameSP")) {
-			state = State.GAME;
-
-		}
 
 		switchScreen(primaryStage);
 
