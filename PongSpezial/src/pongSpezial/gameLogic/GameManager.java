@@ -277,6 +277,10 @@ public class GameManager implements Runnable
 				Thread.sleep(200);
 				
 				
+				//Warten aus vollständige Implementation des Servers
+				sendBoardStateToServer();
+				
+				
 				//System.out.println(BoardState.instance.getGeometries().get(5));
 				
 			}
@@ -297,7 +301,11 @@ public class GameManager implements Runnable
 		
 		
 	}
-	
+	public void sendBoardStateToServer()
+	{
+		
+		
+	}
 	public void updateBoardState()
 	{
 		for (int i = 0; i < kis.length; i++) 
