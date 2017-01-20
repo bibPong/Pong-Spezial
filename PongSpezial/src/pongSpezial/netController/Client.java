@@ -25,7 +25,7 @@ public class Client
 {
 
 	private boolean running;
-	BoardState boardState;
+	public BoardState boardState;
 	private NetworkAddress networkAddress;
 	private InputHandler inputHandler;
 	private Socket socket;
@@ -53,12 +53,14 @@ public class Client
 	 */
 	public void run(Stage primaryStage)
 	{
-		this.boardState = GameManager.testBoardState(
-				new Player[]{ new Player(1, "A"),
-							  new Player(2, "B"),
-							  new Player(3, "C"),
-							  new Player(4, "D"),
-							}, boardsize);
+		this.boardState = BoardState.instance;
+		
+//		this.boardState = GameManager.testBoardState(
+//				new Player[]{ new Player(1, "A"),
+//							  new Player(2, "B"),
+//							  new Player(3, "C"),
+//							  new Player(4, "D"),
+//							}, boardsize);
 		
 		Task task = new Task<Void>()
 		{
@@ -72,11 +74,12 @@ public class Client
 			      {
 			        @Override
 			        public void run() {
+			        	System.out.println("GUI updating...");
 			        	gui.updateGUI(boardState, primaryStage);
 			        }
 			      });
 			      
-			      Thread.sleep(1000);
+			      Thread.sleep(16);
 			    }
 			  }
 		};
@@ -106,9 +109,11 @@ public class Client
 				inputHandler.setDirection("RIGHT");
 				break;
 			case UP:
+				GameManager.pl0Input = -1; //PROTOTYPE ONLY
 				inputHandler.setDirection("UP");
 				break;
 			case DOWN:
+				GameManager.pl0Input = 1; //PROTOTYPE ONLY
 				inputHandler.setDirection("DOWN");
 				break;
 			default:
@@ -117,6 +122,7 @@ public class Client
 			break;
 
 		case "KEY_RELEASED":
+			GameManager.pl0Input = 0; //PROTOTYPE ONLY
 			inputHandler.setDirection("KEY_RELEASED");
 			break;
 		default:

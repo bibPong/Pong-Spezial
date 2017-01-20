@@ -29,10 +29,7 @@
                   <Insets top="30.0" />
                </VBox.margin>
             </Label>
-            <RadioButton fx:id="pl1" mnemonicParsing="false" selected="true" text="1 AI-Player">
-            <toggleGroup>
-						<ToggleGroup fx:id="players" />
-			</toggleGroup>
+            <RadioButton fx:id="pl1" mnemonicParsing="false" text="1 AI-Player" disable="true">
                <font>
                   <Font size="15.0" />
                </font>
@@ -40,7 +37,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </RadioButton>
-            <RadioButton fx:id="pl2" mnemonicParsing="false" text="2 AI-Player" toggleGroup="$players">
+            <RadioButton fx:id="pl2" mnemonicParsing="false" text="2 AI-Player" disable="true" >
                <font>
                   <Font size="15.0" />
                </font>
@@ -48,7 +45,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </RadioButton>
-            <RadioButton fx:id="pl3" mnemonicParsing="false" text="3 AI-Player" toggleGroup="$players">
+            <RadioButton fx:id="pl3" mnemonicParsing="false" text="3 AI-Player" selected="true" >
                <font>
                   <Font size="15.0" />
                </font>
@@ -77,7 +74,7 @@
                         <Insets right="10.0" />
                      </padding>
                   </Label>
-                  <Slider fx:id="slBoardSizeSP" min="1000" max="20000"/>
+                  <Slider fx:id="slBoardSizeSP" min="400" max="2000"/>
                   <!-- 
                   <Label text="${slBoardSizeSP.value}"/>
                    -->

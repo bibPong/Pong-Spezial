@@ -2,7 +2,9 @@ package pongSpezial.netController;
 
 import java.io.IOException;
 import java.util.Dictionary;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javafx.animation.FadeTransition;
 import javafx.collections.ObservableList;
@@ -37,10 +39,18 @@ import pongSpezial.dataModel.Bar;
 import pongSpezial.dataModel.BoardState;
 import pongSpezial.dataModel.Edge;
 import pongSpezial.dataModel.Geometry;
+import pongSpezial.dataModel.Player;
+import pongSpezial.gameLogic.GameManager;
+import pongSpezial.gameLogic.KI;
 //import pongSpezial.view.GUI;
 import pongSpezial.view.State;
 
 public class GUI {
+	
+	//prototyping purpose
+	public GameManager gameManager;
+	public Player[] players = {null,null,null,null};
+	public String playerName;	
 
 	private final String SPLASH_SCREEN_PATH = "/pongSpezial/view/SplashScreen.fxml";
 	private final String MAINMENU_SCREEN_PATH = "/pongSpezial/view/MainMenu.fxml";
@@ -169,7 +179,6 @@ public class GUI {
 		this.client = client;
 		this.loader = loader;
 		System.out.println(client.toString());
-
 	}
 
 	@FXML
@@ -250,18 +259,18 @@ public class GUI {
 
 			case NAMEENTRY:
 
-				showScreenType(primaryStage, NAMEENTRY_SCREEN_PATH, "title");
-
+				showScreenType(primaryStage, NAMEENTRY_SCREEN_PATH, "title");				
+				
 				break;
 
 			case HOSTANDJOIN:
-
+				
 				showScreenType(primaryStage, HOSTANDJOIN_SCREEN_PATH, "title");
 
 				break;
 
 			case SPCONFIG:
-
+				
 				showScreenType(primaryStage, SPCONFIG_SCREEN_PATH, "Singleplayer");
 
 				break;
@@ -281,16 +290,20 @@ public class GUI {
 			case LOBBY:
 
 				showScreenType(primaryStage, LOBBY_SCREEN_PATH, "title");
-
-				if (prevState != state.MPJOIN) {
-					// Man ist entweder MPHost oder SinglePlayer
-					// Server muss gestartet werden
-					client.startServer();
-				}
-
+				
 				break;
 
 			case GAME:
+				
+				//for Prototypin Issues
+				playerName = "test";//((TextField) primaryStage.getScene().lookup("#txf_nameEntry")).getText();
+				
+				Player[] players = new Player[]{new Player( 1, playerName), new KI(2), new KI(3), new KI(4)};
+				Player[]kis = new Player[]{players[1], players[2], players[3]};
+				
+				gameManager = new GameManager();
+				gameManager.kis = kis;
+				gameManager.testBoardState(players, Client.instance.boardsize);
 
 				showScreenType(primaryStage, GAME_SCREEN_PATH, "title");
 
@@ -322,6 +335,7 @@ public class GUI {
 			keyInput(primaryStage);
 			scaleWindow(primaryStage);
 			
+			new Thread(new GameManager()).start();
 			Client.instance.run(primaryStage);
 		}
 
@@ -367,7 +381,7 @@ public class GUI {
 			@Override
 			public void handle(KeyEvent event) {
 				System.out.println("press");
-				Client.instance.validateInput(event);// hier werden Nullppinter geworfen
+				Client.instance.validateInput(event);
 			}
 		});
 
@@ -375,115 +389,25 @@ public class GUI {
 			@Override
 			public void handle(KeyEvent event) {
 				System.out.println("release");
-				Client.instance.validateInput(event);// hier werden Nullppinter geworfen
-				
-				getGamescreenFXMLControlReferences(primaryStage);
-				System.out.println(bar1.getLayoutX() + "/" + bar1.getLayoutY());
-				bar1.setLayoutX(bar1.getLayoutX() + 10);
-				bar1.setLayoutY(bar1.getLayoutY() + 10);
-
+				Client.instance.validateInput(event);
 			}
 		});
 
 	}
 	
-	public void updateGUI(BoardState boardstate, Stage primaryStage)
+	public void updateGUI(BoardState boardState, Stage primaryStage)
 	{
 		getGamescreenFXMLControlReferences(primaryStage);
 		
-		List<Geometry> list = boardstate.getGeometries();
+		List<Geometry> list = boardState.getGeometries();
 		
-		Rectangle[] rectangle={sp1,sp1b,sp2,sp2b,sp3,sp3b,sp4,sp4b,co1,co2,co3,co4,co11,co21,co31,co41};
 		if(firstStart)
 		{			
-			scaleObjects();
-			
-			for (Geometry geometry : list)
-			{
-				Point2D pos = geometry.getPosition();
-				Point2D dim = geometry.getCollisionSize();
-				
-				if(geometry instanceof Bar)
-				{
-					Bar bar = (Bar) geometry;
-					
-					int id = bar.getControllingPlayer().getPlayerID();
-					
-					System.out.println("bar " + id + " pos: " + pos.getX() + "/" + pos.getY());
-					System.out.println("bar " + id + " dim: " + dim.getX() + "/" + dim.getY());
-					
-					switch (id)
-					{
-						case 1 :
-							bar1.setLayoutX(0);
-							bar1.setLayoutY(0);
-							bar1.setHeight(bar.getCollisionSize().getX()
-									* scaleFactor);
-							bar1.setWidth(bar.getCollisionSize().getY()
-									* scaleFactor);
-							break;
-
-						case 2 :
-							bar2.setLayoutX(100);
-							bar2.setLayoutY(10);
-							bar2.setHeight(bar.getCollisionSize().getX()
-									* scaleFactor);
-							bar2.setWidth(bar.getCollisionSize().getY()
-									* scaleFactor);
-							break;
-
-						case 3 :
-							bar3.setLayoutX(pos.getX() * scaleFactor);
-							bar3.setLayoutY(pos.getY() * scaleFactor);
-							bar3.setHeight(bar.getCollisionSize().getX()
-									* scaleFactor);
-							bar3.setWidth(bar.getCollisionSize().getY()
-									* scaleFactor);
-							break;
-
-						case 4 :
-							bar4.setLayoutX(pos.getX() * scaleFactor);
-							bar4.setLayoutY(pos.getY() * scaleFactor);
-							bar4.setHeight(bar.getCollisionSize().getX()
-									* scaleFactor);
-							bar4.setWidth(bar.getCollisionSize().getY()
-									* scaleFactor);
-							break;
-
-						default :
-							break;
-					}
-				}
-				
-				else if(geometry instanceof Ball)
-				{
-					ball.setLayoutX(pos.getX() * scaleFactor);
-					ball.setLayoutY(pos.getY() * scaleFactor);
-					ball.setRadius(((Ball) geometry).getRadius() * scaleFactor);
-				}
-				
-				if(geometry instanceof Edge)
-				{
-					for(int i=0; i<rectangle.length; i++)
-					{
-
-						rectangle[i].setLayoutX(((Edge) geometry).getPosition().getX() * scaleFactor);
-						rectangle[i].setLayoutY(((Edge) geometry).getPosition().getY() * scaleFactor);
-						rectangle[i].setHeight( ((Edge) geometry).getCollisionSize().getY() * scaleFactor);
-						rectangle[i].setWidth(  ((Edge) geometry).getCollisionSize().getX() * scaleFactor);
-						//if(((Edge) geometry).isEdgeVisible() == false)
-						//{
-						//	fadeOutBars(rectangle[i]);
-						//}
-
-					}
-
-				}
-			}
+			scaleObjects(boardState);
 
 			firstStart=false;
 		}
-		else if(false)
+		else
 		{
 			for (Geometry geometry : list)
 			{
@@ -543,7 +467,7 @@ public class GUI {
 				{
 					ball.setLayoutX(test.getX() * scaleFactor);
 					ball.setLayoutY(test.getY() * scaleFactor);
-					ball.setRadius(((Ball) geometry).getRadius() * scaleFactor);
+					ball.setRadius(((Ball) geometry).getRadius() * scaleFactor * 2);
 				}
 			}
 		}
@@ -591,14 +515,105 @@ public class GUI {
 		primaryStage.setMaximized(true);
 	}
 	
-	private void scaleObjects()
+	private void scaleObjects(BoardState boardState)
 	{
 		double gamePaneSize = gamePane.getHeight();
 		scaleFactor = gamePaneSize / Client.instance.boardsize;
-		
-		System.out.println("gamePaneSize / Client.instance.boardsize = scaleFactor:");
-		System.out.println(gamePaneSize + " / " + Client.instance.boardsize + " = " + scaleFactor);
 
+		List<Geometry> list = boardState.getGeometries();
+		
+		for (Geometry geometry : list)
+		{
+			Point2D pos = geometry.getPosition();
+			Point2D dim = geometry.getCollisionSize();
+			
+			if(geometry instanceof Bar)
+			{
+				Bar bar = (Bar) geometry;
+				
+				int id = bar.getControllingPlayer().getPlayerID();
+				
+				switch (id)
+				{
+					case 1 :
+						bar1.setLayoutX(pos.getX() * scaleFactor);
+						bar1.setLayoutY(pos.getY() * scaleFactor);
+						bar1.setWidth( bar.getCollisionSize().getX() * scaleFactor);
+						bar1.setHeight(bar.getCollisionSize().getY() * scaleFactor);
+						break;
+
+					case 2 :
+						bar2.setLayoutX(pos.getX() * scaleFactor);
+						bar2.setLayoutY(pos.getY() * scaleFactor);
+						bar2.setWidth( bar.getCollisionSize().getX() * scaleFactor);
+						bar2.setHeight(bar.getCollisionSize().getY() * scaleFactor);
+						break;
+
+					case 3 :
+						bar3.setLayoutX(pos.getX() * scaleFactor);
+						bar3.setLayoutY(pos.getY() * scaleFactor);
+						bar3.setWidth( bar.getCollisionSize().getX() * scaleFactor);
+						bar3.setHeight(bar.getCollisionSize().getY() * scaleFactor);
+						break;
+
+					case 4 :
+						bar4.setLayoutX(pos.getX() * scaleFactor);
+						bar4.setLayoutY(pos.getY() * scaleFactor);
+						bar4.setWidth( bar.getCollisionSize().getX() * scaleFactor);
+						bar4.setHeight(bar.getCollisionSize().getY() * scaleFactor);
+						break;
+
+					default :
+						break;
+				}
+			}
+			
+			else if(geometry instanceof Ball)
+			{
+				ball.setLayoutX(pos.getX() * scaleFactor);
+				ball.setLayoutY(pos.getY() * scaleFactor);
+				ball.setRadius(((Ball) geometry).getRadius() * scaleFactor);
+			}
+			
+		}
+		
+		HashMap<Rectangle, Edge> rectanglesToEdges = new HashMap<Rectangle, Edge>();
+		
+		rectanglesToEdges.put(co1 , boardState.co1    );
+		rectanglesToEdges.put(co2 , boardState.co2    );
+		rectanglesToEdges.put(co3 , boardState.co3    );
+		rectanglesToEdges.put(co4 , boardState.co4    );
+		rectanglesToEdges.put(co11, boardState.co11   );
+		rectanglesToEdges.put(co21, boardState.co21   );
+		rectanglesToEdges.put(co31, boardState.co31   );
+		rectanglesToEdges.put(co41, boardState.co41   );
+		rectanglesToEdges.put(sp1 , boardState.sp1fill);
+		rectanglesToEdges.put(sp1b, boardState.sp1goal);
+		rectanglesToEdges.put(sp2 , boardState.sp2fill);
+		rectanglesToEdges.put(sp2b, boardState.sp2goal);
+		rectanglesToEdges.put(sp3 , boardState.sp3fill);
+		rectanglesToEdges.put(sp3b, boardState.sp3goal);
+		rectanglesToEdges.put(sp4 , boardState.sp4fill);
+		rectanglesToEdges.put(sp4b, boardState.sp4goal);
+		
+		for(Map.Entry<Rectangle, Edge> entry : rectanglesToEdges.entrySet())
+		{
+			entry.getKey().setLayoutX(entry.getValue().     getPosition().getX() * scaleFactor);
+			entry.getKey().setLayoutY(entry.getValue().     getPosition().getY() * scaleFactor);
+			entry.getKey().setHeight( entry.getValue().getCollisionSize().getY() * scaleFactor);
+			entry.getKey().setWidth(  entry.getValue().getCollisionSize().getX() * scaleFactor);
+			
+			if(!entry.getValue().isEdgeVisible())
+			{
+				fadeOutBars(entry.getKey());
+			}
+			
+			if(entry.getKey() == co4 || entry.getKey() == co41)
+			{
+				System.out.println(entry.getKey().getLayoutY());
+			}
+		}
+		
 	}
 	
 

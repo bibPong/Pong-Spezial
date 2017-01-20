@@ -11,7 +11,7 @@ public class InputState {
 	
 	public InputState()
 	{
-	
+		currentInputs = new HashMap<Player, Integer>();
 	}
 
 	public HashMap<Player, Integer> getCurrentInputs()

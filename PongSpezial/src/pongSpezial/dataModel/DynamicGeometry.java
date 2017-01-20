@@ -6,7 +6,7 @@ public abstract class DynamicGeometry extends Geometry
 {
 	private Point2D direction;
 	private double velocity;
-	private Player controllingPlayer;
+	public Player controllingPlayer;
 	private boolean collideCurrently;
 	
 	public DynamicGeometry(Point2D position, Point2D collisionSize,Point2D direction, double velocity, Player controllingPlayer,boolean collideCurrently) {

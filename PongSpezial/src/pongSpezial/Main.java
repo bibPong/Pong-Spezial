@@ -58,13 +58,7 @@ public class Main extends Application {
 //		
 //		Client client4 = new Client(address, 1);
 //		Thread clientThread4 = new Thread(client4);
-//		clientThread4.start();
-		
-		
-		GameManager gm = new GameManager();
-		//Thread thread2 = new Thread(gm);
-		//thread2.start();
-		
+//		clientThread4.start();		
 		
 		
 		startGui.switchScreen(primaryStage);

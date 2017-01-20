@@ -28,47 +28,52 @@ public class InputHandler implements Serializable
 				case "LEFT":
 					if(playerID == 3)
 					{
-						this.direction=1*inverter;
+						this.direction=1;
 					}					
 					else if (playerID == 4)
 					{
-						this.direction=-1*inverter;
+						this.direction=-1;
 					}
 					break;
+					
 				case "RIGHT":
 					if(playerID == 3)
 					{
-						this.direction=-1*inverter;
+						this.direction=-1;
 					}					
 					else if (playerID == 4)
 					{
-						this.direction=1*inverter;
+						this.direction=1;
 					}
 					break;
+					
 				case "UP":
 					if(playerID == 2)
 					{
-						this.direction=1*inverter;
+						this.direction=1;
 					}					
 					else if (playerID == 1)
 					{
-						this.direction=-1*inverter;
+						this.direction=-1;
 					}
 		
 					break;
+					
 				case "DOWN":
 					if(playerID == 2)
 					{
-						this.direction=-1*inverter;
+						this.direction=-1;
 					}					
 					else if (playerID == 1)
 					{
-						this.direction=1*inverter;
+						this.direction=1;
 					}
 					break;
+					
 				case "KEY_RELEASED" :
 					this.direction=0;
 					break;
+					
 				default:
 					break;
 			}

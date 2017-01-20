@@ -30,6 +30,7 @@ public class PowerUpManager
 		this.players = players;
 		isPowerUpActive = false;
 		
+		PowerUps = new PowerUp[PowerUpType.values().length];
 		
 		PowerUps[0] = new PowerUp(new Point2D(0,0), new Point2D(2,2),PowerUpType.TYP1);
 		PowerUps[1] = new PowerUp(new Point2D(0,0), new Point2D(2,2),PowerUpType.TYP2);
@@ -47,24 +48,16 @@ public class PowerUpManager
 		PowerUp powerUp = (PowerUp)boardstate.getGeometries().get(boardstate.getGeometries().size()-1);
 		List<Geometry>all = boardstate.getGeometries();
 		
-		
 		switch(powerUp.getType())
 		{
-			
-			
 			case TYP1:				
 				
 				if(timer.startTimer(zufall(MINTIME,MAXTIME)))
 				{	
-					
-					
 						for (Geometry g : all) 
 						{
-							
-							
 							if(g instanceof Ball)
 							{	
-								
 								Ball tmp = (Ball)g;
 								Player player = tmp.getControllingPlayer();
 								for(Geometry geo : all)
@@ -86,11 +79,6 @@ public class PowerUpManager
 							
 							}
 						}
-					
-					
-					
-					
-					
 				}
 			break;
 			

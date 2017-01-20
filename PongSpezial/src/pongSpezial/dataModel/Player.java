@@ -13,12 +13,17 @@ public class Player
 		this.playerID = playerID;
 	}
 
-
 	public Player(int playerID,String name)
 	{
 		this.playerID = playerID;
 		this.name = name;
 		lifes = 3;
+	}
+	
+	public Player(Player player){
+		this.playerID = player.playerID;
+		this.name = player.name;
+		this.lifes = player.lifes;
 	}
 
 	public int getPlayerID() {

@@ -15,7 +15,7 @@
    <children>
       <Pane prefHeight="900.0" prefWidth="600.0">
          <children>
-            <TextField fx:id="txf_nameEntry" layoutX="257.0" layoutY="197.0" />
+            <TextField fx:id="txf_nameEntry" layoutX="257.0" layoutY="197.0" text="Player" />
             <Label layoutX="199.0" layoutY="199.0" text="Name:">
                <font>
                   <Font size="15.0" />

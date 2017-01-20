@@ -25,7 +25,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="btn_mp" layoutX="226.0" layoutY="204.0" mnemonicParsing="false" onAction="#click" prefHeight="25.0" prefWidth="149.0" text="Multi Player" />
+            <Button fx:id="btn_mp" layoutX="226.0" layoutY="204.0" mnemonicParsing="false" onAction="#click" prefHeight="25.0" prefWidth="149.0" disable="true" text="Multi Player" />
             <Button fx:id="btn_quit" layoutX="226.0" layoutY="279.0" mnemonicParsing="false" onAction="#quit" prefHeight="25.0" prefWidth="149.0" text="Quit" />
          </children>
       </Pane>

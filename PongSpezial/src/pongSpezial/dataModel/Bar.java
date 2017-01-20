@@ -5,10 +5,10 @@ import javafx.geometry.Point2D;
 public class Bar extends DynamicGeometry
 {
 	private double width;
-	public Player controllingPlayer;
 	
 	public Bar(Point2D position, Point2D collisionSize, Point2D direction, double velocity, Player controllingPlayer,
-			boolean collideCurrently) {
+			boolean collideCurrently)
+	{
 		super(position, collisionSize, direction, velocity, controllingPlayer, collideCurrently);
 		
 		if(controllingPlayer.getPlayerID() == 1 || controllingPlayer.getPlayerID() == 2 )
