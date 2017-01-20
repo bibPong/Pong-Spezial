@@ -142,20 +142,7 @@ public class GUI {
 	@FXML
 	private ToggleButton soundToggle;
 	
-	private boolean firstStart;
-	
-	
-	
-	
-	
-	
-	
-	//
-	
-	
-	
-	
-	
+	private boolean firstStart = true;
 	private BoardState boeardstate;
 	private State prevState;
 	private State state;
@@ -411,18 +398,16 @@ public class GUI {
 				}
 				if(geometry instanceof Edge)
 				{
-					for(int i=0; i<=rectangle.length;i++)
+					for(int i=0; i<rectangle.length;i++)
 					{
-						rectangle[i].setLayoutX(((Edge) geometry).getPosition().getX());
+						sp1.setLayoutX(((Edge) geometry).getPosition().getX());
 						rectangle[i].setLayoutY(((Edge) geometry).getPosition().getY());
 						rectangle[i].setHeight(((Edge) geometry).getCollisionSize().getX());
 						rectangle[i].setWidth(((Edge) geometry).getCollisionSize().getX());
 						if(((Edge) geometry).isEdgeVisible() == false)
 						{
 							fadeOutBars(rectangle[i]);
-							
 						}
-					i++;
 					}
 				}
 				
