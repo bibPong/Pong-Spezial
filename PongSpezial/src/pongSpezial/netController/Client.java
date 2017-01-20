@@ -84,63 +84,12 @@ public class Client
 		Thread th = new Thread(task);
 		th.setDaemon(true);
 		th.start();
-		
-		
-
-		/*
-		
-		if(clientThread == null)
-		{
-			clientThread = new Thread()
-			{
-				@Override
-				public void run()
-				{
-					System.out.println("+++++ Running Thread");
-					
-					while (!this.isInterrupted())
-					{
-						System.out.println("+++++ Not interrupted");
-			            // UI updaten
-			            Platform.runLater(new Runnable()
-			            {
-			                @Override
-			                public void run()
-			                {
-			                	System.out.println("+++++ Updating GUI");
-			                	
-			                    // entsprechende UI Komponente updaten
-			                    gui.updateGUI(boardState);
-			                }
-			            });
-			 
-			            // Thread müde
-			            // Thread schlafen
-			            try
-			            {
-			            	System.out.println("+++++ Sleep");
-			                sleep(2000);
-			            }
-			            catch (InterruptedException ex)
-			            {
-			                System.out.println("Thread interrupted: " + ex.getMessage());
-			            }
-			        }
-				}
-			};
-			
-			clientThread.setDaemon(true);
-			
-			clientThread.run();
-		}
-		*/
 
 	}
 
 	public void shutdown()
 	{
 		this.running = false;
-		//System.out.println("Player " + inputHandler.getPlayerID() + " client has been shutdown.");
 	}
 
 	public void validateInput(KeyEvent event)

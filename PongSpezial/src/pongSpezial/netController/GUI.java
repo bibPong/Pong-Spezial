@@ -150,14 +150,6 @@ public class GUI {
 	private ToggleButton soundToggle;
 	
 	private boolean firstStart = true;
-	
-	
-	
-	
-	
-	
-	
-	//
 
 	private State prevState;
 	private State state;
@@ -384,6 +376,11 @@ public class GUI {
 			public void handle(KeyEvent event) {
 				System.out.println("release");
 				Client.instance.validateInput(event);// hier werden Nullppinter geworfen
+				
+				getGamescreenFXMLControlReferences(primaryStage);
+				System.out.println(bar1.getLayoutX() + "/" + bar1.getLayoutY());
+				bar1.setLayoutX(bar1.getLayoutX() + 10);
+				bar1.setLayoutY(bar1.getLayoutY() + 10);
 
 			}
 		});
@@ -486,7 +483,7 @@ public class GUI {
 
 			firstStart=false;
 		}
-		else
+		else if(false)
 		{
 			for (Geometry geometry : list)
 			{
@@ -592,12 +589,11 @@ public class GUI {
 	{
 		//maximize window
 		primaryStage.setMaximized(true);
-		primaryStage.setResizable(false);
 	}
 	
 	private void scaleObjects()
 	{
-		double gamePaneSize = gamePane.getWidth();
+		double gamePaneSize = gamePane.getHeight();
 		scaleFactor = gamePaneSize / Client.instance.boardsize;
 		
 		System.out.println("gamePaneSize / Client.instance.boardsize = scaleFactor:");
