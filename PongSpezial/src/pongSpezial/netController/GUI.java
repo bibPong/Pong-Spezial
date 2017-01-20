@@ -220,6 +220,11 @@ public class GUI {
 			case "btn_startGameMP" :
 				state = State.GAME;
 				break;
+				
+			case "btn_startGameSP" :
+				state = State.GAME;
+				break;
+
 
 
 			default :
