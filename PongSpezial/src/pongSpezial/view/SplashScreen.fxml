@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
@@ -7,7 +12,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pan_mainPane" prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pongSpezial.netController.GUI">
+<AnchorPane fx:id="pan_mainPane" prefHeight="900.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pongSpezial.netController.GUI">
    <children>
       <Pane prefHeight="900.0" prefWidth="600.0">
          <children>
@@ -17,7 +22,10 @@
                   <Font size="30.0" />
                </font>
             </Label>
-            <ImageView fitHeight="359.0" fitWidth="509.0" layoutX="32.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="359.0" fitWidth="509.0" layoutX="46.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Logo_gross.png" />
+               </image></ImageView>
          </children>
       </Pane>
    </children>

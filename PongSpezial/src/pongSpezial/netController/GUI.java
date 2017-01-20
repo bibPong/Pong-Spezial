@@ -417,35 +417,43 @@ public class GUI {
 					
 					switch (id)
 					{
-						case 1:
-							bar1.setLayoutX(pos.getX()* scaleFactor);
-							bar1.setLayoutY(pos.getY()* scaleFactor);
-							bar1.setHeight(bar.getCollisionSize().getX() * scaleFactor);
-							bar1.setWidth( bar.getCollisionSize().getY() * scaleFactor);
-						break;
-						
-						case 2:
-							bar2.setLayoutX(pos.getX()* scaleFactor);
-							bar2.setLayoutY(pos.getY()* scaleFactor);
-							bar2.setHeight(bar.getCollisionSize().getX() * scaleFactor);
-							bar2.setWidth( bar.getCollisionSize().getY() * scaleFactor);
-						break;
-						
-						case 3:
+						case 1 :
+							bar1.setLayoutX(0);
+							bar1.setLayoutY(0);
+							bar1.setHeight(bar.getCollisionSize().getX()
+									* scaleFactor);
+							bar1.setWidth(bar.getCollisionSize().getY()
+									* scaleFactor);
+							break;
+
+						case 2 :
+							bar2.setLayoutX(100);
+							bar2.setLayoutY(10);
+							bar2.setHeight(bar.getCollisionSize().getX()
+									* scaleFactor);
+							bar2.setWidth(bar.getCollisionSize().getY()
+									* scaleFactor);
+							break;
+
+						case 3 :
 							bar3.setLayoutX(pos.getX() * scaleFactor);
 							bar3.setLayoutY(pos.getY() * scaleFactor);
-							bar3.setHeight(bar.getCollisionSize().getX() * scaleFactor);
-							bar3.setWidth( bar.getCollisionSize().getY() * scaleFactor);
-						break;
-						
-						case 4:
+							bar3.setHeight(bar.getCollisionSize().getX()
+									* scaleFactor);
+							bar3.setWidth(bar.getCollisionSize().getY()
+									* scaleFactor);
+							break;
+
+						case 4 :
 							bar4.setLayoutX(pos.getX() * scaleFactor);
 							bar4.setLayoutY(pos.getY() * scaleFactor);
-							bar4.setHeight(bar.getCollisionSize().getX() * scaleFactor);
-							bar4.setWidth( bar.getCollisionSize().getY() * scaleFactor);
-						break;
-						
-						default:
+							bar4.setHeight(bar.getCollisionSize().getX()
+									* scaleFactor);
+							bar4.setWidth(bar.getCollisionSize().getY()
+									* scaleFactor);
+							break;
+
+						default :
 							break;
 					}
 				}
