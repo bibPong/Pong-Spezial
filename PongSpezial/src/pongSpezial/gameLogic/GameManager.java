@@ -180,8 +180,12 @@ public class GameManager implements Runnable
 		teststates.add(co31);
 		teststates.add(co41);
 		
-		boardstate.setGeometries(teststates);
+		
 		powerUpManager = new PowerUpManager(players);
+		PowerUp powerUp = powerUpManager.spawnPowerUp();
+		
+		teststates.add(powerUp);
+		boardstate.setGeometries(teststates);
 	}
 	
 	
