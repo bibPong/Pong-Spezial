@@ -417,36 +417,36 @@ public class GUI {
 					
 					switch (id)
 					{
-					case 1:
-						bar1.setLayoutX(0);
-						bar1.setLayoutY(0);
-						bar1.setHeight(bar.getCollisionSize().getX() * scaleFactor);
-						bar1.setWidth( bar.getCollisionSize().getY() * scaleFactor);
-					break;
-					
-					case 2:
-						bar2.setLayoutX(100);
-						bar2.setLayoutY(10);
-						bar2.setHeight(bar.getCollisionSize().getX() * scaleFactor);
-						bar2.setWidth( bar.getCollisionSize().getY() * scaleFactor);
-					break;
-					
-					case 3:
-						bar3.setLayoutX(pos.getX() * scaleFactor);
-						bar3.setLayoutY(pos.getY() * scaleFactor);
-						bar3.setHeight(bar.getCollisionSize().getX() * scaleFactor);
-						bar3.setWidth( bar.getCollisionSize().getY() * scaleFactor);
-					break;
-					
-					case 4:
-						bar4.setLayoutX(pos.getX() * scaleFactor);
-						bar4.setLayoutY(pos.getY() * scaleFactor);
-						bar4.setHeight(bar.getCollisionSize().getX() * scaleFactor);
-						bar4.setWidth( bar.getCollisionSize().getY() * scaleFactor);
-					break;
-					
-					default:
+						case 1:
+							bar1.setLayoutX(pos.getX()* scaleFactor);
+							bar1.setLayoutY(pos.getY()* scaleFactor);
+							bar1.setHeight(bar.getCollisionSize().getX() * scaleFactor);
+							bar1.setWidth( bar.getCollisionSize().getY() * scaleFactor);
 						break;
+						
+						case 2:
+							bar2.setLayoutX(pos.getX()* scaleFactor);
+							bar2.setLayoutY(pos.getY()* scaleFactor);
+							bar2.setHeight(bar.getCollisionSize().getX() * scaleFactor);
+							bar2.setWidth( bar.getCollisionSize().getY() * scaleFactor);
+						break;
+						
+						case 3:
+							bar3.setLayoutX(pos.getX() * scaleFactor);
+							bar3.setLayoutY(pos.getY() * scaleFactor);
+							bar3.setHeight(bar.getCollisionSize().getX() * scaleFactor);
+							bar3.setWidth( bar.getCollisionSize().getY() * scaleFactor);
+						break;
+						
+						case 4:
+							bar4.setLayoutX(pos.getX() * scaleFactor);
+							bar4.setLayoutY(pos.getY() * scaleFactor);
+							bar4.setHeight(bar.getCollisionSize().getX() * scaleFactor);
+							bar4.setWidth( bar.getCollisionSize().getY() * scaleFactor);
+						break;
+						
+						default:
+							break;
 					}
 				}
 				
@@ -466,10 +466,10 @@ public class GUI {
 						rectangle[i].setLayoutY(((Edge) geometry).getPosition().getY() * scaleFactor);
 						rectangle[i].setHeight( ((Edge) geometry).getCollisionSize().getY() * scaleFactor);
 						rectangle[i].setWidth(  ((Edge) geometry).getCollisionSize().getX() * scaleFactor);
-						if(((Edge) geometry).isEdgeVisible() == false)
-						{
-							fadeOutBars(rectangle[i]);
-						}
+						//if(((Edge) geometry).isEdgeVisible() == false)
+						//{
+						//	fadeOutBars(rectangle[i]);
+						//}
 
 					}
 
@@ -494,8 +494,8 @@ public class GUI {
 						bar1.setHeight(((Bar) geometry).getWidth() * scaleFactor);
 						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
 						{
-							fadeOutBars(bar1);
-							fadeInBars(sp1);
+							//fadeOutBars(bar1);
+							//fadeInBars(sp1);
 						}
 					break;
 					
@@ -505,8 +505,8 @@ public class GUI {
 						bar2.setHeight(((Bar) geometry).getWidth() * scaleFactor);
 						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
 						{
-							fadeOutBars(bar2);
-							fadeInBars(sp2);
+							//fadeOutBars(bar2);
+							//fadeInBars(sp2);
 						}
 					break;
 					
@@ -516,8 +516,8 @@ public class GUI {
 						bar3.setWidth(((Bar) geometry).getWidth() * scaleFactor);
 						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
 						{
-							fadeOutBars(bar3);
-							fadeInBars(sp3);
+							//fadeOutBars(bar3);
+							//fadeInBars(sp3);
 						}
 					break;
 					case 4:
@@ -526,8 +526,8 @@ public class GUI {
 						bar4.setWidth(((Bar) geometry).getWidth() * scaleFactor);
 						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
 						{
-							fadeOutBars(bar4);
-							fadeInBars(sp4);
+							//fadeOutBars(bar4);
+							//fadeInBars(sp4);
 						}
 					break;
 					default:

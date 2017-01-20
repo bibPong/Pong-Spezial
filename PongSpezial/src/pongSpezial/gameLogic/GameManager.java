@@ -31,7 +31,7 @@ public class GameManager implements Runnable
 	private InputState inputState;
 	private StopWatch stopWatch;
 	private PowerUpManager powerUpManager;
-	private double bordsizeSafe;
+	private double boardsizeSafe;
 	public Server server;
 	
 	public GameManager()
@@ -52,7 +52,7 @@ public class GameManager implements Runnable
 		double ballRadius = 11;			//Ball radius
 		
 		boardsize = boardsize * 9000 + 1000;
-		bordsizeSafe = boardsize;
+		boardsizeSafe = boardsize;
 		
 		List<Geometry> teststates = new ArrayList<Geometry>();
 		
@@ -191,13 +191,11 @@ public class GameManager implements Runnable
 	
 	public static BoardState testBoardState(Player[] player, double boardsize)
 	{
-		double sizeBarBig = 100; 		//Size and Position from long site of Corner/Edge 
-		double sizeBarSmall = 20; 		//Size or Position from short site of Corner/Edge/Bar/Goal
-		double sizeGoal = 400; 			//Size from long site PLAYERGOALEDGE
-		double playerBarSize = 120;		//Size from long site Bar
-		double ballRadius = 11;			//Ball radius
-		
-		double boardsizeSafe = boardsize;
+		double sizeBarBig    = 100; 						//Size and Position from long site of CornerEdge 
+		double sizeBarSmall  = 20; 							//Size or Position from short site of CornerEdge/Bar/Goal
+		double playerBarSize = 120;							//Size from long site Bar
+		double sizeGoal      = boardsize - 2 * sizeBarBig; 	//Size from long site PLAYERGOALEDGE
+		double ballRadius    = 11;							//Ball radius
 		
 		List<Geometry> teststates = new ArrayList<Geometry>();
 		
@@ -327,24 +325,82 @@ public class GameManager implements Runnable
 		else
 		{
 			//PLAYERGOALEDGE
-			Edge sp1 = new Edge(new Point2D(0,sizeBarBig),new Point2D(sizeBarSmall,sizeGoal), EdgeType.PLAYERFILL,false, EdgeOrientation.VERTICAL);
-			Edge sp1b = new Edge(new Point2D(-sizeBarSmall,sizeBarBig),new Point2D(sizeBarSmall,sizeGoal), EdgeType.PLAYERGOALEDGE,true, EdgeOrientation.HORIZONTAL);
-			Edge sp2 = new Edge(new Point2D(boardsize-sizeBarSmall,sizeBarBig),new Point2D(sizeBarSmall,sizeGoal), EdgeType.PLAYERFILL,false, EdgeOrientation.VERTICAL);
-			Edge sp2b = new Edge(new Point2D(boardsize+sizeBarSmall,sizeBarBig),new Point2D(sizeBarSmall,sizeGoal), EdgeType.PLAYERGOALEDGE,true, EdgeOrientation.HORIZONTAL);
-			Edge sp3 = new Edge(new Point2D(sizeBarBig,0),new Point2D(sizeGoal,sizeBarSmall), EdgeType.PLAYERFILL,false, EdgeOrientation.VERTICAL);
-			Edge sp3b = new Edge(new Point2D(sizeBarBig,0),new Point2D(sizeGoal,-sizeBarSmall), EdgeType.PLAYERGOALEDGE,true, EdgeOrientation.HORIZONTAL);
-			Edge sp4 = new Edge(new Point2D(sizeBarBig,boardsize-sizeBarSmall),new Point2D(sizeGoal,sizeBarSmall), EdgeType.PLAYERFILL,false, EdgeOrientation.VERTICAL);
-			Edge sp4b = new Edge(new Point2D(sizeBarBig,boardsize+sizeBarSmall),new Point2D(sizeGoal,sizeBarSmall), EdgeType.PLAYERGOALEDGE,true, EdgeOrientation.HORIZONTAL);
+			Edge sp1  = new Edge( 	new Point2D(0, sizeBarBig),
+									new Point2D(sizeBarSmall, sizeGoal),
+									EdgeType.PLAYERFILL,
+									false,
+									EdgeOrientation.VERTICAL);
+			
+			Edge sp1b = new Edge( 	new Point2D(-sizeBarSmall, sizeBarBig),
+									new Point2D( sizeBarSmall, sizeGoal),
+									EdgeType.PLAYERGOALEDGE,
+									true,
+									EdgeOrientation.HORIZONTAL);
+			
+			Edge sp2  = new Edge( 	new Point2D(boardsize-sizeBarSmall, sizeBarBig),
+									new Point2D(sizeBarSmall, sizeGoal),
+									EdgeType.PLAYERFILL,
+									false,
+									EdgeOrientation.VERTICAL);
+			
+			Edge sp2b = new Edge( 	new Point2D(boardsize, sizeBarBig),
+									new Point2D(sizeBarSmall, sizeGoal),
+									EdgeType.PLAYERGOALEDGE,
+									true,
+									EdgeOrientation.HORIZONTAL);
+			
+			Edge sp3  = new Edge( 	new Point2D(sizeBarBig, 0),
+									new Point2D(sizeGoal, sizeBarSmall),
+									EdgeType.PLAYERFILL,
+									false,
+									EdgeOrientation.VERTICAL);
+			
+			Edge sp3b = new Edge( 	new Point2D(sizeBarBig, -sizeBarSmall),
+									new Point2D(sizeGoal,    sizeBarSmall),
+									EdgeType.PLAYERGOALEDGE,
+									true,
+									EdgeOrientation.HORIZONTAL);
+			
+			Edge sp4  = new Edge( 	new Point2D(sizeBarBig,boardsize-sizeBarSmall),
+									new Point2D(sizeGoal,sizeBarSmall),
+									EdgeType.PLAYERFILL,
+									false,
+									EdgeOrientation.VERTICAL);
+			
+			Edge sp4b = new Edge( 	new Point2D(sizeBarBig, boardsize),
+									new Point2D(sizeGoal,sizeBarSmall),
+									EdgeType.PLAYERGOALEDGE,
+									true,
+									EdgeOrientation.HORIZONTAL);
 			
 			//Playerbar
-			Bar bar1 = new Bar(new Point2D(0,(boardsize/sizeBarSmall-playerBarSize/2)) , new Point2D(sizeBarSmall,playerBarSize), new Point2D(0,0), 0, player[0],
-					false);
-			Bar bar2 = new Bar(new Point2D(boardsize-sizeBarSmall,(boardsize/sizeBarSmall-playerBarSize/2)) , new Point2D(sizeBarSmall,playerBarSize), new Point2D(0,0), 0, player[1],
-					false);
-			Bar bar3 = new Bar(new Point2D((boardsize/sizeBarSmall-playerBarSize/2),0) , new Point2D(playerBarSize,sizeBarSmall), new Point2D(0,0), 0, player[2],
-					false);
-			Bar bar4 = new Bar(new Point2D((boardsize/sizeBarSmall-playerBarSize/2),boardsize-sizeBarSmall) , new Point2D(playerBarSize,sizeBarSmall), new Point2D(0,0), 0, player[3],
-					false);
+			Bar bar1 = 	new Bar( new Point2D(0, (boardsize/2 - playerBarSize/2)),
+								 new Point2D(sizeBarSmall, playerBarSize),
+								 new Point2D(0,0),
+								 0,
+								 player[0],
+							 	 false);
+			
+			Bar bar2 = 	new Bar( new Point2D(0, (boardsize/2 - playerBarSize/2)),
+								 new Point2D(sizeBarSmall,playerBarSize),
+								 new Point2D(0,0),
+								 0,
+								 player[1],
+								 false);
+			
+			Bar bar3 = 	new Bar( new Point2D((boardsize/2 - playerBarSize/2), 0),
+								 new Point2D(playerBarSize, sizeBarSmall),
+								 new Point2D(0,0),
+								 0,
+								 player[2],
+							 	 false);
+			
+			Bar bar4 = 	new Bar( new Point2D((boardsize/2 - playerBarSize/2), 0),
+								 new Point2D(playerBarSize, sizeBarSmall),
+								 new Point2D(0,0),
+								 0,
+								 player[3],
+							 	 false);
 			
 			teststates.add(sp1);
 			teststates.add(sp1b);
@@ -361,14 +417,53 @@ public class GameManager implements Runnable
 		}
 
 		//Corneredges
-		Edge co1 = new Edge(new Point2D(0,0),new Point2D(sizeBarSmall,sizeBarBig), EdgeType.CORNEREDGE,true, EdgeOrientation.VERTICAL);
-		Edge co11 = new Edge(new Point2D(0,boardsize - sizeBarBig),new Point2D(sizeBarSmall,sizeBarBig), EdgeType.CORNEREDGE,true, EdgeOrientation.HORIZONTAL);
-		Edge co2 = new Edge(new Point2D(boardsize - sizeBarSmall,0),new Point2D(sizeBarSmall,sizeBarBig), EdgeType.CORNEREDGE,true, EdgeOrientation.VERTICAL);
-		Edge co21 = new Edge(new Point2D(boardsize - sizeBarSmall,boardsize - sizeBarBig),new Point2D(sizeBarSmall,100), EdgeType.CORNEREDGE,true, EdgeOrientation.HORIZONTAL);
-		Edge co3 = new Edge(new Point2D(0,0),new Point2D(sizeBarBig,sizeBarSmall), EdgeType.CORNEREDGE,true, EdgeOrientation.VERTICAL);
-		Edge co31 = new Edge(new Point2D(0,boardsize - sizeBarBig),new Point2D(sizeBarBig,sizeBarSmall), EdgeType.CORNEREDGE,true, EdgeOrientation.HORIZONTAL);
-		Edge co4 = new Edge(new Point2D(boardsize - sizeBarBig,boardsize - sizeBarBig),new Point2D(sizeBarBig,sizeBarSmall), EdgeType.CORNEREDGE,true, EdgeOrientation.VERTICAL);
-		Edge co41 = new Edge(new Point2D(boardsize - sizeBarBig,boardsize - sizeBarBig),new Point2D(sizeBarBig,sizeBarSmall), EdgeType.CORNEREDGE,true, EdgeOrientation.HORIZONTAL);
+		Edge co1  = new Edge(	new Point2D(0,0),
+								new Point2D(sizeBarSmall, sizeBarBig),
+								EdgeType.CORNEREDGE,
+								true,
+								EdgeOrientation.VERTICAL);
+		
+		Edge co11 = new Edge(	new Point2D(0, boardsize - sizeBarBig),
+								new Point2D(sizeBarSmall, sizeBarBig),
+								EdgeType.CORNEREDGE,
+								true,
+								EdgeOrientation.VERTICAL);
+		
+		Edge co2  = new Edge(	new Point2D(0, 0),
+								new Point2D(sizeBarBig, sizeBarSmall),
+								EdgeType.CORNEREDGE,
+								true,
+								EdgeOrientation.HORIZONTAL);
+		
+		Edge co21 = new Edge(	new Point2D(boardsize - sizeBarBig, 0),
+								new Point2D(sizeBarBig, sizeBarSmall),
+								EdgeType.CORNEREDGE,
+								true,
+								EdgeOrientation.HORIZONTAL);
+		
+		Edge co3  = new Edge(	new Point2D(boardsize - sizeBarSmall, 0),
+								new Point2D(sizeBarSmall, sizeBarBig),
+								EdgeType.CORNEREDGE,
+								true,
+								EdgeOrientation.VERTICAL);
+		
+		Edge co31 = new Edge(	new Point2D(boardsize - sizeBarSmall, boardsize - sizeBarBig),
+								new Point2D(sizeBarSmall, sizeBarBig),
+								EdgeType.CORNEREDGE,
+								true,
+								EdgeOrientation.VERTICAL);
+		
+		Edge co4  = new Edge(	new Point2D(0, boardsize),
+								new Point2D(sizeBarBig, sizeBarSmall),
+								EdgeType.CORNEREDGE,
+								true,
+								EdgeOrientation.HORIZONTAL);
+		
+		Edge co41 = new Edge(	new Point2D(boardsize - sizeBarBig, boardsize),
+								new Point2D(sizeBarBig, sizeBarSmall),
+								EdgeType.CORNEREDGE,
+								true,
+								EdgeOrientation.HORIZONTAL);
 
 		teststates.add(ball);
 		teststates.add(co1);
@@ -721,7 +816,7 @@ public class GameManager implements Runnable
 				
 				else if(edge.getType() == EdgeType.PLAYERGOALEDGE)
 				{
-					ballPlayerEdgeCollision(ball, edge,bordsizeSafe); 
+					ballPlayerEdgeCollision(ball, edge,boardsizeSafe); 
 				}
 				
 			}
