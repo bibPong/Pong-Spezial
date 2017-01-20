@@ -9,13 +9,13 @@
 
 <SplitPane dividerPositions="0.0535" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" orientation="VERTICAL" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pongSpezial.netController.GUI">
   <items>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" maxHeight="100.0" prefWidth="160.0">
          <children>
             <Button fx:id="closeGamescreen" focusTraversable="false" layoutX="14.0" layoutY="2.0" mnemonicParsing="false" text="Close" />
             <ToggleButton fx:id="soundToggle" focusTraversable="false" layoutX="496.0" layoutY="2.0" mnemonicParsing="false" text="Music On/Off" />
          </children>
     </AnchorPane>
-    <AnchorPane fx:id="gamePane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+    <AnchorPane fx:id="gamePane" style="-fx-background-color: darkgray" maxWidth="${gamePane.height}" minWidth="0" minHeight="0">
          <children>
             <Circle fx:id="ball" layoutX="310.0" layoutY="282.0" radius="11.0" stroke="BLACK" strokeType="INSIDE" />
             <Rectangle fx:id="co3" arcHeight="5.0" arcWidth="5.0" height="20.0" layoutX="14.0" layoutY="6.0" stroke="BLACK" strokeType="INSIDE" width="100.0" />

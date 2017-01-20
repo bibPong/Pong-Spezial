@@ -74,7 +74,10 @@
                         <Insets right="10.0" />
                      </padding>
                   </Label>
-                  <Slider />
+                  <Slider fx:id="slBoardSizeMP" min="1000" max="20000"/>
+                  <!-- 
+                  <Label text="${slBoardSizeMP.value}"/>
+                   -->
                   <Label text="+">
                      <font>
                         <Font size="40.0" />
