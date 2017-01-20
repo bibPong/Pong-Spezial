@@ -528,7 +528,7 @@ public class GameManager implements Runnable
 				
 				else if(edge.getType() == EdgeType.PLAYERGOALEDGE)
 				{
-					ballPlayerEdgeCollision(ball, edge); 
+					//ballPlayerEdgeCollision(ball, edge); 
 				}
 				
 			}

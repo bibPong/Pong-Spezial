@@ -29,7 +29,18 @@
                   <Insets />
                </VBox.margin>
             </Label>
-            <RadioButton mnemonicParsing="false" text="2 Players">
+            <RadioButton mnemonicParsing="false" selected="true" text="2 Players">
+               <font>
+                  <Font size="15.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+               <toggleGroup>
+                  <ToggleGroup fx:id="players" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" text="3 Players" toggleGroup="$players">
                <font>
                   <Font size="15.0" />
                </font>
@@ -37,15 +48,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="3 Players">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </RadioButton>
-            <RadioButton mnemonicParsing="false" text="4 Players">
+            <RadioButton mnemonicParsing="false" text="4 Players" toggleGroup="$players">
                <font>
                   <Font size="15.0" />
                </font>
@@ -90,8 +93,11 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <RadioButton mnemonicParsing="false" text="YES" />
-            <RadioButton mnemonicParsing="false" text="NO" />
+            <RadioButton mnemonicParsing="false" text="YES">
+               <toggleGroup>
+                  <ToggleGroup fx:id="priv" />
+               </toggleGroup></RadioButton>
+            <RadioButton mnemonicParsing="false" selected="true" text="NO" toggleGroup="$priv" />
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                <children>
                   <Label text="Password">
