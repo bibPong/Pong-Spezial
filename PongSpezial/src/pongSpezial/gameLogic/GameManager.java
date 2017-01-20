@@ -210,14 +210,14 @@ public class GameManager implements Runnable
 					if(p.getPlayerID()==0||p.getPlayerID()==2)
 					{
 						Bar playerbar = ((Bar)BoardState.instance.getGeometries().get(index));
-						double velocityxdirection=playerbar.getVelocity()*inputState.getCurrentInputs().get(p);
+						double velocityxdirection=playerbar.getVelocity()*direction;
 						Point2D newPosition=playerbar.getPosition().add(velocityxdirection,0);
 						BoardState.instance.getGeometries().get(index).setPosition(newPosition);
 					}
 					else
 					{
 						Bar playerbar = ((Bar)BoardState.instance.getGeometries().get(index));
-						double velocityxdirection=playerbar.getVelocity()*inputState.getCurrentInputs().get(p);
+						double velocityxdirection=playerbar.getVelocity()*direction;
 						Point2D newPosition=playerbar.getPosition().add(0,velocityxdirection);
 						BoardState.instance.getGeometries().get(index).setPosition(newPosition);
 					}
