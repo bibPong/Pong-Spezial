@@ -7,6 +7,7 @@ public class InputHandler implements Serializable
 
 	private int direction;
 	private int playerID;
+	private int inverter;
 
 	public InputHandler()
 	{
@@ -27,42 +28,42 @@ public class InputHandler implements Serializable
 				case "LEFT":
 					if(playerID == 3)
 					{
-						this.direction=1;
+						this.direction=1*inverter;
 					}					
 					else if (playerID == 4)
 					{
-						this.direction=-1;
+						this.direction=-1*inverter;
 					}
 					break;
 				case "RIGHT":
 					if(playerID == 3)
 					{
-						this.direction=-1;
+						this.direction=-1*inverter;
 					}					
 					else if (playerID == 4)
 					{
-						this.direction=1;
+						this.direction=1*inverter;
 					}
 					break;
 				case "UP":
 					if(playerID == 2)
 					{
-						this.direction=1;
+						this.direction=1*inverter;
 					}					
 					else if (playerID == 1)
 					{
-						this.direction=-1;
+						this.direction=-1*inverter;
 					}
 		
 					break;
 				case "DOWN":
 					if(playerID == 2)
 					{
-						this.direction=-1;
+						this.direction=-1*inverter;
 					}					
 					else if (playerID == 1)
 					{
-						this.direction=1;
+						this.direction=1*inverter;
 					}
 					break;
 				case "KEY_RELEASED" :

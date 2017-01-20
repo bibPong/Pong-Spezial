@@ -26,6 +26,7 @@ public class PowerUpManager
 		timer = new StopWatch();
 		this.players = players;
 		isPowerUpActive = false;
+		PowerUps = new PowerUp[2];
 		
 		PowerUps[0] = new PowerUp(new Point2D(0,0), new Point2D(2,2),PowerUpType.TYP1);
 		PowerUps[1] = new PowerUp(new Point2D(0,0), new Point2D(2,2),PowerUpType.TYP2);
