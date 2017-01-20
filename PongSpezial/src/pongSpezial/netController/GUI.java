@@ -400,7 +400,7 @@ public class GUI {
 				{
 					for(int i=0; i<rectangle.length;i++)
 					{
-						sp1.setLayoutX(((Edge) geometry).getPosition().getX());
+						rectangle[i].setLayoutX(((Edge) geometry).getPosition().getX());
 						rectangle[i].setLayoutY(((Edge) geometry).getPosition().getY());
 						rectangle[i].setHeight(((Edge) geometry).getCollisionSize().getX());
 						rectangle[i].setWidth(((Edge) geometry).getCollisionSize().getX());
