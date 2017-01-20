@@ -3,7 +3,6 @@ package pongSpezial.netController;
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.List;
-
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
@@ -75,6 +76,15 @@ public class GUI {
 	// LobbyGUIsp
 	@FXML
 	private Button btn_startGameSP;
+	@FXML
+	private RadioButton pl1;
+	@FXML
+	private RadioButton pl2;
+	@FXML
+	private RadioButton pl3;
+	@FXML
+	private Slider slroomsize;
+	
 
 	// LobbyGUImp
 	private Button btn_startGameMP;
@@ -358,35 +368,34 @@ public class GUI {
 		{
 			for (Geometry geometry : list)
 			{
-				Point2D test = geometry.getPosition();
 				if(geometry instanceof Bar)
 				{
 					int id = ((Bar) geometry).getControllingPlayer().getPlayerID();
 					switch (id)
 					{
 					case 1:
-						bar1.setLayoutX(test.getX());
-						bar1.setLayoutY(test.getY());
+						bar1.setLayoutX(geometry.getPosition().getX());
+						bar1.setLayoutY(geometry.getPosition().getY());
 						bar1.setHeight(((Bar) geometry).getCollisionSize().getX());
 						bar1.setWidth(((Bar) geometry).getCollisionSize().getY());
 					break;
 					
 					case 2:
-						bar2.setLayoutX(test.getX());
-						bar2.setLayoutY(test.getY());
+						bar2.setLayoutX(geometry.getPosition().getX());
+						bar2.setLayoutY(geometry.getPosition().getY());
 						bar2.setHeight(((Bar) geometry).getCollisionSize().getX());
 						bar2.setWidth(((Bar) geometry).getCollisionSize().getY());
 					break;
 					
 					case 3:
-						bar3.setLayoutX(test.getX());
-						bar3.setLayoutY(test.getY());
+						bar3.setLayoutX(geometry.getPosition().getX());
+						bar3.setLayoutY(geometry.getPosition().getY());
 						bar3.setHeight(((Bar) geometry).getCollisionSize().getX());
 						bar3.setWidth(((Bar) geometry).getCollisionSize().getY());
 					break;
 					case 4:
-						bar4.setLayoutX(test.getX());
-						bar4.setLayoutY(test.getY());
+						bar4.setLayoutX(geometry.getPosition().getX());
+						bar4.setLayoutY(geometry.getPosition().getY());
 						bar4.setHeight(((Bar) geometry).getCollisionSize().getX());
 						bar4.setWidth(((Bar) geometry).getCollisionSize().getY());
 					break;
@@ -396,8 +405,8 @@ public class GUI {
 				}
 				if(geometry instanceof Ball)
 				{
-					ball.setLayoutX(test.getX());
-					ball.setLayoutY(test.getY());
+					ball.setLayoutX(geometry.getPosition().getX());
+					ball.setLayoutY(geometry.getPosition().getY());
 					ball.setRadius(((Ball) geometry).getRadius());
 				}
 				if(geometry instanceof Edge)
