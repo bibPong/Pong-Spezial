@@ -9,27 +9,28 @@ import pongSpezial.dataModel.Player;
 
 public class KI{
 	
-	private int difficulty; //Schwierigkeit einstellen
-	private int reactionTime; // Zeit,wie lange die KI zum Reagieren braucht
-	private final int DIFFICULTY_TIME = 100; // FInal variable mit dem Wert 100 
+	private double difficulty; //Schwierigkeit einstellen
+	//private int reactionTime; // Zeit,wie lange die KI zum Reagieren braucht
+	//private final int DIFFICULTY_TIME = 100; // FInal variable mit dem Wert 100 
 	private Player controllingPlayer;
 	private Bar bar;
 	
-	public KI(int difficulty, Player controllingPlayer)
+	public KI(double difficulty, Player controllingPlayer)
 	{
 		this.difficulty=difficulty;
 		this.controllingPlayer=controllingPlayer;
 		this.bar = GameManager.getBarForPlayer(controllingPlayer);
-		reactionTime = DIFFICULTY_TIME / difficulty;		//Reaktionzeit ausrechnen
+		//reactionTime = DIFFICULTY_TIME / difficulty;
+		this.bar.setVelocity(difficulty/100);//Reaktionzeit ausrechnen
 		
 		
 	}	
 	
 	public String moveAIBar(Ball ball)
 	{
-		if(controllingPlayer.getPlayerID() == 1 || controllingPlayer.getPlayerID() == 3) // Wenn Player oben oder unten am Bildschrim sind
+		if(controllingPlayer.getPlayerID() == 1 || controllingPlayer.getPlayerID() == 2) // Wenn Player oben oder unten am Bildschrim sind
 		{
-			if(bar.getPosition().getX() > ball.getPosition().getX())		//Wenn die x-Koordinate der KI Bar größer als die des Balls ist
+			if(bar.getPosition().getY() > ball.getPosition().getY())		//Wenn die x-Koordinate der KI Bar größer als die des Balls ist
 			{
 				/*
 				try {
@@ -39,9 +40,9 @@ public class KI{
 					e.printStackTrace();
 				}
 				*/
-				return "LEFT";												// Links bewegen
+				return "DOWN";												// Links bewegen
 			}
-			else if(bar.getPosition().getX() < ball.getPosition().getX()) //Wenn die x-Koordinate der KI Bar kleiner als die des Balls ist
+			else if(bar.getPosition().getY() < ball.getPosition().getY()) //Wenn die x-Koordinate der KI Bar kleiner als die des Balls ist
 			{
 				/*
 				try {
@@ -51,7 +52,7 @@ public class KI{
 					e.printStackTrace();
 				}
 				*/
-				return "RIGHT";												//Rechts bewegen
+				return "UP";												//Rechts bewegen
 			}
 			else
 			{
@@ -68,7 +69,7 @@ public class KI{
 		}
 		else
 		{ 
-			if(bar.getPosition().getY() > ball.getPosition().getY()) 		//Wenn die y-Koordinate der KI Bar größer als die des Balls ist
+			if(bar.getPosition().getX() > ball.getPosition().getX()) 		//Wenn die y-Koordinate der KI Bar größer als die des Balls ist
 			{
 				/*
 				try {
@@ -78,9 +79,9 @@ public class KI{
 					e.printStackTrace();
 				}
 				*/
-				return "DOWN";												//Runter bewegen
+				return "LEFT";												//Runter bewegen
 			}
-			else if(bar.getPosition().getY() < ball.getPosition().getY())	//Wenn die y-Koordinate der KI Bar kleiner als die des Balls ist
+			else if(bar.getPosition().getX() < ball.getPosition().getX())	//Wenn die y-Koordinate der KI Bar kleiner als die des Balls ist
 			{
 				/*
 				try {
@@ -90,7 +91,7 @@ public class KI{
 					e.printStackTrace();
 				}
 				*/
-				return "UP";												//Hoch bewegen
+				return "RIGHT";												//Hoch bewegen
 			}
 			else
 			{
