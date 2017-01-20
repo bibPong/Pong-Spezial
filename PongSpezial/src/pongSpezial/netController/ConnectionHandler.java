@@ -29,7 +29,7 @@ public class ConnectionHandler extends Thread
 	@Override
 	public void run()
 	{
-		isRunning = true;
+		isRunning = false;
 		
 		while (isRunning)
 		{

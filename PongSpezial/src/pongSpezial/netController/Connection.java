@@ -36,7 +36,7 @@ public class Connection extends Thread
 	@Override
 	public void run()
 	{
-		while (socket != null && socket.isConnected())
+		while (false || socket != null && socket.isConnected())
 		{
 			switch (state)
 			{

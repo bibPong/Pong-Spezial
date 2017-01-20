@@ -31,32 +31,38 @@ public class KI{
 		{
 			if(bar.getPosition().getX() > ball.getPosition().getX())		//Wenn die x-Koordinate der KI Bar größer als die des Balls ist
 			{
+				/*
 				try {
 					Thread.sleep((long)reactionTime);						// Reaktionszeit
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				*/
 				return "LEFT";												// Links bewegen
 			}
 			else if(bar.getPosition().getX() < ball.getPosition().getX()) //Wenn die x-Koordinate der KI Bar kleiner als die des Balls ist
 			{
+				/*
 				try {
 					Thread.sleep((long)reactionTime);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				*/
 				return "RIGHT";												//Rechts bewegen
 			}
 			else
 			{
+				/*
 				try {
 					Thread.sleep((long)reactionTime);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				*/
 				return "KEY_RELEASED";										// Wenn gleich dann bliebt die Bar stehen
 			}
 		}
@@ -64,32 +70,38 @@ public class KI{
 		{ 
 			if(bar.getPosition().getY() > ball.getPosition().getY()) 		//Wenn die y-Koordinate der KI Bar größer als die des Balls ist
 			{
+				/*
 				try {
 					Thread.sleep((long)reactionTime);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				*/
 				return "DOWN";												//Runter bewegen
 			}
 			else if(bar.getPosition().getY() < ball.getPosition().getY())	//Wenn die y-Koordinate der KI Bar kleiner als die des Balls ist
 			{
+				/*
 				try {
 					Thread.sleep((long)reactionTime);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				*/
 				return "UP";												//Hoch bewegen
 			}
 			else
 			{
+				/*
 				try {
 					Thread.sleep((long)reactionTime);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				*/
 				return "KEY_RELEASED";										// Wenn gleich dann bliebt die Bar stehen
 			}
 		}

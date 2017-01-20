@@ -12,90 +12,135 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.geometry.Point2D;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 import pongSpezial.dataModel.BoardState;
+import pongSpezial.gameLogic.GameManager;
 import pongSpezial.gameLogic.InputHandler;
 
-public class Client implements Runnable
+public class Client
 {
 
 	private boolean running;
-	private BoardState boardState;
+	BoardState boardState;
 	private NetworkAddress networkAddress;
 	private InputHandler inputHandler;
 	private Socket socket;
 	private int password;
 	private Server server;
+	private GUI gui;
+	public double boardsize;
+	
+	public Thread clientThread;
 
-	public void init(NetworkAddress networkAddress, int password) throws IOException
+	public void init(NetworkAddress networkAddress, int password, GUI gui) throws IOException
 	{
 		this.running = true;
 		this.networkAddress = networkAddress;
 		this.password = password;
 		this.inputHandler = new InputHandler();
+		
+		this.gui = gui;
 	}
 	
 	public static Client instance = new Client();
 	
-	
-
-	@Override
-	public void run()
+	/***
+	 * Launched when the GAME State is entered
+	 */
+	public void run(Stage primaryStage)
 	{
-		while (running && this.socket == null)
-		{
-			try
-			{
-				this.socket = new Socket(this.networkAddress.getIpAddress(), this.networkAddress.getPort());
-				Thread.sleep(1000);
-			} catch (Exception e) 
-			{
-				System.out.println("Client.class: " + e);
-			}
-		}
-
-		try
-		{
-			DataInputStream in = new DataInputStream(socket.getInputStream());
-			int playerID = in.readInt();
-			inputHandler.setPlayerID(playerID);
-			
-			DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-			out.writeInt(password);
-		} catch (IOException e)
-		{
-			System.out.println("Client.class: " + e);
-		}
+		this.boardState = GameManager.testBoardState(
+				new Player[]{ new Player(1, "A"),
+							  new Player(2, "B"),
+							  new Player(3, "C"),
+							  new Player(4, "D"),
+							}, boardsize);
 		
-		while (running)
+		Task task = new Task<Void>()
 		{
-			try
-			{
-				updateGUI();
+			  @Override
+			  public Void call() throws Exception
+			  {
 
-				// Client out
-				ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-    	        out.writeObject(inputHandler);
-				
-    	        // Server in
-				ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
-				Object obj = in.readObject();
-//				if (obj instanceof BoardState)
-//					System.out.println("Client " + inputHandler.getPlayerID() + ": " + obj);
-//				else
-//					System.out.println("Client " + inputHandler.getPlayerID() + ": Server -> in : error");
-			} catch (Exception e)          
+			    while (true)
+			    {
+			      Platform.runLater(new Runnable()
+			      {
+			        @Override
+			        public void run() {
+			        	gui.updateGUI(boardState, primaryStage);
+			        }
+			      });
+			      
+			      Thread.sleep(1000);
+			    }
+			  }
+		};
+			
+		Thread th = new Thread(task);
+		th.setDaemon(true);
+		th.start();
+		
+		
+
+		/*
+		
+		if(clientThread == null)
+		{
+			clientThread = new Thread()
 			{
-				System.out.println("Client.class: " + e);
-			}
+				@Override
+				public void run()
+				{
+					System.out.println("+++++ Running Thread");
+					
+					while (!this.isInterrupted())
+					{
+						System.out.println("+++++ Not interrupted");
+			            // UI updaten
+			            Platform.runLater(new Runnable()
+			            {
+			                @Override
+			                public void run()
+			                {
+			                	System.out.println("+++++ Updating GUI");
+			                	
+			                    // entsprechende UI Komponente updaten
+			                    gui.updateGUI(boardState);
+			                }
+			            });
+			 
+			            // Thread müde
+			            // Thread schlafen
+			            try
+			            {
+			            	System.out.println("+++++ Sleep");
+			                sleep(2000);
+			            }
+			            catch (InterruptedException ex)
+			            {
+			                System.out.println("Thread interrupted: " + ex.getMessage());
+			            }
+			        }
+				}
+			};
+			
+			clientThread.setDaemon(true);
+			
+			clientThread.run();
 		}
+		*/
+
 	}
 
 	public void shutdown()
 	{
 		this.running = false;
-		System.out.println("Player " + inputHandler.getPlayerID() + " client has been shutdown.");
+		//System.out.println("Player " + inputHandler.getPlayerID() + " client has been shutdown.");
 	}
 
 	public void validateInput(KeyEvent event)
@@ -138,50 +183,8 @@ public class Client implements Runnable
 			server = new Server(boardState, new NetworkAddress(9898));
 		} catch (IOException e)
 		{
-			System.out.println(e);
+			//System.out.println(e);
 		}
-	}
-	
-	public void updateGUI()
-	{
-		// In BoardState geändert
-		//boardState  = BoardState.getBoardstate();
-//		Ball ball = new Ball(2);
-//		Edge sp1 = new Edge(new Point2D(2,3), EdgeType.PLAYERGOALEDGE);
-//		Edge sp2 = new Edge(new Point2D(2,5), EdgeType.PLAYERGOALEDGE);
-//		Edge sp3 = new Edge(new Point2D(2,4), EdgeType.PLAYERGOALEDGE);
-//		Edge sp4 = new Edge(new Point2D(1,3), EdgeType.PLAYERGOALEDGE);
-//		Edge co1 = new Edge(new Point2D(1,3), EdgeType.CORNEREDGE);
-//		Edge co2 = new Edge(new Point2D(2,3), EdgeType.CORNEREDGE);
-//		Edge co3 = new Edge(new Point2D(3,3), EdgeType.CORNEREDGE);
-//		Edge co4 = new Edge(new Point2D(2,1), EdgeType.CORNEREDGE);
-//		Bar balk1 = new Bar(3);
-//		Bar balk2 = new Bar(3);
-//		Bar balk3 = new Bar(3);
-//		Bar balk4 = new Bar(3);
-//		
-//		
-//		
-//		List<Geometry> teststates = new ArrayList<Geometry>();
-//		teststates.add(ball);
-//		teststates.add(sp1);
-//		teststates.add(sp2);
-//		teststates.add(sp3);
-//		teststates.add(sp4);
-//		teststates.add(balk1);
-//		teststates.add(balk2);
-//		teststates.add(balk3);
-//		teststates.add(balk4);
-//		teststates.add(co1);
-//		teststates.add(co2);
-//		teststates.add(co3);
-//		teststates.add(co4);
-//		
-//		
-//		
-//		
-//		boardState.setGeometries(teststates);
-//		System.out.println(boardState.getGeometries());
 	}
 	
 	

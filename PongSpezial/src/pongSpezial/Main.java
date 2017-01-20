@@ -37,16 +37,14 @@ public class Main extends Application {
 		server.setUpConnection();
 		server.start();
 		
-		//Client client = new Client(address, 1);
+		GUI startGui = new GUI(State.SPLASH, Client.instance, loader, primaryStage);
 		
-		Client.instance.init(address, 1);
-		
-		
+		Client.instance.init(address, 1, startGui);
 		
 		
 		
-		Thread clientThread = new Thread(Client.instance);
-		clientThread.start();
+		
+
 //		
 //		Client client2 = new Client(address, 1);
 //		Thread clientThread2 = new Thread(client2);
@@ -62,11 +60,11 @@ public class Main extends Application {
 		
 		
 		GameManager gm = new GameManager();
-		Thread thread2 = new Thread(gm);
-		thread2.start();
+		//Thread thread2 = new Thread(gm);
+		//thread2.start();
 		
 		
-		GUI startGui = new GUI(State.SPLASH, Client.instance,loader);
+		
 		startGui.switchScreen(primaryStage);
 				
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>()

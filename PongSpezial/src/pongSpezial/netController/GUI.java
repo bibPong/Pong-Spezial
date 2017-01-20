@@ -5,24 +5,30 @@ import java.util.Dictionary;
 import java.util.List;
 
 import javafx.animation.FadeTransition;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.Slider;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import pongSpezial.dataModel.Ball;
 import pongSpezial.dataModel.Bar;
@@ -43,6 +49,8 @@ public class GUI {
 	private final String MPJOIN_SCREEN_PATH = "/pongSpezial/view/LobbyGUImpJoin.fxml";// MpJoin.fxml
 	private final String LOBBY_SCREEN_PATH = "/pongSpezial/view/LobbyScreen.fxml";
 	private final String GAME_SCREEN_PATH = "/pongSpezial/view/GameScreen.fxml";
+	
+	private double scaleFactor = 1.0;
 
 	// SplashScreen
 	@FXML
@@ -75,16 +83,17 @@ public class GUI {
 	// LobbyGUIsp
 	@FXML
 	private Button btn_startGameSP;
+	@FXML
+	private Slider slBoardSizeSP;
 
 	// LobbyGUImp
 	private Button btn_startGameMP;
-
-	
+	@FXML
+	private Slider slBoardSizeMP;
 
 	// GameScreen
-	private int xResolution;
-	private  int yResolution;
-	
+	@FXML
+	private AnchorPane gamePane;
 	@FXML
 	private Circle ball;
 	@FXML
@@ -132,7 +141,7 @@ public class GUI {
 	@FXML
 	private ToggleButton soundToggle;
 	
-	private boolean firstStart;
+	private boolean firstStart = true;
 	
 	
 	
@@ -141,12 +150,7 @@ public class GUI {
 	
 	
 	//
-	
-	
-	
-	
-	
-	private BoardState boeardstate;
+
 	private State prevState;
 	private State state;
 	private boolean isSinglePlayer;
@@ -160,7 +164,7 @@ public class GUI {
 		this.client=null;
 	}
 
-	public GUI(State state, Client client, FXMLLoader loader) {
+	public GUI(State state, Client client, FXMLLoader loader, Stage primaryStage) {
 		this.state = state;
 		this.client = client;
 		this.loader = loader;
@@ -213,14 +217,15 @@ public class GUI {
 		}
 
 		if (c.getId().toString().equals("btn_startGameMP")) {
-
+			
 			state = State.GAME;
+			Client.instance.boardsize = slBoardSizeMP.getValue();
 
 		}
 
 		if (c.getId().toString().equals("btn_startGameSP")) {
 			state = State.GAME;
-
+			Client.instance.boardsize = slBoardSizeSP.getValue();
 		}
 
 		switchScreen(primaryStage);
@@ -295,12 +300,14 @@ public class GUI {
 				break;
 			}
 
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
 
-	public void showScreenType(Stage primaryStage, String screenPath, String title) throws IOException {
+	public void showScreenType(Stage primaryStage, String screenPath, String title) throws IOException
+	{
 
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(screenPath));
 		Parent root = loader.load();
@@ -309,9 +316,43 @@ public class GUI {
 		primaryStage.show();
 
 		// Bind Key Events - example
-
+		
 		if (state == State.GAME)
+		{			
 			keyInput(primaryStage);
+			scaleWindow(primaryStage);
+			
+			Client.instance.run(primaryStage);
+		}
+
+	}
+	
+	private void getGamescreenFXMLControlReferences(Stage primaryStage)
+	{
+		gamePane 		= (AnchorPane)   primaryStage.getScene().lookup("#gamePane"); 		
+		ball 			= (Circle)	     primaryStage.getScene().lookup("#ball"); 				
+		sp1 			= (Rectangle)    primaryStage.getScene().lookup("#sp1"); 				
+		sp1b 			= (Rectangle)    primaryStage.getScene().lookup("#sp1b"); 				
+		sp2 			= (Rectangle)    primaryStage.getScene().lookup("#sp2"); 				
+		sp2b 			= (Rectangle)    primaryStage.getScene().lookup("#sp2b"); 				
+		sp3 			= (Rectangle)    primaryStage.getScene().lookup("#sp3"); 				
+		sp3b 			= (Rectangle)    primaryStage.getScene().lookup("#sp3b"); 				
+		sp4 			= (Rectangle)    primaryStage.getScene().lookup("#sp4"); 				
+		sp4b 			= (Rectangle)    primaryStage.getScene().lookup("#sp4b"); 				
+		bar1 			= (Rectangle)    primaryStage.getScene().lookup("#bar1"); 				
+		bar2 			= (Rectangle)    primaryStage.getScene().lookup("#bar2"); 				
+		bar3 			= (Rectangle)    primaryStage.getScene().lookup("#bar3"); 				
+		bar4 			= (Rectangle)    primaryStage.getScene().lookup("#bar4"); 				
+		co1 			= (Rectangle)    primaryStage.getScene().lookup("#co1"); 				
+		co11 			= (Rectangle)    primaryStage.getScene().lookup("#co11"); 				
+		co2 			= (Rectangle)    primaryStage.getScene().lookup("#co2"); 				
+		co21 			= (Rectangle)    primaryStage.getScene().lookup("#co21"); 				
+		co3 			= (Rectangle)    primaryStage.getScene().lookup("#co3"); 				
+		co31 			= (Rectangle)    primaryStage.getScene().lookup("#co31"); 				
+		co4 			= (Rectangle)    primaryStage.getScene().lookup("#co4"); 				
+		co41 			= (Rectangle)    primaryStage.getScene().lookup("#co41"); 				
+		closeGamescreen = (Button)       primaryStage.getScene().lookup("#closeGamescreen"); 	
+		soundToggle 	= (ToggleButton) primaryStage.getScene().lookup("#soundToggle"); 
 
 	}
 
@@ -341,73 +382,92 @@ public class GUI {
 
 	}
 	
-	public void updateGUI(List<Geometry> list)
+	public void updateGUI(BoardState boardstate, Stage primaryStage)
 	{
+		getGamescreenFXMLControlReferences(primaryStage);
+		
+		List<Geometry> list = boardstate.getGeometries();
+		
 		Rectangle[] rectangle={sp1,sp1b,sp2,sp2b,sp3,sp3b,sp4,sp4b,co1,co2,co3,co4,co11,co21,co31,co41};
 		if(firstStart)
-		{
+		{			
+			scaleObjects();
+			
 			for (Geometry geometry : list)
 			{
-				Point2D test = geometry.getPosition();
+				Point2D pos = geometry.getPosition();
+				Point2D dim = geometry.getCollisionSize();
+				
 				if(geometry instanceof Bar)
 				{
-					int id = ((Bar) geometry).getControllingPlayer().getPlayerID();
+					Bar bar = (Bar) geometry;
+					
+					int id = bar.getControllingPlayer().getPlayerID();
+					
+					System.out.println("bar " + id + " pos: " + pos.getX() + "/" + pos.getY());
+					System.out.println("bar " + id + " dim: " + dim.getX() + "/" + dim.getY());
+					
 					switch (id)
 					{
 					case 1:
-						bar1.setLayoutX(test.getX());
-						bar1.setLayoutY(test.getY());
-						bar1.setHeight(((Bar) geometry).getCollisionSize().getX());
-						bar1.setWidth(((Bar) geometry).getCollisionSize().getY());
+						bar1.setLayoutX(0);
+						bar1.setLayoutY(0);
+						bar1.setHeight(bar.getCollisionSize().getX() * scaleFactor);
+						bar1.setWidth( bar.getCollisionSize().getY() * scaleFactor);
 					break;
 					
 					case 2:
-						bar2.setLayoutX(test.getX());
-						bar2.setLayoutY(test.getY());
-						bar2.setHeight(((Bar) geometry).getCollisionSize().getX());
-						bar2.setWidth(((Bar) geometry).getCollisionSize().getY());
+						bar2.setLayoutX(100);
+						bar2.setLayoutY(10);
+						bar2.setHeight(bar.getCollisionSize().getX() * scaleFactor);
+						bar2.setWidth( bar.getCollisionSize().getY() * scaleFactor);
 					break;
 					
 					case 3:
-						bar3.setLayoutX(test.getX());
-						bar3.setLayoutY(test.getY());
-						bar3.setHeight(((Bar) geometry).getCollisionSize().getX());
-						bar3.setWidth(((Bar) geometry).getCollisionSize().getY());
+						bar3.setLayoutX(pos.getX() * scaleFactor);
+						bar3.setLayoutY(pos.getY() * scaleFactor);
+						bar3.setHeight(bar.getCollisionSize().getX() * scaleFactor);
+						bar3.setWidth( bar.getCollisionSize().getY() * scaleFactor);
 					break;
+					
 					case 4:
-						bar4.setLayoutX(test.getX());
-						bar4.setLayoutY(test.getY());
-						bar4.setHeight(((Bar) geometry).getCollisionSize().getX());
-						bar4.setWidth(((Bar) geometry).getCollisionSize().getY());
+						bar4.setLayoutX(pos.getX() * scaleFactor);
+						bar4.setLayoutY(pos.getY() * scaleFactor);
+						bar4.setHeight(bar.getCollisionSize().getX() * scaleFactor);
+						bar4.setWidth( bar.getCollisionSize().getY() * scaleFactor);
 					break;
+					
 					default:
 						break;
 					}
 				}
-				if(geometry instanceof Ball)
+				
+				else if(geometry instanceof Ball)
 				{
-					ball.setLayoutX(test.getX());
-					ball.setLayoutY(test.getY());
-					ball.setRadius(((Ball) geometry).getRadius());
+					ball.setLayoutX(pos.getX() * scaleFactor);
+					ball.setLayoutY(pos.getY() * scaleFactor);
+					ball.setRadius(((Ball) geometry).getRadius() * scaleFactor);
 				}
+				
 				if(geometry instanceof Edge)
 				{
-					for(int i=0; i<=rectangle.length;i++)
+					for(int i=0; i<rectangle.length; i++)
 					{
-						rectangle[i].setLayoutX(((Edge) geometry).getPosition().getX());
-						rectangle[i].setLayoutY(((Edge) geometry).getPosition().getY());
-						rectangle[i].setHeight(((Edge) geometry).getCollisionSize().getX());
-						rectangle[i].setWidth(((Edge) geometry).getCollisionSize().getX());
+
+						rectangle[i].setLayoutX(((Edge) geometry).getPosition().getX() * scaleFactor);
+						rectangle[i].setLayoutY(((Edge) geometry).getPosition().getY() * scaleFactor);
+						rectangle[i].setHeight( ((Edge) geometry).getCollisionSize().getY() * scaleFactor);
+						rectangle[i].setWidth(  ((Edge) geometry).getCollisionSize().getX() * scaleFactor);
 						if(((Edge) geometry).isEdgeVisible() == false)
 						{
 							fadeOutBars(rectangle[i]);
-							
 						}
-					i++;
+
 					}
+
 				}
-				
 			}
+
 			firstStart=false;
 		}
 		else
@@ -421,9 +481,9 @@ public class GUI {
 					switch (id)
 					{
 					case 1:
-						bar1.setLayoutX(test.getX());
-						bar1.setLayoutY(test.getY());
-						bar1.setHeight(((Bar) geometry).getWidth());
+						bar1.setLayoutX(test.getX() * scaleFactor);
+						bar1.setLayoutY(test.getY() * scaleFactor);
+						bar1.setHeight(((Bar) geometry).getWidth() * scaleFactor);
 						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
 						{
 							fadeOutBars(bar1);
@@ -432,9 +492,9 @@ public class GUI {
 					break;
 					
 					case 2:
-						bar2.setLayoutX(test.getX());
-						bar2.setLayoutY(test.getY());
-						bar2.setHeight(((Bar) geometry).getWidth());
+						bar2.setLayoutX(test.getX() * scaleFactor);
+						bar2.setLayoutY(test.getY() * scaleFactor);
+						bar2.setHeight(((Bar) geometry).getWidth() * scaleFactor);
 						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
 						{
 							fadeOutBars(bar2);
@@ -443,9 +503,9 @@ public class GUI {
 					break;
 					
 					case 3:
-						bar3.setLayoutX(test.getX());
-						bar3.setLayoutY(test.getY());
-						bar3.setWidth(((Bar) geometry).getWidth());
+						bar3.setLayoutX(test.getX() * scaleFactor);
+						bar3.setLayoutY(test.getY() * scaleFactor);
+						bar3.setWidth(((Bar) geometry).getWidth() * scaleFactor);
 						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
 						{
 							fadeOutBars(bar3);
@@ -453,9 +513,9 @@ public class GUI {
 						}
 					break;
 					case 4:
-						bar4.setLayoutX(test.getX());
-						bar4.setLayoutY(test.getY());
-						bar4.setWidth(((Bar) geometry).getWidth());
+						bar4.setLayoutX(test.getX() * scaleFactor);
+						bar4.setLayoutY(test.getY() * scaleFactor);
+						bar4.setWidth(((Bar) geometry).getWidth() * scaleFactor);
 						if(((Bar) geometry).getControllingPlayer().getLifes()==0)
 						{
 							fadeOutBars(bar4);
@@ -468,9 +528,9 @@ public class GUI {
 				}
 				if(geometry instanceof Ball)
 				{
-					ball.setLayoutX(test.getX());
-					ball.setLayoutY(test.getY());
-					ball.setRadius(((Ball) geometry).getRadius());
+					ball.setLayoutX(test.getX() * scaleFactor);
+					ball.setLayoutY(test.getY() * scaleFactor);
+					ball.setRadius(((Ball) geometry).getRadius() * scaleFactor);
 				}
 			}
 		}
@@ -496,14 +556,6 @@ public class GUI {
 
 		fade.play();
 	}
-
-	
-	
-	public void start(Stage stage)
-	{
-		scale();
-	}
-	
 	
 	private void switchOnOff()
 	{
@@ -520,12 +572,21 @@ public class GUI {
 	
 	
 	
-	public void scale()
+	private void scaleWindow(Stage primaryStage)
 	{
-		this.xResolution = (int) Screen.getPrimary().getBounds().getMaxX();
-		this.yResolution = (int) (Screen.getPrimary().getBounds().getMaxY() * 0.8);
+		//maximize window
+		primaryStage.setMaximized(true);
+		primaryStage.setResizable(false);
+	}
+	
+	private void scaleObjects()
+	{
+		double gamePaneSize = gamePane.getWidth();
+		scaleFactor = gamePaneSize / Client.instance.boardsize;
 		
-		this.xResolution = this.yResolution;
+		System.out.println("gamePaneSize / Client.instance.boardsize = scaleFactor:");
+		System.out.println(gamePaneSize + " / " + Client.instance.boardsize + " = " + scaleFactor);
+
 	}
 	
 

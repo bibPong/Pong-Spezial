@@ -72,7 +72,9 @@ public class Server extends Thread
 	@Override
 	public void run()
 	{
-		while (isRunning)
+		boolean foo = false;
+		
+		while (foo)
 		{
 			for (Connection connection : connectionHandler.getConnections())
 			{	
