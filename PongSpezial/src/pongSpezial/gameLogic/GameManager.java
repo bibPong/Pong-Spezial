@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import pongSpezial.dataModel.Ball;
 import pongSpezial.dataModel.Bar;
 import pongSpezial.dataModel.BoardState;
