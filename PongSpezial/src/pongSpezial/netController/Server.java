@@ -3,6 +3,7 @@ package pongSpezial.netController;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Dictionary;
 
@@ -21,7 +22,7 @@ public class Server extends Thread
 	private NetworkAddress clientIPS;
 	private Boolean[] readyPlayers;
 	private int hostID;
-	private InputHandler[] inputHandleArray;
+	private InputHandler[] inputHandleArray;  // <----- hier sind immer die aktuellen inputs und ids aller clients
 	private GameConfig gameConfig;
 	private boolean isRunning;
 	private NetworkAddress networkAddress;
@@ -72,33 +73,21 @@ public class Server extends Thread
 	@Override
 	public void run()
 	{
-		boolean foo = false;
-		
-		while (foo)
+		while (isRunning)
 		{
+			ArrayList<InputHandler> list = new ArrayList<InputHandler>();
+			
 			for (Connection connection : connectionHandler.getConnections())
 			{	
-				switch (connection.getConnectionState())
-				{
-					case INIT:
-						if (!connection.isTransmitting())
-							if (connection.getPassword() == password)
-								connection.setConnectionState(ConnectionState.IDLE);
-							else
-								connection.close();
-						break;
-
-					default:
-						connection.setBoardState(boardState);
-						break;
-				}
+				connection.setBoardState(boardState);
+				list.add(connection.getInputHandler());
 			}
 			
-			System.out.println("Client's connected: " + connectionHandler.getConnections().length);
+			inputHandleArray = list.toArray(new InputHandler[list.size()]);
 			
 			try
 			{
-				sleep(1000);
+				sleep(1);
 			} catch (Exception e)
 			{
 				System.out.println("Server.class: " + e);
